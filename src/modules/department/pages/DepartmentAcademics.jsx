@@ -8,8 +8,7 @@ import ResultsPage from "./ResultsPage";
 
 export default function DepartmentAcademics() {
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16 space-y-16">
-      <h1 className="text-4xl font-bold text-center">Academics</h1>
+    <div >
       <Routes>
         <Route path="courses" element={<CoursesPage />} />
         <Route path="timetable" element={<TimetablePage />} />

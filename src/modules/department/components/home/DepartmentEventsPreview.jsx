@@ -27,21 +27,23 @@ const DepartmentEventsPreview = ({ deptId = "cse" }) => {
 
   const items = data?.listEvents?.items ?? [];
 
-  // ✅ Fix date issue (important)
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  // ✅ NO DATE FILTER — take all events
+  const allEvents = items;
 
-  const allEvents = items.filter(
-    (e) => new Date(e.date) >= today
-  );
-
-  // ✅ Handle boolean OR string "true"
-  const isPinned = (val) => val === true || val === "true";
+  // ✅ Robust pinned check (handles all formats)
+  const isPinned = (val) => {
+    if (val === true || val === 1 || val === "1") return true;
+    if (typeof val === "string") {
+      return val.toLowerCase() === "true";
+    }
+    return false;
+  };
 
   const pinnedEvents = allEvents.filter((e) => isPinned(e.pinned));
   const normalEvents = allEvents.filter((e) => !isPinned(e.pinned));
 
-  // 🔍 DEBUG (you can remove later)
+  // 🔍 Debug (remove later if not needed)
+  console.log("ALL EVENTS:", items);
   console.log("PINNED:", pinnedEvents);
   console.log("NORMAL:", normalEvents);
 
@@ -56,7 +58,7 @@ const DepartmentEventsPreview = ({ deptId = "cse" }) => {
   return (
     <div className="h-full flex flex-col overflow-hidden">
 
-      {/* 📌 PINNED EVENTS (ALWAYS FIXED) */}
+      {/* 📌 PINNED EVENTS */}
       {pinnedEvents.length > 0 && (
         <div className="flex-shrink-0 px-2 py-2 border-b bg-white">
           {pinnedEvents.map((event, i) => (
@@ -85,10 +87,10 @@ const DepartmentEventsPreview = ({ deptId = "cse" }) => {
       {/* 🔁 SCROLLING EVENTS */}
       <div className="flex-1 overflow-hidden relative">
         <div className="absolute w-full animate-scrollEvents flex flex-col gap-3 px-2">
-          
+
           {[...normalEvents, ...normalEvents].map((event, i) => (
             <div
-              key={i}
+              key={`${event.eventId || "event"}-${i}`}
               className="p-2 border-b hover:bg-gray-50 transition"
             >
               <p className="font-medium text-sm text-gray-800">

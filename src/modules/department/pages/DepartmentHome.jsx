@@ -236,13 +236,7 @@ const DepartmentHome = () => {
       <FacultyPreview data={faculty} slug={deptId} />
       <ResearchPreview data={{}} />
       <PlacementStats data={{}} />
-      <AchievementsPreview
-  data={{
-    spotlight: [
-      { text: "No achievements available yet" }
-    ]
-  }}
-/>
+      <AchievementsPreview/>
       <QuickLinksPreview deptId={deptId} />
       <GalleryPreview data={{}} />
       <Footer />
