@@ -1,0 +1,15 @@
+@keyframes scrollEvents {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-scrollEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: scrollEvents 10s linear infinite;
+}
+
+.animate-scrollEvents:hover {
+  animation-play-state: paused;
+}

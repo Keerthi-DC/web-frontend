@@ -1,0 +1,425 @@
+{
+  "slug": "cse",
+  "name": "Computer Science Engineering",
+
+  "hero": {
+    "title": "Department of Computer Science Engineering",
+    "subtitle": "Innovation in AI, Data Science and Software Engineering",
+    "image": "https://picsum.photos/1600/600?random=1"
+  },
+
+  "about": {
+    "intro": "The Department of Computer Science Engineering at Bapuji Institute of Engineering & Technology focuses on cutting-edge research and industry-ready education.\n\nOur curriculum blends core theoretical concepts with hands-on projects to prepare students for the dynamic tech landscape."
+  },
+
+  "hod": {
+    "name": "Dr. A. Kumar",
+    "message": "It is an honour to lead a team of brilliant faculty and students who push the boundaries of knowledge in computing.\n\nWe are committed to excellence in teaching, research, and outreach to empower the next generation of innovators.",
+    "photo": "https://picsum.photos/300/300?random=2"
+  },
+
+ "people": {
+  "faculty": [
+    {
+      "name": "Dr. Alice Smith",
+      "designation": "Professor",
+      "email": "alice@biet.edu",
+      "photo": "https://picsum.photos/300/300?random=40"
+    },
+    {
+      "name": "Dr. Bob Patel",
+      "designation": "Associate Professor",
+      "email": "bob@biet.edu",
+      "photo": "https://picsum.photos/300/300?random=41"
+    }
+  ],
+
+  "staff": [
+    {
+      "name": "Mr. Ramesh Kumar",
+      "designation": "Lab Instructor",
+      "photo": "https://picsum.photos/300/300?random=42"
+    }
+  ],
+
+  "students": [
+    {
+      "name": "Ananya Sharma",
+      "designation": "PhD Scholar",
+      "photo": "https://picsum.photos/300/300?random=43"
+    }
+  ]
+},
+
+  "research": {
+  "areas": [
+    {
+      "title": "Theoretical Computer Science",
+      "image": "https://picsum.photos/600/350?random=1",
+      "faculty": 13,
+      "scholars": 31,
+      "courses": 29
+    },
+    {
+      "title": "Computer Systems and Networking",
+      "image": "https://picsum.photos/600/350?random=2",
+      "faculty": 16,
+      "scholars": 77,
+      "courses": 29
+    },
+    {
+      "title": "Artificial Intelligence and Machine Learning",
+      "image": "https://picsum.photos/600/350?random=3",
+      "faculty": 15,
+      "scholars": 36,
+      "courses": 32
+    }
+  ],
+
+  "projects": [
+    {
+      "title": "AI based Medical Diagnosis",
+      "year": "2024",
+      "funding": "DST"
+    }
+  ],
+
+  "publications": [
+    {
+      "title": "Deep Learning for Healthcare",
+      "journal": "IEEE",
+      "year": "2024"
+    }
+  ],
+
+  "labs": [
+    {
+      "name": "Artificial Intelligence Lab",
+      "image": "https://picsum.photos/400/250?random=60"
+    }
+  ]
+},
+"placements": {
+  "highestPackage": "32 LPA",
+  "averagePackage": "12 LPA",
+  "placementRate": "95%",
+  "overview": "The department has a strong placement record with top companies recruiting students every year.",
+
+  "topRecruiters": [
+    "Google",
+    "Microsoft",
+    "Amazon",
+    "Adobe",
+    "Infosys",
+    "TCS"
+  ],
+
+  "statistics": [
+    { "year": "2024", "placed": 95 },
+    { "year": "2023", "placed": 92 },
+    { "year": "2022", "placed": 90 }
+  ]
+},
+"achievements": {
+  "spotlight": [
+    {
+      "text": "Awarded the prestigious Padma Shri to Prof. Kamakoti on India's 77th Republic Day Celebrations",
+      "name": "Kamakoti",
+      "photo": "https://picsum.photos/400/200?random=20"
+    },
+    {
+      "text": "Smart India Hackathon Winners",
+      "name": "CSE Students",
+      "photo": "https://picsum.photos/400/200?random=21"
+    }
+  ],
+
+  "students": [
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    }
+  ],
+
+  "faculty": [
+    {
+      "title": "Best Research Paper Award",
+      "year": "2024",
+      "description": "Dr A Kumar received the best research paper award at IEEE conference.",
+      "image": "https://picsum.photos/400/250?random=31"
+    },
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+
+      {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+    {
+      "title": "Smart India Hackathon Winners",
+      "year": "2024",
+      "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+      "image": "https://picsum.photos/400/250?random=30"
+    },
+      {
+        "title": "Smart India Hackathon Winners",
+        "year": "2024",
+        "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
+        "image": "https://picsum.photos/400/250?random=30"
+      }
+    ]
+  },
+
+  "gallery": [
+  {
+    "title": "Cultural Fest 2026",
+    "image": "https://picsum.photos/800/500?random=61",
+    "description": "Students performing cultural activities during annual fest."
+  },
+  {
+    "title": "Hackathon Event",
+    "image": "https://picsum.photos/800/500?random=62",
+    "description": "24 hour coding competition organized by CSE department."
+  },
+  {
+    "title": "Tech Workshop",
+    "image": "https://picsum.photos/800/500?random=63",
+    "description": "Hands-on machine learning workshop for students."
+  },
+  {
+    "title": "Sports Day",
+    "image": "https://picsum.photos/800/500?random=64",
+    "description": "Annual sports meet with various competitions."
+  },
+  {
+    "title": "Project Exhibition",
+    "image": "https://picsum.photos/800/500?random=65",
+    "description": "Students showcasing final year projects."
+  }
+],
+  "academics": {
+
+  "programs": [
+    {
+      "name": "B.E. Computer Science and Engineering",
+      "duration": "4 Years"
+    },
+    {
+      "name": "M.Tech Computer Science",
+      "duration": "2 Years"
+    },
+    {
+      "name": "PhD Computer Science",
+      "duration": "3-5 Years"
+    }
+  ],
+
+  "syllabus": [
+    {
+      "title": "1st Semester Syllabus",
+      "document": "/documents/syllabus/sem1.pdf"
+    },
+    {
+      "title": "2nd Semester Syllabus",
+      "document": "/documents/syllabus/sem2.pdf"
+    }
+  ],
+
+  "timetable": [
+    {
+      "title": "4th Semester Timetable",
+      "document": "/documents/timetable/sem4.pdf"
+    }
+  ],
+
+  "calendar": [
+    {
+      "title": "Academic Calendar 2025",
+      "document": "/documents/calendar/2025.pdf"
+    }
+  ],
+
+  "results": [
+    {
+      "year": "2024",
+      "semester": "4",
+
+      "summary": {
+        "appeared": 267,
+        "pass": 211,
+        "fail": 56,
+        "fc": 31,
+        "fcd": 178,
+        "sc": 2
+      },
+
+      "facultyResults": [
+        {
+          "faculty": "Mr. A",
+          "subject": "Data Structures",
+          "pass": 60,
+          "fail": 10
+        },
+        {
+          "faculty": "Ms. B",
+          "subject": "Operating Systems",
+          "pass": 55,
+          "fail": 12
+        }
+      ]
+    }
+  ]
+
+},
+"activities": {
+
+  "departmentActivities": [
+    {
+      "title": "Hackathon 2025",
+      "date": "March 2025",
+      "description": "24-hour coding competition organized by the department.",
+      "image": "https://picsum.photos/500/300?random=51"
+    },
+    {
+      "title": "Technical Fest",
+      "date": "February 2025",
+      "description": "Annual technical event including coding contests and project exhibitions.",
+      "image": "https://picsum.photos/500/300?random=52"
+    }
+  ],
+
+  "forumActivities": [
+    {
+      "title": "AI Club Meetup",
+      "date": "January 2025",
+      "description": "Student forum discussing recent advancements in Artificial Intelligence."
+    },
+    {
+      "title": "Coding Club Weekly Contest",
+      "date": "Every Friday",
+      "description": "Students participate in problem solving contests."
+    }
+  ],
+
+  "workshops": [
+    {
+      "title": "Machine Learning Workshop",
+      "speaker": "Dr. Alice Smith",
+      "date": "April 2025"
+    },
+    {
+      "title": "Cyber Security Seminar",
+      "speaker": "Mr. John Doe",
+      "date": "May 2025"
+    }
+  ]
+},
+"alumni": [
+  {
+    "id": 1,
+    "name": "Dr. Alice Johnson",
+    "photo": "https://i.pravatar.cc/150?img=1",
+    "designation": "Senior AI Engineer",
+    "education": "Ph.D Computer Science, MIT",
+    "experience": "5 years",
+    "linkedin": "https://linkedin.com",
+    "bio": "Working on AI research and leading machine learning teams.",
+    "company": "Google",
+    "location": "USA"
+  },
+  {
+    "id": 2,
+    "name": "Prof. Brian Lee",
+    "photo": "https://i.pravatar.cc/150?img=2",
+    "designation": "Associate Professor",
+    "education": "Ph.D Electrical Engineering, Stanford",
+    "experience": "8 years",
+    "linkedin": "https://linkedin.com",
+    "bio": "Teaching embedded systems and VLSI design.",
+    "company": "Stanford University",
+    "location": "USA"
+  },
+  {
+    "id": 3,
+    "name": "Dr. Clara Smith",
+    "photo": "https://i.pravatar.cc/150?img=3",
+    "designation": "Research Scientist",
+    "education": "Ph.D Applied Mathematics, Oxford",
+    "experience": "12 years",
+    "linkedin": "https://linkedin.com",
+    "bio": "Working in computational mathematics and simulations.",
+    "company": "Oxford Research Lab",
+    "location": "UK"
+  }
+],
+"newsletter": [
+  {
+    "year": "2024-2025",
+    "title": "Newsletter for the Academic Year: 2024-2025",
+    "pdf": "/documents/newsletters/2024-2025.pdf"
+  },
+  {
+    "year": "2023-2024",
+    "title": "Newsletter for the Academic Year: 2023-2024",
+    "pdf": "/documents/newsletters/2023-2024.pdf"
+  },
+  {
+    "year": "2022-2023",
+    "title": "Newsletter for the Academic Year: 2022-2023",
+    "pdf": "/documents/newsletters/2022-2023.pdf"
+  },
+  {
+    "year": "2021-2022",
+    "title": "Newsletter for the Academic Year: 2021-2022",
+    "pdf": "/documents/newsletters/2021-2022.pdf"
+  },
+  {
+    "year": "2020-2021",
+    "title": "Newsletter for the Academic Year: 2020-2021",
+    "pdf": "/documents/newsletters/2020-2021.pdf"
+  },
+  {
+    "year": "2019-2020",
+    "title": "Newsletter for the Academic Year: 2019-2020",
+    "pdf": "/documents/newsletters/2019-2020.pdf"
+  }
+]
+}

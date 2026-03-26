@@ -1,0 +1,149 @@
+{
+  "publications": [
+    {
+      "dept_publication_id": "PUB001",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "title": "Deep Learning for Medical Diagnosis",
+      "authors": "Dr. Anil Kumar, Rahul S",
+      "journal": "IEEE Transactions on AI",
+      "year": 2024,
+      "type": "journal",
+      "doi": "https://doi.org/10.1000/ai123"
+    },
+    {
+      "dept_publication_id": "PUB002",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "title": "Big Data Analytics in Healthcare",
+      "authors": "Dr. Meena R, Priya K",
+      "journal": "Springer Journal",
+      "year": 2023,
+      "type": "journal",
+      "doi": "https://doi.org/10.1000/bigdata456"
+    }
+  ],
+
+  "profiles": [
+    {
+      "publication_profile_id": "PROF001",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "facultyId": "FAC001",
+      "googleScholarLink": "https://scholar.google.com/anilkumar",
+      "irinsLink": "https://biet.irins.org/profile/anil"
+    }
+  ],
+
+  "grants": [
+    {
+      "research_grant_id": "GRANT001",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "text": "AI-Based Heart Disease Prediction funded by DST"
+    },
+    {
+      "research_grant_id": "GRANT002",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "text": "Smart Campus IoT Project funded by AICTE"
+    }
+  ],
+
+  "patents": [
+    {
+      "patent_id": "PAT001",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "text": "AI-based Medical Imaging System Patent"
+    },
+    {
+      "patent_id": "PAT002",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "text": "IoT Smart Monitoring Device Patent"
+    }
+  ],
+
+  "summaries": [
+    {
+      "faculty_research_summary_id": "RES001",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "facultyId": "FAC001",
+      "researchArea": "Artificial Intelligence in Healthcare",
+      "guideName": "Dr. Anil Kumar",
+      "guideDesignation": "Professor",
+      "guideInstitution": "BIET",
+      "guideType": "internal",
+      "thesisTitle": "AI for Early Disease Detection",
+      "university": "VTU",
+      "yearOfRegistration": 2021,
+      "yearOfDegreeAwarded": null,
+      "courseWorkCompleted": true,
+      "prePhDVivaVoce": false,
+      "finalThesisSubmitted": false,
+      "researchStatus": "Ongoing",
+      "thesisDocumentUrl": "",
+      "remarks": ""
+    }
+  ],
+
+  "guides": [
+    {
+      "phd_guide_id": "GUIDE001",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "facultyName": "Dr. Anil Kumar",
+      "university": "VTU",
+      "recognizedYear": 2015,
+      "scholarsGuided": 8,
+      "ongoingScholars": 3
+    },
+    {
+      "phd_guide_id": "GUIDE002",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "facultyName": "Dr. Meena R",
+      "university": "VTU",
+      "recognizedYear": 2018,
+      "scholarsGuided": 5,
+      "ongoingScholars": 2
+    }
+  ],
+
+  "scholars": [
+    {
+      "phd_scholar_id": "SCH001",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "guideFacultyId": "FAC001",
+      "scholarName": "Rahul S",
+      "institution": "BIET",
+      "department": "CSE",
+      "yearOfRegistration": 2022,
+      "thesisTitle": "AI for Healthcare Diagnostics",
+      "yearOfDegreeAwarded": null,
+      "courseWorkCompleted": true,
+      "prePhdViva": false,
+      "finalThesisSubmitted": false,
+      "status": "guiding"
+    },
+    {
+      "phd_scholar_id": "SCH002",
+      "tenant_id": "biet-college",
+      "deptId": "DEP001",
+      "guideFacultyId": "FAC002",
+      "scholarName": "Priya K",
+      "institution": "BIET",
+      "department": "CSE",
+      "yearOfRegistration": 2019,
+      "thesisTitle": "Blockchain in Supply Chain",
+      "yearOfDegreeAwarded": 2024,
+      "courseWorkCompleted": true,
+      "prePhdViva": true,
+      "finalThesisSubmitted": true,
+      "status": "guided"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+[  {
+    "id": 1,
+    "image": "https://picsum.photos/600/400?random=101",
+    "title": "Green Campus",
+    "category": "Campus",
+    "description": "Sustainable green spaces and eco‑friendly infrastructure."
+  },
+  {
+    "id": 2,
+    "image": "https://picsum.photos/600/400?random=102",
+    "title": "Cultural Fest 2026",
+    "category": "Fest",
+    "description": "Celebrating diversity with music, dance, and food stalls."
+  },
+  {
+    "id": 3,
+    "image": "https://picsum.photos/600/400?random=103",
+    "title": "Lab Equipment Expo",
+    "category": "Labs",
+    "description": "Showcasing state‑of‑the‑art scientific instruments."
+  },
+  {
+    "id": 4,
+    "image": "https://picsum.photos/600/400?random=104",
+    "title": "Sports Day 2025",
+    "category": "Sports",
+    "description": "Track and field competitions across campus."
+  },
+  {
+    "id": 5,
+    "image": "https://picsum.photos/600/400?random=105",
+    "title": "Library Renovation",
+    "category": "Library",
+    "description": "Modern reading rooms with digital archives."
+  },
+  {
+    "id": 6,
+    "image": "https://picsum.photos/600/400?random=106",
+    "title": "Campus Gala 2025",
+    "category": "Fest",
+    "description": "Annual gala with live performances and awards."
+  },
+  {
+    "id": 7,
+    "image": "https://picsum.photos/600/400?random=107",
+    "title": "Robotics Workshop",
+    "category": "Labs",
+    "description": "Hands‑on robotics training for students."
+  },
+  {
+    "id": 8,
+    "image": "https://picsum.photos/600/400?random=108",
+    "title": "Swimming Pool",
+    "category": "Sports",
+    "description": "Indoor and outdoor swimming facilities."
+  },
+  {
+    "id": 9,
+    "image": "https://picsum.photos/600/400?random=109",
+    "title": "Microbiology Lab",
+    "category": "Labs",
+    "description": "Research on bacterial pathogens and vaccines."
+  },
+  {
+    "id": 10,
+    "image": "https://picsum.photos/600/400?random=110",
+    "title": "E‑Goodies Fair",
+    "category": "Fest",
+    "description": "Campus marketplace for tech gadgets and crafts."
+  },
+  {
+    "id": 11,
+    "image": "https://picsum.photos/600/400?random=111",
+    "title": "Departmental Seminar",
+    "category": "Campus",
+    "description": "Seminars across departments on latest research trends."
+  },
+  {
+    "id": 12,
+    "image": "https://picsum.photos/600/400?random=112",
+    "title": "Coding Hackathon",
+    "category": "Labs",
+    "description": "Teams build apps in 48 hours."
+  },
+  {
+    "id": 13,
+    "image": "https://picsum.photos/600/400?random=113",
+    "title": "Basketball Finals",
+    "category": "Sports",
+    "description": "Inter‑college basketball tournament."
+  },
+  {
+    "id": 14,
+    "image": "https://picsum.photos/600/400?random=114",
+    "title": "Cafeteria Refresh",
+    "category": "Campus",
+    "description": "New food outlets with healthy choices."
+  },
+  {
+    "id": 15,
+    "image": "https://picsum.photos/600/400?random=115",
+    "title": "Research Symposium",
+    "category": "Labs",
+    "description": "Shows student research projects to the community."
+  }
+]

@@ -1,0 +1,100 @@
+[  {
+    "id": 1,
+    "name": "Green Campus",
+    "image": "https://picsum.photos/600/400?random=1",
+    "title": "Green Campus Initiative",
+    "description": "Our campus promotes sustainability with green spaces, eco-friendly infrastructure, and energy conservation initiatives.",
+    "facilities": [
+      "Solar powered buildings",
+      "Rainwater harvesting",
+      "Green gardens"
+    ],
+    "activities": [
+      "Tree plantation drives",
+      "Eco awareness programs"
+    ],
+    "achievements": [
+      "Green campus award"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "SAC (Student Activity Center)",
+    "image": "https://picsum.photos/600/400?random=2",
+    "title": "SAC - A Hub for Campus Life",
+    "description": "The Student Activity Center offers a vibrant space for clubs to organize meetings, events, and cultural festivities.",
+    "facilities": [
+      "Indoor theater",
+      "Event hall",
+      "Workshop rooms"
+    ],
+    "activities": [
+      "Club meetings",
+      "Open mic nights",
+      "Inter-collegiate festivals"
+    ],
+    "achievements": [
+      "Best Student Center Award 2023"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Gym",
+    "image": "https://picsum.photos/600/400?random=3",
+    "title": "Campus Gymnasium",
+    "description": "State-of-the-art gym facilities for fitness, sports training, and wellness programs for students and staff.",
+    "facilities": [
+      "Free-weight area",
+      "Cardio machines",
+      "Yoga studio"
+    ],
+    "activities": [
+      "Daily fitness classes",
+      "Sports training sessions",
+      "Personal coaching"
+    ],
+    "achievements": [
+      "Top 10 fitness center in the region"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Sports",
+    "image": "https://picsum.photos/600/400?random=4",
+    "title": "Sports and Recreation",
+    "description": "Our campus offers a range of sports facilities including courts, tracks, and fields for internal and inter-collegiate competitions.",
+    "facilities": [
+      "Football & cricket pitch",
+      "Basketball court",
+      "Tennis courts"
+    ],
+    "activities": [
+      "Inter-hostel tournaments",
+      "Annual sports day",
+      "Sports camps"
+    ],
+    "achievements": [
+      "National level sports champion"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Technowave",
+    "image": "https://picsum.photos/600/400?random=5",
+    "title": "Technowave - Innovation Hub",
+    "description": "Technowave is a technology incubator providing mentorship, resources, and workspace for budding entrepreneurs and technophiles.",
+    "facilities": [
+      "Co-working space",
+      "3D printer",
+      "High-speed internet"
+    ],
+    "activities": [
+      "Startup pitches",
+      "Hackathons",
+      "Technical workshops"
+    ],
+    "achievements": [
+      "Pitching competition winner 2024"
+    ]
+  }
+]

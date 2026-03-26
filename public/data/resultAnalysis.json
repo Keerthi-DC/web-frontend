@@ -1,0 +1,46 @@
+{
+  "resultAnalysis": [
+    {
+      "id": 1,
+      "title": "Quarterly Performance Review",
+      "date": "2026-01-15",
+      "summary": "Overall improvement in student grades, with a 7% rise in pass rates.",
+      "image": "/images/analysis1.png"
+    },
+    {
+      "id": 2,
+      "title": "Attendance Analysis",
+      "date": "2026-02-10",
+      "summary": "Attendance increased by 3% after new attendance tracking system.",
+      "image": "/images/analysis2.png"
+    },
+    {
+      "id": 3,
+      "title": "Exam Result Trends",
+      "date": "2026-03-05",
+      "summary": "Average scores rose 4 points across most subjects.",
+      "image": "/images/analysis3.png"
+    },
+    {
+      "id": 4,
+      "title": "Faculty Allocation Study",
+      "date": "2026-04-20",
+      "summary": "Optimal faculty-to-student ratio achieved in 70% of departments.",
+      "image": "/images/analysis4.png"
+    },
+    {
+      "id": 5,
+      "title": "Online Course Uptake",
+      "date": "2026-05-12",
+      "summary": "Enrollment in online modules increased 12%, indicating growing acceptance.",
+      "image": "/images/analysis5.png"
+    },
+    {
+      "id": 6,
+      "title": "Research Publication Impact",
+      "date": "2026-06-18",
+      "summary": "Total citations up 9% year-on-year.",
+      "image": "/images/analysis6.png"
+    }
+  ]
+}

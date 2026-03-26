@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Years of Excellence",
+    "value": 75,
+    "description": "Decades of academic excellence in engineering and technology education",
+    "image": "/assets/hero-campus.jpg"
+  },
+  {
+    "title": "Students Enrolled",
+    "value": 6000,
+    "description": "Students pursuing undergraduate and postgraduate programs across disciplines",
+    "image": "/assets/hero-campus.jpg"
+  },
+  {
+    "title": "Academic Programs",
+    "value": 25,
+    "description": "Wide range of UG, PG, and research programs in engineering and science",
+    "image": "/assets/hero-campus.jpg"
+  },
+  {
+    "title": "Top Recruiters",
+    "value": 150,
+    "description": "Leading companies visiting campus every year for placements",
+    "image": "/assets/hero-campus.jpg"
+  }
+]

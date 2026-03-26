@@ -1,0 +1,42 @@
+{
+  "subtitle": "BAPUJI EDUCATION ASSOCIATION",
+
+  "title": "Empowering generations through 50+ institutions in education since 1958",
+
+  "image": "/assets/institute-image.jpg",
+
+  "details": [
+    "With a legacy spanning over six decades, Bapuji Educational Association (BEA) has established itself as one of Karnataka’s most respected educational institutions. Founded in 1958, the association has played a significant role in shaping thousands of professionals across engineering, medical, dental, management, and science disciplines.",
+    
+    "Today, BEA manages more than 50 educational institutions across Karnataka, offering world-class education with strong academic values. The association is committed to nurturing students with not only technical excellence but also ethical leadership and societal responsibility.",
+
+    "BEA institutions are known for their strong infrastructure, experienced faculty, and industry-aligned curriculum that prepares students for global opportunities. Through continuous innovation and academic excellence, the association has built a reputation for producing highly skilled graduates.",
+
+    "With a focus on research, entrepreneurship, and community engagement, BEA continues to adapt to the evolving educational landscape. Modern laboratories, collaborative learning spaces, and global partnerships ensure students receive holistic development.",
+
+    "Driven by a vision of transforming education and empowering future generations, BEA continues to expand its academic ecosystem while staying rooted in its founding values of knowledge, integrity, and service."
+  ],
+
+  "subAbout": [
+    {
+      "title": "Leading with Vision: Insights from the Governing Body of BEA",
+      "detail": "Dr. Prabha Mallikarjun, Member of the Governing Body, shares the association's commitment to building an inclusive and progressive academic environment that empowers students for the future.",
+      "link": "/about/governing-body",
+      "image": "/assets/images/governing-body.jpg"
+    },
+
+    {
+      "title": "Building Beyond Today: The Educational Blueprint for Tomorrow",
+      "detail": "Sri. SS Mallikarjun, Joint Secretary of BEA, outlines the strategic vision for modernizing education through technology, innovation, and global academic collaborations.",
+      "link": "/about/future-vision",
+      "image": "/assets/images/education-blueprint.jpg"
+    },
+
+    {
+      "title": "From Vision to Transformation: Shaping the Future of Higher Education",
+      "detail": "Dr. Shamanur Shivashankarappa, Secretary of BEA, highlights the association's mission to continuously transform higher education through research, infrastructure, and student-centric initiatives.",
+      "link": "/about/education-transformation",
+      "image": "/assets/images/future-education.jpg"
+    }
+  ]
+}

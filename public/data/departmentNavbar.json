@@ -1,0 +1,77 @@
+{
+  "menu": [
+    {
+      "label": "Home",
+      "path": ""
+    },
+    {
+      "label": "People",
+      "dropdown": [
+        {
+          "label": "Faculty",
+          "path": "/people#faculty"
+        },
+        {
+          "label": "Staff",
+          "path": "/people#staff"
+        },
+        {
+          "label": "Accreditation",
+          "path": "/people#accreditation"
+        }
+      ]
+    },
+    {
+      "label": "Research",
+      "path": "/research"
+    },
+    {
+  "label": "Academics",
+  "dropdown": [
+    { "label": "Courses", "path": "/academics/courses" },
+    { "label": "Timetable", "path": "/academics/timetable" },
+    { "label": "Materials", "path": "/academics/materials" },
+    { "label": "Innovative Teaching", "path": "/academics/teaching" },
+    { "label": "Results", "path": "/academics/results" }
+  ]
+},
+    {
+      "label": "Achievements",
+      "dropdown": [
+        {
+          "label": "Student Achievements",
+          "path": "/achievements#students"
+        },
+        {
+          "label": "Faculty Achievements",
+          "path": "/achievements#faculty"
+        }
+      ]
+    },
+    {
+      "label": "Activities",
+      "dropdown": [
+        {
+          "label": "Department Activities",
+          "path": "/activities#department"
+        },
+        {
+          "label": "Forum Activities",
+          "path": "/activities#forum"
+        },
+        {
+          "label": "Workshops & Seminars",
+          "path": "/activities#workshops"
+        }
+      ]
+    },
+    {
+      "label": "Alumni",
+      "path": "/departments/cse/alumni"
+    },
+    {
+      "label": "Gallery",
+      "path": "/departments/cse/gallery"
+    }
+  ]
+}

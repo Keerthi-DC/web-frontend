@@ -1,0 +1,79 @@
+{
+  "menu": [
+    {
+      "label": "Academics",
+      "dropdown": [
+        { "label": "Programs", "path": "/programs" },
+        { "label": "Departments", "path": "/departments" },
+        { "label": "Faculty", "path": "/faculty" },
+        { "label": "Academic Calendar", "path": "/academic-calendar" },
+        { "label": "Time Tables", "path": "/time-tables" },
+        { "label": "Syllabus", "path": "/syllabus" },
+        { "label": "Result Analysis", "path": "/result-analysis" }
+      ]
+    },
+    {
+      "label": "Admissions",
+      "path": "/admissions",
+      "dropdown": [
+        { "label": "Overview", "path": "/admissions/overview" },
+        { "label": "Prospectus", "path": "/admissions/prospectus" },
+        { "label": "Programs", "path": "/programs" },
+        { "label": "Fee Structure", "path": "/admissions/fee-structure" },
+        { "label": "Scholarships", "path": "/admissions/scholarships" },
+        { "label": "Enquiry", "path": "/admissions/enquiry" }
+      ]
+    },
+    {
+      "label": "Accreditations",
+      "path": "/accreditations",
+      "dropdown": [
+        { "label": "NAAC", "path": "/accreditations/naac" },
+        { "label": "NBA", "path": "/accreditations/nba" },
+        { "label": "AICTE", "path": "/accreditations/aicte" },
+        { "label": "UGC", "path": "/accreditations/ugc" }
+      ]
+    },
+    {
+      "label": "Campus Life",
+      "path": "/campus-life",
+      "dropdown": [
+        { "label": "Green Campus", "path": "/campus-life/green-campus" },
+        { "label": "SAC", "path": "/campus-life/sac" },
+        { "label": "Gym", "path": "/campus-life/gym" },
+        { "label": "Sports", "path": "/campus-life/sports" },
+        { "label": "Technowave", "path": "/campus-life/technowave" }
+      ]
+    },
+    {
+      "label": "About",
+      "path": "/about",
+      "dropdown": [
+        { "label": "Overview", "path": "/about/overview" },
+        { "label": "Vision", "path": "/about/vision" },
+        { "label": "Committees", "path": "/about/committees" },
+        { "label": "Facilities", "path": "/about/facilities" },
+        { "label": "Alumni", "path": "/about/alumni" }
+      ]
+    },
+    {
+      "label": "Research",
+      "path": "/research",
+      "dropdown": [
+        { "label": "Projects", "path": "/research/projects" },
+        { "label": "Industry Interaction", "path": "/research/industry" },
+        { "label": "Publications", "path": "/research/publications" }
+      ]
+    },
+    {
+      "label": "News & Events",
+      "path": "/news-events",
+      "dropdown": [
+        { "label": "News", "path": "/news" },
+        { "label": "Events", "path": "/events" },
+        { "label": "Notifications", "path": "/notifications" },
+        { "label": "Gallery", "path": "/gallery" }
+      ]
+    }
+  ]
+}

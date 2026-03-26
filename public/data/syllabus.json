@@ -1,0 +1,94 @@
+{
+  "syllabus": [
+    {
+      "id": 1,
+      "department": "Computer Science",
+      "program": "B.Tech",
+      "semester": "Semester 1",
+      "regulation": "2019",
+      "year": 2025,
+      "document": "/pdfs/cs_btech_sem1_2019.pdf"
+    },
+    {
+      "id": 2,
+      "department": "Computer Science",
+      "program": "B.Tech",
+      "semester": "Semester 2",
+      "regulation": "2019",
+      "year": 2025,
+      "document": "/pdfs/cs_btech_sem2_2019.pdf"
+    },
+    {
+      "id": 3,
+      "department": "Electrical Engineering",
+      "program": "B.Tech",
+      "semester": "Semester 1",
+      "regulation": "2018",
+      "year": 2024,
+      "document": "/pdfs/ee_btech_sem1_2018.pdf"
+    },
+    {
+      "id": 4,
+      "department": "Electrical Engineering",
+      "program": "Dual Degree",
+      "semester": "Semester 3",
+      "regulation": "2018",
+      "year": 2024,
+      "document": "/pdfs/ee_dual_sem3_2018.pdf"
+    },
+    {
+      "id": 5,
+      "department": "Mechanical Engineering",
+      "program": "B.Tech",
+      "semester": "Semester 1",
+      "regulation": "2020",
+      "year": 2023,
+      "document": "/pdfs/me_btech_sem1_2020.pdf"
+    },
+    {
+      "id": 6,
+      "department": "Mechanical Engineering",
+      "program": "Dual Degree",
+      "semester": "Semester 2",
+      "regulation": "2020",
+      "year": 2023,
+      "document": "/pdfs/me_dual_sem2_2020.pdf"
+    },
+    {
+      "id": 7,
+      "department": "Civil Engineering",
+      "program": "B.Tech",
+      "semester": "Semester 1",
+      "regulation": "2019",
+      "year": 2024,
+      "document": "/pdfs/civil_btech_sem1_2019.pdf"
+    },
+    {
+      "id": 8,
+      "department": "Civil Engineering",
+      "program": "M.Tech",
+      "semester": "Semester 1",
+      "regulation": "2019",
+      "year": 2024,
+      "document": "/pdfs/civil_mtech_sem1_2019.pdf"
+    },
+    {
+      "id": 9,
+      "department": "Computer Science",
+      "program": "M.Tech",
+      "semester": "Semester 1",
+      "regulation": "2021",
+      "year": 2025,
+      "document": "/pdfs/cs_mtech_sem1_2021.pdf"
+    },
+    {
+      "id": 10,
+      "department": "Electrical Engineering",
+      "program": "B.Tech",
+      "semester": "Semester 2",
+      "regulation": "2018",
+      "year": 2024,
+      "document": "/pdfs/ee_btech_sem2_2018.pdf"
+    }
+  ]
+}

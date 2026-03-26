@@ -1,0 +1,311 @@
+@import "./styles/animations.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===================================================
+   GLOBAL SECTION UTILITIES
+   =================================================== */
+@layer utilities {
+
+  /* Standard section padding */
+  .section-padding {
+    @apply py-20;
+  }
+
+  /* Standard container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+}
+
+
+/* ===================================================
+   ANIMATIONS
+   =================================================== */
+@layer utilities {
+
+  /* Fade Up */
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeUp {
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  /* Fade In */
+  @keyframes fadeIn {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 1s ease forwards;
+  }
+
+  /* Floating animation */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+}
+
+
+/* ===================================================
+   HERO EFFECTS
+   =================================================== */
+@layer utilities {
+
+  /* Hero content float */
+  .hero-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Button pulse */
+  @keyframes pulseBtn {
+    0% { box-shadow: 0 0 0 0 rgba(250,204,21,0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(250,204,21,0); }
+    100% { box-shadow: 0 0 0 0 rgba(250,204,21,0); }
+  }
+
+  .hero-btn {
+    animation: pulseBtn 1s infinite;
+  }
+
+}
+
+
+/* ===================================================
+   HOVER EFFECTS
+   =================================================== */
+@layer utilities {
+
+  /* Card hover lift */
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-6px);
+  }
+
+  /* Image zoom hover */
+  .image-zoom {
+    transition: transform 0.5s ease;
+  }
+
+  .image-zoom:hover {
+    transform: scale(1.05);
+  }
+
+}
+
+
+/* ===================================================
+   TEXT EFFECTS
+   =================================================== */
+@layer utilities {
+
+  /* Animated underline */
+  .animated-underline {
+    position: relative;
+  }
+
+  .animated-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background: #2563eb;
+    transition: width 0.3s ease;
+  }
+
+  .animated-underline:hover::after {
+    width: 100%;
+  }
+
+}
+
+
+/* ===================================================
+   MARQUEE / TICKER
+   =================================================== */
+@layer utilities {
+
+  @keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .ticker {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker 20s linear infinite;
+  }
+
+}
+
+/* Slide from left */
+@keyframes slideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideLeft {
+  animation: slideLeft 0.8s ease forwards;
+}
+
+/* Slide from right */
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideRight {
+  animation: slideRight 0.8s ease forwards;
+}
+
+/* Floating cards */
+@keyframes floatSoft {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-floatSoft {
+  animation: floatSoft 6s ease-in-out infinite;
+}
+
+.bg-animated {
+  background: linear-gradient(270deg, #f9fafb, #eef2ff, #f9fafb);
+  background-size: 600% 600%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.image-float {
+  animation: floatImage 7s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.arrow-move {
+  display: inline-block;
+  animation: arrowMove 1.8s infinite;
+}
+
+@keyframes arrowMove {
+  0% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(6px); opacity: 0.7; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+.shake-text {
+  animation: shake 0.5s infinite ease-in-out;
+}
+
+@keyframes scroll {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+display:flex;
+width:max-content;
+animation: scroll 6s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-scan {
+  animation: scan 2.5s linear infinite;
+}
+
+.icon-strip {
+  width: 100%;
+  overflow: hidden;
+  padding: 6px 0;
+}
+
+.icon-track {
+  display: flex;
+  gap: 30px;
+  animation: scrollIcons 18s linear infinite;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-track img {
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+}
+
+.icon-track img:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+@keyframes scrollIcons {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+

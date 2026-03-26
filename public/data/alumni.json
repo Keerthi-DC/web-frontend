@@ -1,0 +1,91 @@
+[  {
+    "id": 1,
+    "name": "Amit R. Gupta",
+    "image": "https://picsum.photos/seed/amit/200/200",
+    "company": "Google",
+    "position": "Senior Product Manager",
+    "batch": "2012",
+    "message": "The college prepared me to tackle complex product challenges and foster innovation in a dynamic environment."
+  },
+  {
+    "id": 2,
+    "name": "Kavitha N. Rao",
+    "image": "https://picsum.photos/seed/kavitha/200/200",
+    "company": "Amazon",
+    "position": "Solutions Architect",
+    "batch": "2014",
+    "message": "Thanks to the rigorous curriculum and industry exposure, I thrive in designing scalable cloud solutions."
+  },
+  {
+    "id": 3,
+    "name": "Shivani Patel",
+    "image": "https://picsum.photos/seed/shivani/200/200",
+    "company": "Microsoft",
+    "position": "Lead Software Engineer",
+    "batch": "2011",
+    "message": "The interdisciplinary projects at the college nurtured my passion for software craftsmanship and team leadership."
+  },
+  {
+    "id": 4,
+    "name": "Rahul S. Mishra",
+    "image": "https://picsum.photos/seed/rahul/200/200",
+    "company": "IBM",
+    "position": "Data Scientist",
+    "batch": "2013",
+    "message": "My time at the college laid a strong foundation in analytics, leading to impactful data‑driven decisions."
+  },
+  {
+    "id": 5,
+    "name": "Priya Nair",
+    "image": "https://picsum.photos/seed/priya/200/200",
+    "company": "Infosys",
+    "position": "Consultant",
+    "batch": "2015",
+    "message": "The experiential learning from campus projects fostered effective problem‑solving and client communication skills."
+  },
+  {
+    "id": 6,
+    "name": "Arjun P. Rao",
+    "image": "https://picsum.photos/seed/arjun/200/200",
+    "company": "Accenture",
+    "position": "Strategy Analyst",
+    "batch": "2010",
+    "message": "The holistic academic framework empowered me to analyze complex business scenarios and propose data‑backed strategies."
+  },
+  {
+    "id": 7,
+    "name": "Sneha B. Kaur",
+    "image": "https://picsum.photos/seed/sneha/200/200",
+    "company": "Wipro",
+    "position": "Cloud Engineer",
+    "batch": "2016",
+    "message": "My foundation in cloud computing and DevOps at the college accelerated my transition into cloud‑native solutions."
+  },
+  {
+    "id": 8,
+    "name": "Mohit D. Sinha",
+    "image": "https://picsum.photos/seed/mohit/200/200",
+    "company": "TCS",
+    "position": "Software Engineer",
+    "batch": "2012",
+    "message": "The emphasis on research and industry collaborations positioned me for career growth in technology."
+  },
+  {
+    "id": 9,
+    "name": "Radhika K. Sharma",
+    "image": "https://picsum.photos/seed/radhika/200/200",
+    "company": "Google",
+    "position": "UX Designer",
+    "batch": "2018",
+    "message": "Alumni mentorship programs at the college refined my design thinking and user‑centered approach."
+  },
+  {
+    "id": 10,
+    "name": "Kishore M. Dutta",
+    "image": "https://picsum.photos/seed/kishore/200/200",
+    "company": "Amazon",
+    "position": "DevOps Engineer",
+    "batch": "2014",
+    "message": "The hands‑on labs and capstone projects helped me build a strong DevOps foundation."
+  }
+]

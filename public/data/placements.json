@@ -1,0 +1,49 @@
+[  {
+    "id": 1,
+    "company": "TCS",
+    "logo": "https://picsum.photos/seed/tcs/200/100",
+    "description": "Tata Consultancy Services (TCS) is a leading global IT services company.
+  },
+  {
+    "id": 2,
+    "company": "Infosys",
+    "logo": "https://picsum.photos/seed/infosys/200/100",
+    "description": "Infosys provides consulting, technology, engineering, and outsourcing services.
+  },
+  {
+    "id": 3,
+    "company": "Wipro",
+    "logo": "https://picsum.photos/seed/wipro/200/100",
+    "description": "Wipro is a global information technology company.
+  },
+  {
+    "id": 4,
+    "company": "Amazon",
+    "logo": "https://picsum.photos/seed/amazon/200/100",
+    "description": "Amazon is a large e-commerce and cloud computing company.
+  },
+  {
+    "id": 5,
+    "company": "Google",
+    "logo": "https://picsum.photos/seed/google/200/100",
+    "description": "Google specializes in internet-related services and products.
+  },
+  {
+    "id": 6,
+    "company": "Microsoft",
+    "logo": "https://picsum.photos/seed/microsoft/200/100",
+    "description": "Microsoft develops, licenses, and supports software and services.
+  },
+  {
+    "id": 7,
+    "company": "IBM",
+    "logo": "https://picsum.photos/seed/ibm/200/100",
+    "description": "International Business Machines Corporation (IBM) produces computer hardware and software.
+  },
+  {
+    "id": 8,
+    "company": "Accenture",
+    "logo": "https://picsum.photos/seed/accenture/200/100",
+    "description": "Accenture provides consulting and professional services.
+  }
+]

@@ -1,0 +1,29 @@
+---
+name: Commit Department Module Updates
+description: "Refactor department pages to resolve deptId via URL shortName, add dummy fallbacks for JSON/GraphQL fails, keep UI/behaviour unchanged."
+type: muse-knowledge
+---
+# Commit: Department Module Update
+
+## Description
+Implemented the short‑name → department‑id resolution across all department module files and added minimal dummy fallbacks for missing JSON and GraphQL data. No UI, styling, or component structure was modified.
+
+## Files changed
+- `src/modules/department/pages/DepartmentHome.jsx`
+- `src/modules/department/pages/DepartmentPeople.jsx`
+- `src/modules/department/pages/DepartmentAchievements.jsx`
+- `src/modules/department/pages/DepartmentResearch.jsx`
+- `src/modules/department/pages/DepartmentActivities.jsx`
+- `src/modules/department/pages/TimetablePage.jsx`
+- `src/modules/department/pages/TeachingPage.jsx`
+- `src/modules/department/pages/CoursesPage.jsx`
+- `src/modules/department/pages/ResultsPage.jsx`
+- `src/modules/department/pages/MaterialsPage.jsx`
+- `src/modules/department/components/home/ResearchPreview.jsx`
+- `src/modules/department/components/home/QuickLinksPreview.jsx`
+- `src/components/layout/Header/DepartmentNavbar.jsx`
+- created `src/hooks/useDepartmentMeta.js`
+
+The commit covers: replacing hard‑coded `DEP001` with the resolved `deptId`, adding dummy data for missing local JSON files, and enriching the fallback logic while keeping the page logic identical.
+
+---

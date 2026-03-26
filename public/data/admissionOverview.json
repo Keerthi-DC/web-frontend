@@ -1,0 +1,36 @@
+{
+  "overview": {
+    "introduction": {
+      "description": "Welcome to the admissions section. Here you will find all the necessary information to complete your application, along with key dates and resources to help you throughout the process."
+    },
+    "programs": [
+      { "id": 1, "name": "Bachelor of Computer Science (B.Tech)", "duration": "4 Years", "mode": "Full Time" },
+      { "id": 2, "name": "Master of Business Administration (MBA)", "duration": "2 Years", "mode": "Full Time" },
+      { "id": 3, "name": "Doctor of Philosophy (PhD) in Engineering", "duration": "3 Years", "mode": "Full Time" }
+    ],
+    "eligibility": [
+      "High school students with a minimum of 60% in science stream (or equivalent).",
+      "Undergraduate students holding a bachelor’s degree in a related field (for postgraduate programs).",
+      "Candidates must possess a valid passport for international admissions."
+    ],
+    "process": [
+      "Submit application through the online portal.",
+      "Participate in the entrance examination.",
+      "Attend interview/counselling sessions.",
+      "Wait for seat allotment.",
+      "Confirm admission by submitting required documents."
+    ],
+    "dates": [
+      { "id": 1, "title": "Application Release", "date": "2026-01-15" },
+      { "id": 2, "title": "Entrance Exam", "date": "2026-02-10" },
+      { "id": 3, "title": "Counselling", "date": "2026-03-05" },
+      { "id": 4, "title": "Seat Allotment", "date": "2026-03-20" },
+      { "id": 5, "title": "Admission Confirmation", "date": "2026-04-01" }
+    ],
+    "downloads": [
+      { "id": 1, "title": "Admission Brochure", "link": "/docs/admission-brochure.pdf" },
+      { "id": 2, "title": "Apply Now", "link": "/apply" },
+      { "id": 3, "title": "Contact Admissions", "link": "/contact" }
+    ]
+  }
+}

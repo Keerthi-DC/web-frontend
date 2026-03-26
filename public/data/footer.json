@@ -1,0 +1,42 @@
+{
+  "logo": "/images/logo.png",
+  "address": "325, Shamanur Rd, BIET, Davanagere, Karnataka 577004",
+  "sections": [
+    {
+      "title": "About us",
+      "links": [
+        { "name": "BEA", "url": "/bea" },
+        { "name": "Director Office", "url": "/director" },
+        { "name": "Principal Office", "url": "/principal" },
+        { "name": "Campus Life", "url": "/campus-life" }
+      ]
+    },
+    {
+      "title": "Academics",
+      "links": [
+        { "name": "Undergraduate", "url": "/undergraduate" },
+        { "name": "Postgraduate", "url": "/postgraduate" },
+        { "name": "Research", "url": "/research" }
+      ]
+    },
+    {
+      "title": "Information for",
+      "links": [
+        { "name": "Current Students", "url": "/students" },
+        { "name": "Faculty / Staff", "url": "/faculty" },
+        { "name": "Alumni", "url": "/alumni" },
+        { "name": "Visitors", "url": "/visitors" },
+        { "name": "Career", "url": "/career" }
+      ]
+    },
+    {
+      "title": "Tools",
+      "links": []
+    }
+  ],
+  "bottomLinks": [
+    { "name": "Terms of use", "url": "/terms" },
+    { "name": "Privacy Policy", "url": "/privacy" }
+  ],
+  "copyright": "Copyright © 2025 Bapuji Institute of Engineering and Technology, Davanagere"
+}

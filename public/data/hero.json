@@ -1,0 +1,15 @@
+{
+  "title": "Admissions are now open for 2027",
+  "description": "Begin your journey at one of Karnataka’s premier engineering institutions. Apply now and shape your future with innovation and excellence.",
+  "image": "/assets/hero-campus.jpg",
+  "buttons": [
+    {
+      "text": "Apply Now",
+      "link": "/admissions"
+    },
+    {
+      "text": "Learn More",
+      "link": "/about"
+    }
+  ]
+}

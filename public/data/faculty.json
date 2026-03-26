@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "photo": "https://i.pravatar.cc/150?img=1",
+    "name": "Dr. Alice Johnson",
+    "department": "Computer Science",
+    "designation": "Assistant Professor",
+    "education": "Ph.D. Computer Science, MIT",
+    "experience": "5 years",
+    "linkedin": "https://linkedin.com/in/alicejohnson",
+    "cv": "https://example.com/cv/alicejohnson.pdf",
+    "bio": "Dr. Johnson focuses on machine learning and data mining. She has published 25 papers in top conferences.",
+    "research": "Machine Learning, Data Mining, AI Ethics",
+    "subjects": "ML, Data Wrangling, AI Ethics"
+  },
+  {
+    "id": 2,
+    "photo": "https://i.pravatar.cc/150?img=2",
+    "name": "Prof. Brian Lee",
+    "department": "Electrical Engineering",
+    "designation": "Associate Professor",
+    "education": "Ph.D. Electrical Engineering, Stanford",
+    "experience": "8 years",
+    "linkedin": "https://linkedin.com/in/brianlee",
+    "cv": "https://example.com/cv/brianlee.pdf",
+    "bio": "Prof. Lee specializes in signal processing and communications.",
+    "research": "Signal Processing, Wireless Communications, DSP",
+    "subjects": "Signal Processing, DSP, Communication Systems"
+  }
+]

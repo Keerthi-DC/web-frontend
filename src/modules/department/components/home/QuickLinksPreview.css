@@ -1,0 +1,59 @@
+.quicklinks-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+@media (min-width: 768px) {
+  .quicklinks-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.quicklinks-card {
+  margin: 20px;
+  position: relative;
+  height: 200px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.quicklinks-card:hover {
+  transform: scale(1.05);
+}
+
+/* Background Image */
+.quicklinks-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px);
+  transform: scale(1.1); /* prevents blur edges */
+}
+
+/* Dark overlay */
+.quicklinks-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Centered text */
+.quicklinks-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  z-index: 2;
+}

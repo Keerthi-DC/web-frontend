@@ -1,0 +1,47 @@
+{
+  "name": "Computer Science Engineering",
+  "hero": {
+    "title": "Department of Computer Science Engineering",
+    "subtitle": "Innovation in AI, Data Science and Software Engineering",
+    "image": "/assets/cse-hero.jpg"
+  },
+  "about": {
+    "intro": "The Department of Computer Science Engineering at Bapuji Institute of Engineering & Technology focuses on cutting‑edge research and industry‑ready education.\n\nOur curriculum blends core theoretical concepts with hands‑on projects to prepare students for the dynamic tech landscape."
+  },
+  "hod": {
+    "name": "Dr. A. Kumar",
+    "message": "It is an honour to lead a team of brilliant faculty and students who push the boundaries of knowledge in computing.\n\nWe are committed to excellence in teaching, research, and outreach to empower the next generation of innovators.",
+    "photo": "/assets/hods/A_Kumar.jpg"
+  },
+  "facultyPreview": [
+    {
+      "name": "Dr. Alice Smith",
+      "designation": "Professor",
+      "photo": "/assets/faculty/alice_smith.jpg"
+    },
+    {
+      "name": "Dr. Bob Patel",
+      "designation": "Associate Professor",
+      "photo": "/assets/faculty/bob_patel.jpg"
+    }
+  ],
+  "researchAreas": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Cyber Security"
+  ],
+  "placements": {
+    "highestPackage": "32 LPA",
+    "averagePackage": "12 LPA",
+    "placementRate": "95%"
+  },
+  "achievements": [
+    "Smart India Hackathon Winners",
+    "Best Research Paper Award"
+  ],
+  "gallery": [
+    {"image":"/assets/gallery/cse1.jpg","title":"Lab Work"},
+    {"image":"/assets/gallery/cse2.jpg","title":"Seminar"},
+    {"image":"/assets/gallery/cse3.jpg","title":"Annual Fest"}
+  ]
+}

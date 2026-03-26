@@ -1,0 +1,23 @@
+{
+  "name": "Artificial Intelligence & Machine Learning",
+  "slug": "aiml",
+  "hero": {
+    "title": "Department of Artificial Intelligence & Machine Learning",
+    "subtitle": "Building intelligent systems for the future",
+    "image": "/assets/aiml-hero.jpg"
+  },
+  "about": {
+    "intro": "The AIML department focuses on cutting edge AI research including deep learning, NLP and robotics intelligence."
+  },
+  "hod": {
+    "name": "Dr. C Rao",
+    "message": "Our goal is to create the next generation of AI innovators.",
+    "photo": "/assets/hods/c_rao.jpg"
+  },
+  "researchAreas":["Deep Learning","Computer Vision","Natural Language Processing"],
+  "placements":{"highestPackage":"34 LPA","averagePackage":"14 LPA","placementRate":"96%"},
+  "gallery":[
+    {"image":"/assets/gallery/aiml1.jpg","title":"AI Lab"},
+    {"image":"/assets/gallery/aiml2.jpg","title":"Robotics Demo"}
+  ]
+}

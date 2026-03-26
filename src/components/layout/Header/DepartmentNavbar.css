@@ -1,0 +1,22 @@
+/* DepartmentNavbar.css
+   Basic styles for the scrolling icon strip
+*/
+.icon-strip {
+  width: 100%;
+  overflow: hidden;
+  background: #f9fafb; /* light gray */
+  padding: 8px 0;
+}
+.icon-track {
+  display: flex;
+  animation: scroll 20s linear infinite;
+}
+.icon-track img {
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

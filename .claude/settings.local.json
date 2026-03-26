@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(mkdir website-organised:*)",
+      "Bash(cp -r . website-organised/)",
+      "Bash(cp -r * website-organised/)",
+      "Bash(cp -r .git website-organised/)",
+      "Bash(cp -r .env* website-organised/)",
+      "Bash(cp:*)",
+      "Bash(rsync:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)"
+    ]
+  }
+}
