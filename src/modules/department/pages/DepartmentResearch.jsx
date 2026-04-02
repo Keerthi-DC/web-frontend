@@ -220,12 +220,12 @@ const DepartmentResearch = () => {
 
                     <div className="flex gap-3 mt-6">
                       {p.googleScholarLink && (
-                        <a href={p.googleScholarLink} target="_blank" className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded">
+                        <a href={p.googleScholarLink} target="_blank" className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded"rel="noreferrer">
                           Scholar
                         </a>
                       )}
                       {p.irinsLink && (
-                        <a href={p.irinsLink} target="_blank" className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded">
+                        <a href={p.irinsLink} target="_blank" className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded" rel="noreferrer">
                           IRINS
                         </a>
                       )}
