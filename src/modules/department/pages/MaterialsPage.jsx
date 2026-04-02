@@ -47,6 +47,7 @@ export default function MaterialsPage() {
                     fileUrl
                     courseName
                     uploadedBy
+
                   }
                 }
               }

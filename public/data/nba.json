@@ -1,0 +1,60 @@
+{
+  "overview": {
+    "description": "Ensuring excellence in engineering education through rigorous standards and continuous quality improvement at BIET Davangere."
+  },
+  "resources": [
+    {
+      "title": "Central Facilities Tour",
+      "type": "video",
+      "file": "/pdfs/video.pdf"
+    },
+    {
+      "title": "Institute Presentation",
+      "type": "pdf",
+      "file": "/pdfs/presentation.pdf"
+    },
+    {
+      "title": "Strategic Plan",
+      "type": "doc",
+      "file": "/pdfs/plan.pdf"
+    }
+  ],
+  "departments": [
+    {
+      "name": "Computer Science & Engineering",
+      "status": "accredited",
+      "validity": "Until 2026",
+      "file": "/pdfs/cse.pdf"
+    },
+    {
+      "name": "Electronics & Communication",
+      "status": "accredited",
+      "validity": "Until 2025",
+      "file": "/pdfs/ece.pdf"
+    },
+    {
+      "name": "Mechanical Engineering",
+      "status": "pending",
+      "validity": "Visit Scheduled",
+      "file": "/pdfs/mech.pdf"
+    }
+  ],
+  "documents": [
+    {
+      "title": "Course Files Template",
+      "subtitle": "Academic Year 2023-24"
+    },
+    {
+      "title": "Faculty CO-PO Mapping",
+      "subtitle": "Departmental Data"
+    },
+    {
+      "title": "Student Feedback Reports",
+      "subtitle": "IQAC Verification"
+    },
+    {
+      "title": "Alumni Survey Analysis",
+      "subtitle": "Annual Summary"
+    }
+  ]
+}

@@ -2,23 +2,24 @@
   "menu": [
     {
       "label": "Academics",
+      "path": "/",
       "dropdown": [
-        { "label": "Programs", "path": "/programs" },
-        { "label": "Departments", "path": "/departments" },
-        { "label": "Faculty", "path": "/faculty" },
-        { "label": "Academic Calendar", "path": "/academic-calendar" },
-        { "label": "Time Tables", "path": "/time-tables" },
-        { "label": "Syllabus", "path": "/syllabus" },
-        { "label": "Result Analysis", "path": "/result-analysis" }
+        { "label": "Programs", "path": "/academics/programs" },
+        { "label": "Departments", "path": "/academics/departments" },
+        { "label": "Faculty", "path": "/academics/faculty" },
+        { "label": "Academic Calendar", "path": "/academics/academic-calendar" },
+        
+        { "label": "Syllabus", "path": "/academics/syllabus" },
+        { "label": "Result Analysis", "path": "/academics/result-analysis" }
       ]
     },
     {
       "label": "Admissions",
-      "path": "/admissions",
+      "path": "/",
       "dropdown": [
         { "label": "Overview", "path": "/admissions/overview" },
         { "label": "Prospectus", "path": "/admissions/prospectus" },
-        { "label": "Programs", "path": "/programs" },
+        
         { "label": "Fee Structure", "path": "/admissions/fee-structure" },
         { "label": "Scholarships", "path": "/admissions/scholarships" },
         { "label": "Enquiry", "path": "/admissions/enquiry" }
@@ -26,7 +27,7 @@
     },
     {
       "label": "Accreditations",
-      "path": "/accreditations",
+      "path":"/",
       "dropdown": [
         { "label": "NAAC", "path": "/accreditations/naac" },
         { "label": "NBA", "path": "/accreditations/nba" },
@@ -36,7 +37,7 @@
     },
     {
       "label": "Campus Life",
-      "path": "/campus-life",
+      "path": "/",
       "dropdown": [
         { "label": "Green Campus", "path": "/campus-life/green-campus" },
         { "label": "SAC", "path": "/campus-life/sac" },
@@ -47,7 +48,7 @@
     },
     {
       "label": "About",
-      "path": "/about",
+      "path": "/",
       "dropdown": [
         { "label": "Overview", "path": "/about/overview" },
         { "label": "Vision", "path": "/about/vision" },
@@ -58,7 +59,7 @@
     },
     {
       "label": "Research",
-      "path": "/research",
+      "path": "/",
       "dropdown": [
         { "label": "Projects", "path": "/research/projects" },
         { "label": "Industry Interaction", "path": "/research/industry" },
@@ -67,7 +68,7 @@
     },
     {
       "label": "News & Events",
-      "path": "/news-events",
+      "path": "/",
       "dropdown": [
         { "label": "News", "path": "/news" },
         { "label": "Events", "path": "/events" },

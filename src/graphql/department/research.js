@@ -34,6 +34,7 @@ export const LIST_RESEARCH =
       }
       summaries {
         items {
+          facultyId
           researchArea
           guideName
           guideDesignation

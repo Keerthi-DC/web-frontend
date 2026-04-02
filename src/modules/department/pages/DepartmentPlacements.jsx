@@ -2,29 +2,67 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../../hooks/useDepartmentMeta";
 
-const DepartmentPlacements = () => {
+const API_URL = import.meta.env.VITE_APPSYNC_URL;
+const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
+
+// ✅ GraphQL Query
+const LIST_PLACEMENTS = `
+  query ListPlacementOverviews($deptId: ID!, $academicYear: String,$tenantId: ID) {
+    listPlacementOverviews(deptId: $deptId, academicYear: $academicYear, tenantId: $tenantId) {
+      items {
+        placementOverviewId
+        deptId
+        academicYear
+        companiesVisited
+        studentsInCampus
+        studentsOffCampus
+        highestPackage
+      }
+    }
+  }
+`;
+
+const PlacementStats = () => {
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [data, setData] = useState(null);
+  const [placements, setPlacements] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ FETCH FROM APPSYNC
   useEffect(() => {
     if (!shortName || !isReady) return;
 
-    const fetchData = async () => {
+    const fetchPlacements = async () => {
       try {
         setLoading(true);
 
-        // ✅ optional (for consistency/logging)
         const deptId = getId(shortName);
-        console.log("Resolved deptId:", deptId);
+        if (!deptId) return;
 
-        // ✅ JSON should use shortName
-        const res = await fetch(`/data/departments/${shortName}.json`);
-        const json = await res.json();
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+          },
+          body: JSON.stringify({
+            query: LIST_PLACEMENTS,
+            variables: { deptId,tenantId: "biet-college" },
+          }),
+        });
 
-        setData(json);
+        const result = await res.json();
+
+        const items =
+          result?.data?.listPlacementOverviews?.items || [];
+
+        // ✅ Sort by latest year first
+        const sorted = items.sort((a, b) =>
+          b.academicYear.localeCompare(a.academicYear)
+        );
+
+        setPlacements(sorted);
       } catch (err) {
         console.error("Placement fetch error:", err);
       } finally {
@@ -32,114 +70,133 @@ const DepartmentPlacements = () => {
       }
     };
 
-    fetchData();
+    fetchPlacements();
   }, [shortName, isReady]);
 
+  // ✅ LOADING
   if (loading) {
     return (
-      <div className="py-32 text-center text-gray-600">
+      <div className="py-32 text-center text-gray-500">
         Loading placements...
       </div>
     );
   }
 
-  if (!data) {
+  if (placements.length === 0) {
     return (
-      <div className="py-32 text-center text-gray-600">
+      <div className="py-32 text-center text-gray-500">
         No placement data found.
       </div>
     );
   }
 
-  const placements = data.placements || {};
+  // ✅ Latest Year Data
+  const latest = placements[0];
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-20">
 
-      {/* PAGE TITLE */}
-      <h1 className="text-4xl font-bold mb-16 text-center">
+      {/* 🔥 TITLE */}
+      <h1 className="text-4xl font-bold text-center mb-16">
         Placements
       </h1>
 
-      {/* ================= OVERVIEW ================= */}
-      <section id="overview" className="mb-24 scroll-mt-32">
-        <h2 className="text-2xl font-semibold mb-6">
-          Placement Overview
+      {/* ================= HIGHLIGHTS ================= */}
+      <section className="mb-20">
+        <h2 className="text-2xl font-semibold mb-8 text-center">
+          {latest.academicYear} Highlights
         </h2>
 
-        <p className="text-gray-600 max-w-3xl mb-10">
-          {placements.overview}
-        </p>
+        <div className="grid md:grid-cols-4 gap-6">
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-blue-50 rounded-lg p-8 text-center">
-            <h3 className="text-4xl font-bold text-blue-700">
-              {placements.highestPackage}
+          <div className="bg-blue-50 p-6 rounded-lg text-center">
+            <h3 className="text-3xl font-bold text-blue-700">
+              {latest.highestPackage} LPA
             </h3>
             <p className="text-gray-600 mt-2">
               Highest Package
             </p>
           </div>
 
-          <div className="bg-blue-50 rounded-lg p-8 text-center">
-            <h3 className="text-4xl font-bold text-blue-700">
-              {placements.averagePackage}
+          <div className="bg-blue-50 p-6 rounded-lg text-center">
+            <h3 className="text-3xl font-bold text-blue-700">
+              {latest.companiesVisited}
             </h3>
             <p className="text-gray-600 mt-2">
-              Average Package
+              Companies Visited
             </p>
           </div>
 
-          <div className="bg-blue-50 rounded-lg p-8 text-center">
-            <h3 className="text-4xl font-bold text-blue-700">
-              {placements.placementRate}
+          <div className="bg-blue-50 p-6 rounded-lg text-center">
+            <h3 className="text-3xl font-bold text-blue-700">
+              {latest.studentsInCampus}
             </h3>
             <p className="text-gray-600 mt-2">
-              Placement Rate
+              In-Campus Offers
             </p>
           </div>
+
+          <div className="bg-blue-50 p-6 rounded-lg text-center">
+            <h3 className="text-3xl font-bold text-blue-700">
+              {latest.studentsOffCampus}
+            </h3>
+            <p className="text-gray-600 mt-2">
+              Off-Campus Offers
+            </p>
+          </div>
+
         </div>
       </section>
 
-      {/* ================= TOP RECRUITERS ================= */}
-      <section id="recruiters" className="mb-24 scroll-mt-32">
-        <h2 className="text-2xl font-semibold mb-8">
-          Top Recruiters
+      {/* ================= TABLE ================= */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-8 text-center">
+          Year-wise Placement Statistics
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {(placements.topRecruiters || []).map((company, i) => (
-            <div
-              key={i}
-              className="bg-white shadow rounded-lg p-6 text-center font-medium hover:shadow-lg transition"
-            >
-              {company}
-            </div>
-          ))}
-        </div>
-      </section>
+        <div className="overflow-x-auto bg-white shadow rounded-lg">
+          <table className="min-w-full text-sm text-left">
 
-      {/* ================= STATISTICS ================= */}
-      <section id="statistics" className="scroll-mt-32">
-        <h2 className="text-2xl font-semibold mb-8">
-          Placement Statistics
-        </h2>
+            <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+              <tr>
+                <th className="px-6 py-4">Year</th>
+                <th className="px-6 py-4">Companies</th>
+                <th className="px-6 py-4">In-Campus</th>
+                <th className="px-6 py-4">Off-Campus</th>
+                <th className="px-6 py-4">Highest Package</th>
+              </tr>
+            </thead>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {(placements.statistics || []).map((stat, i) => (
-            <div
-              key={i}
-              className="bg-green-50 rounded-lg p-10 text-center"
-            >
-              <h3 className="text-4xl font-bold text-green-700">
-                {stat.placed}%
-              </h3>
+            <tbody>
+              {placements.map((p, index) => (
+                <tr
+                  key={p.placementOverviewId}
+                  className={`border-t ${
+                    index % 2 === 0
+                      ? "bg-white"
+                      : "bg-gray-50"
+                  } hover:bg-blue-50 transition`}
+                >
+                  <td className="px-6 py-4 font-medium">
+                    {p.academicYear}
+                  </td>
+                  <td className="px-6 py-4">
+                    {p.companiesVisited}
+                  </td>
+                  <td className="px-6 py-4">
+                    {p.studentsInCampus}
+                  </td>
+                  <td className="px-6 py-4">
+                    {p.studentsOffCampus}
+                  </td>
+                  <td className="px-6 py-4 font-semibold text-blue-700">
+                    {p.highestPackage} LPA
+                  </td>
+                </tr>
+              ))}
+            </tbody>
 
-              <p className="text-gray-600 mt-2">
-                Students Placed ({stat.year})
-              </p>
-            </div>
-          ))}
+          </table>
         </div>
       </section>
 
@@ -147,4 +204,4 @@ const DepartmentPlacements = () => {
   );
 };
 
-export default DepartmentPlacements;
+export default PlacementStats;

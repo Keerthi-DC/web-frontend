@@ -4,7 +4,7 @@ const DepartmentGallery = () => {
   const { deptId } = useParams();
   const [data, setData] = useState(null);
   useEffect(() => {
-    fetch(`/data/departments/${deptId}.json`)
+    fetch(`/data/departments/cse.json`)
       .then(res => res.json())
       .then(json => setData(json));
   }, [deptId]);

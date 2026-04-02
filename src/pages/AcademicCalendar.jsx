@@ -1,174 +1,240 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useMemo } from "react";
+import { motion } from "framer-motion";
 
-/**
- * AcademicCalendar displays the university academic calendars.
- * Data is fetched from ``/data/academicCalendar.json``.
- */
 const AcademicCalendar = () => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [yearFilter, setYearFilter] = useState('All');
-  const [categoryFilter, setCategoryFilter] = useState('All');
+  const [search, setSearch] = useState("");
+  const [yearFilter, setYearFilter] = useState("All");
 
   useEffect(() => {
-    fetch('/data/academicCalendar.json')
-      .then(r => r.json())
-      .then(data => {
+    fetch("/data/academicCalendar.json")
+      .then((r) => r.json())
+      .then((data) => {
         setEntries(data);
         setLoading(false);
       })
-      .catch(err => {
-        console.error('[AUDIT] Error loading academic calendar:', err);
+      .catch((err) => {
+        console.error(err);
         setLoading(false);
       });
   }, []);
 
-  // Unique years in the data
   const years = useMemo(() => {
-    const set = new Set(entries.map(e => e.year));
+    const set = new Set(entries.map((e) => e.year));
     return Array.from(set).sort((a, b) => b - a);
   }, [entries]);
 
   const filtered = useMemo(() => {
-    return entries.filter(entry => {
-      const matchesSearch = entry.title.toLowerCase().includes(search.toLowerCase());
-      const matchesYear = yearFilter === 'All' || entry.year.toString() === yearFilter;
-      const matchesCategory = categoryFilter === 'All' || entry.category === categoryFilter;
-      return matchesSearch && matchesYear && matchesCategory;
-    });
-  }, [entries, search, yearFilter, categoryFilter]);
+    return entries.filter((entry) => {
+      const matchesSearch = entry.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-  const currentEntries = filtered.filter(e => e.category === 'current');
-  const historicalEntries = filtered.filter(e => e.category === 'historical');
+      const matchesYear =
+        yearFilter === "All" || entry.year.toString() === yearFilter;
+
+      return matchesSearch && matchesYear;
+    });
+  }, [entries, search, yearFilter]);
+
+  const currentEntries = filtered.filter(
+    (e) => e.category === "current"
+  );
+  const historicalEntries = filtered.filter(
+    (e) => e.category === "historical"
+  );
 
   if (loading) {
-    return <div className="p-6 flex justify-center items-center text-gray-500">Loading academic calendar…</div>;
+    return (
+      <div className="p-10 text-center text-gray-500">
+        Loading Academic Calendar...
+      </div>
+    );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="container mx-auto py-6 px-4"
-    >
-      <h1 className="text-3xl font-semibold mb-4">Academic Calendar</h1>
-      <p className="text-gray-700 mb-6">
-        The dates below represent official academic deadlines and informational dates for the semester displayed.
-      </p>
+    <div className="bg-[#faf9fd] min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-10">
 
-      {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-8 items-start sm:items-center">
-        <input
-          type="text"
-          placeholder="Search title"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto"
-        />
-        <select
-          value={yearFilter}
-          onChange={e => setYearFilter(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2"
-        >
-          <option value="All">All Years</option>
-          {years.map(y => (
-            <option key={y} value={y}>{y}</option>
-          ))}
-        </select>
-        <select
-          value={categoryFilter}
-          onChange={e => setCategoryFilter(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2"
-        >
-          <option value="All">All Categories</option>
-          <option value="current">Current</option>
-          <option value="historical">Historical</option>
-        </select>
-      </div>
+        {/* HERO */}
+        <section className="mb-12 relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#001430] to-[#002855] p-12 text-white shadow-xl">
+          <div className="max-w-2xl">
+            <span className="inline-block px-4 py-1 bg-green-300 text-black text-xs font-bold rounded-full mb-6">
+              INSTITUTION RECORD
+            </span>
 
-      {/* Current Calendars */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-medium mb-4">Academic Calendar – Current</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentEntries.map(entry => (
-            <motion.div
-              key={entry.id}
-              className="rounded-xl shadow-lg bg-white hover:shadow-2xl transition cursor-pointer"
-              whileHover={{ y: -5 }}
-            >
-              <div className="p-6 flex flex-col items-center">
-                <svg className="w-12 h-12 text-indigo-500 mb-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3l18 18" stroke="currentColor" strokeWidth="2"/><path d="M13 2v4" stroke="currentColor" strokeWidth="2"/><path d="M11 2v4" stroke="currentColor" strokeWidth="2"/><path d="M3 12h4" stroke="currentColor" strokeWidth="2"/><path d="M12 13v4" stroke="currentColor" strokeWidth="2"/><path d="M13 17h4" stroke="currentColor" strokeWidth="2"/></svg>
-                <h3 className="text-lg font-semibold text-center">{entry.title}</h3>
-                <span className="mt-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-sm">{entry.semester}</span>
-                <span className="mt-2 px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm">{entry.version}</span>
-                <button
-                  onClick={() => window.open(entry.pdf, '_blank')}
-                  className="mt-4 px-4 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
-                >View PDF</button>
+            <h2 className="text-5xl font-extrabold mb-4">
+              Academic Calendar 2026
+            </h2>
+
+            <p className="text-gray-300 text-lg">
+              Strategic timelines and essential milestones for the upcoming academic cycles.
+            </p>
+          </div>
+        </section>
+
+        <div className="grid grid-cols-12 gap-8">
+
+          {/* LEFT */}
+          <div className="col-span-12 lg:col-span-8 space-y-12">
+
+            {/* FILTER TABS */}
+            <div className="flex items-center justify-between bg-[#eeedf2] p-2 rounded-2xl">
+              <div className="flex gap-1">
+                <button className="px-6 py-2 bg-white text-[#001430] font-bold rounded-xl shadow-sm text-sm">
+                  Current
+                </button>
+                <button className="px-6 py-2 text-gray-500 font-semibold rounded-xl text-sm">
+                  Historical
+                </button>
+                <button className="px-6 py-2 text-gray-500 font-semibold rounded-xl text-sm">
+                  All Years
+                </button>
               </div>
-            </motion.div>
-          ))}
+
+              <div className="flex items-center gap-3">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="px-4 py-2 rounded-xl border text-sm"
+                />
+
+                <select
+                  value={yearFilter}
+                  onChange={(e) => setYearFilter(e.target.value)}
+                  className="px-4 py-2 rounded-xl border text-sm"
+                >
+                  <option value="All">All Years</option>
+                  {years.map((y) => (
+                    <option key={y}>{y}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* CURRENT */}
+            <div className="space-y-10">
+
+              {/* GROUP BY TITLE (like Jan–May) */}
+              {[...new Set(currentEntries.map(e => e.title))].map(group => {
+                const groupItems = currentEntries.filter(e => e.title === group);
+
+                return (
+                  <div key={group}>
+                    <div className="flex justify-between items-center mb-6">
+                      <h3 className="text-2xl font-extrabold text-[#001430]">
+                        {group}
+                      </h3>
+
+                      <button
+                        onClick={() => window.open(groupItems[0]?.pdf)}
+                        className="text-[#001430] font-bold flex items-center gap-2"
+                      >
+                        View PDF
+                      </button>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {groupItems.map((entry) => (
+                        <motion.div
+                          key={entry.id}
+                          whileHover={{ scale: 1.02 }}
+                          className="bg-white p-6 rounded-2xl hover:shadow-lg transition border border-transparent hover:border-green-200"
+                        >
+                          <span className="text-xs font-bold text-gray-400 uppercase">
+                            {entry.type || "EVENT"}
+                          </span>
+
+                          <h4 className="font-bold text-lg mt-2">
+                            {entry.title}
+                          </h4>
+
+                          <p className="text-sm text-gray-500 mt-2">
+                            {entry.description || "Academic activity"}
+                          </p>
+
+                          <button
+                            onClick={() => window.open(entry.pdf)}
+                            className="mt-4 text-green-600 text-sm font-bold"
+                          >
+                            View PDF
+                          </button>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* HISTORICAL */}
+            <section>
+              <h2 className="text-xl font-bold mb-6 text-[#001430]">
+                Historical Records
+              </h2>
+
+              <div className="space-y-2">
+                {historicalEntries.map((entry) => (
+                  <div
+                    key={entry.id}
+                    className="flex justify-between bg-white px-4 py-3 rounded-xl hover:bg-gray-50 transition"
+                  >
+                    <span>{entry.title}</span>
+
+                    <button
+                      onClick={() => window.open(entry.pdf)}
+                      className="text-blue-600 text-sm"
+                    >
+                      Download
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+          </div>
+
+          {/* RIGHT */}
+          <div className="col-span-12 lg:col-span-4">
+            <div className="bg-[#eeedf2] rounded-3xl p-6 sticky top-24">
+              <h3 className="text-xl font-bold mb-6 text-[#001430]">
+                Historical Archives
+              </h3>
+
+              <p className="text-sm text-gray-500 mb-6">
+                Access previous academic calendars
+              </p>
+
+              <div className="space-y-4">
+                {years.map((year) => (
+                  <div
+                    key={year}
+                    className="bg-white p-4 rounded-xl hover:shadow cursor-pointer transition"
+                    onClick={() => setYearFilter(year.toString())}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="font-bold">{year}</span>
+                      <span className="text-xs bg-green-100 px-2 py-1 rounded">
+                        ARCHIVED
+                      </span>
+                    </div>
+
+                    <button className="mt-3 text-sm text-blue-600">
+                      Download Archive
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
-      </section>
-
-      {/* Historical Calendars */}
-      <section>
-        <h2 className="text-2xl font-medium mb-2">Historical Academic Calendars</h2>
-        <p className="text-gray-600 mb-6">For your reference, academic calendars for previous semesters are available below.</p>
-        <AnimatePresence>
-  {historicalEntries.length === 0 && <p>No historical entries.</p>}
-
-  {Array.from(new Set(historicalEntries.map((e) => e.year)))
-    .sort((a, b) => b - a)
-    .map((year) => {
-      const yearEntries = historicalEntries.filter((e) => e.year === year);
-
-      return (
-        <HistoryYearSection
-          key={year}
-          year={year}
-          entries={yearEntries}
-        />
-      );
-    })}
-</AnimatePresence>
-      </section>
-    </motion.div>
+      </div>
+    </div>
   );
 };
-
-const HistoryYearSection = ({ year, entries }) => {
-  const [open, setOpen] = useState(true);
-  return (
-    <motion.div className="mb-4" initial={false} animate={open ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }} transition={{ duration: 0.3 }}>
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex justify-between items-center bg-gray-50 px-4 py-2 rounded hover:bg-gray-100 transition"
-      >
-        <span className="font-medium text-lg">{year}</span>
-        <svg className={`w-6 h-6 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
-      </button>
-      {open && (
-        <div className="bg-white px-4 py-2">
-          <ul className="space-y-2">
-            {entries.map(entry => (
-              <li key={entry.id} className="flex items-center justify-between">
-                <span>{entry.title}</span>
-                <button onClick={() => window.open(entry.pdf, '_blank')} className="text-indigo-600 hover:underline">View PDF</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </motion.div>
-  );
-};
-HistoryYearSection.propTypes = { year: PropTypes.number.isRequired, entries: PropTypes.array.isRequired };
-
-AcademicCalendar.propTypes = {};
 
 export default AcademicCalendar;

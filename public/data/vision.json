@@ -1,0 +1,51 @@
+{
+  "intro": {
+    "title": "Vision, Mission & Strategy",
+    "description": "BIET continues to evolve to meet the demands of a competitive world by focusing on innovation, quality education and continuous improvement."
+  },
+
+  "vision": {
+    "title": "Vision",
+    "content": "To be a centre of excellence recognized nationally and internationally in engineering education and research based on innovation and invention."
+  },
+
+  "mission": {
+    "title": "Mission",
+    "content": "To provide quality engineering education and empower students with knowledge, leadership skills and ethical values for success."
+  },
+
+  "qualityPolicy": {
+    "title": "Quality Policy",
+    "points": [
+      "Promoting discipline, punctuality and ethics",
+      "Encouraging teacher-student interaction",
+      "Ensuring objective evaluation of students",
+      "Enhancing faculty through development programs",
+      "Creating a research-friendly environment"
+    ]
+  },
+
+  "swoc": {
+    "strengths": [
+      "Strong management and leadership",
+      "Good infrastructure and facilities",
+      "Experienced faculty",
+      "Strong placement record"
+    ],
+    "weakness": [
+      "Limited research collaboration",
+      "Fewer publications",
+      "Limited research funding"
+    ],
+    "opportunities": [
+      "Autonomous status",
+      "Industry collaboration",
+      "New programs and research expansion"
+    ],
+    "threats": [
+      "Competition from top institutions",
+      "Changing government policies",
+      "Rapid technology changes"
+    ]
+  }
+}

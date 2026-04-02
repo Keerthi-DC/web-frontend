@@ -5,9 +5,9 @@ import BietGuide from "./components/BietGuide";
   import Navbar from "./components/layout/Header/Navbar";
   import DepartmentNavbar from "./components/layout/Header/DepartmentNavbar";
   import Home from "./pages/Home";
-  import NewsPage from "./pages/NewsPage";
-  import EventsPage from "./pages/EventsPage";
-  import NotificationsPage from "./pages/NotificationsPage";
+  import NewsPage from "./components/news&events/NewsPage";
+  import EventsPage from "./components/news&events/EventsPage";
+  import NotificationsPage from "./components/news&events/Notification";
   import GalleryPage from "./pages/GalleryPage";
   import ResearchPage from "./pages/ResearchPage";
   import PlacementsPage from "./pages/PlacementsPage";
@@ -34,6 +34,15 @@ import BietGuide from "./components/BietGuide";
   import DepartmentAlumni from "./modules/department/pages/DepartmentAlumni";
   import DepartmentGallery from "./modules/department/pages/DepartmentGallery";
   import DepartmentNewsletter from "./modules/department/pages/DepartmentNewsletter";
+  import DepartmentAccreditation from "./modules/department/pages/DepartmentAccreditation";
+  import NAACPage from "./components/accreditations/NAACPage";
+  import NBAPage from "./components/accreditations/NBAPage";
+  import ScholarshipPage from "./components/admissions/ScholarshipPage";
+  import EnquiryPage from "./components/admissions/EnquiryPage";
+
+  import AboutOverview from "./components/about/AboutOverviewPage";
+  import VisionPage from "./components/about/VisionPage";
+
 
   const App = () => {
     const location = useLocation();
@@ -51,19 +60,32 @@ import BietGuide from "./components/BietGuide";
           <Route path="/events" element={<EventsPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/research" element={<ResearchPage />} />
           <Route path="/placements" element={<PlacementsPage />} />
-          <Route path="/departments" element={<DepartmentsPage />} />
-          <Route path="/programs" element={<ProgramsPage />} />
+
+          {/*accreditation pages */}
+          <Route path="/accreditations/naac" element={<NAACPage />} />
+          <Route path="/accreditations/nba" element={<NBAPage />} />
+
+          {/* academics-specific pages */}
+          <Route path="/academics/departments" element={<DepartmentsPage />} />
+          <Route path="/academics/programs" element={<ProgramsPage />} />
           <Route path="/academics" element={<AcademicsPage />} />
-          <Route path="/faculty" element={<FacultyPage />} />
-          <Route path="/academic-calendar" element={<AcademicCalendar />} />
-          <Route path="/time-tables" element={<TimeTablePage />} />
-          <Route path="/syllabus" element={<SyllabusPage />} />
-          <Route path="/result-analysis" element={<ResultAnalysis />} />
+          <Route path="/academics/faculty" element={<FacultyPage />} />
+          <Route path="/academics/academic-calendar" element={<AcademicCalendar />} />
+          <Route path="/academics/time-tables" element={<TimeTablePage />} />
+          <Route path="/academics/syllabus" element={<SyllabusPage />} />
+          <Route path="/academics/result-analysis" element={<ResultAnalysis />} />
+
+          {/* admission‑specific pages */}
           <Route path="/admissions/overview" element={<AdmissionOverview />} />
           <Route path="/admissions/prospectus" element={<ProspectusPage />} />
           <Route path="/admissions/fee-structure" element={<FeeStructurePage />} />
+          <Route path="/admissions/scholarships" element={<ScholarshipPage />} />
+          <Route path="/admissions/enquiry" element={<EnquiryPage />} />
+
+          {/* about‑specific pages */}
+          <Route path="/about/overview" element={<AboutOverview />} />
+          <Route path="/about/vision" element={<VisionPage />} />
 
           {/* department‑specific pages */}
           <Route path="/departments/:shortName" element={<DepartmentHome />} />
@@ -77,6 +99,7 @@ import BietGuide from "./components/BietGuide";
           <Route path="/departments/:shortName/alumni" element={<DepartmentAlumni />} />
           <Route path="/departments/:shortName/gallery" element={<DepartmentGallery />} />
           <Route path="/departments/:shortName/newsletter" element={<DepartmentNewsletter />} />
+          <Route path="/departments/:shortName/accreditation"element={<DepartmentAccreditation />}/>
         </Routes>
      </div >
     );

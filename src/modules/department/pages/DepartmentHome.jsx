@@ -237,7 +237,7 @@ const DepartmentHome = () => {
       <ResearchPreview data={{}} />
       <PlacementStats data={{}} />
       <AchievementsPreview/>
-      <QuickLinksPreview deptId={deptId} />
+      <QuickLinksPreview shortName={shortName} />
       <GalleryPreview data={{}} />
       <Footer />
     </motion.div>

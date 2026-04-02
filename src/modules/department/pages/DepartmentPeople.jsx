@@ -5,33 +5,43 @@ import { useDepartmentMeta } from "../../../hooks/useDepartmentMeta";
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
+// ✅ Faculty Query
 const LIST_FACULTY = `
-  query ListFaculty(
-    $deptId: ID,
-    $designation: String,
-    $status: String,
-    $search: String,
-    $tenantId: ID
-  ) {
-    listFaculty(
-      deptId: $deptId,
-      designation: $designation,
-      status: $status,
-      search: $search,
-      tenantId: $tenantId
-    ) {
+  query ListFaculty($deptId: ID, $tenantId: ID) {
+    listFaculty(deptId: $deptId, tenantId: $tenantId) {
       items {
         facultyId
         name
         designation
-        deptId
-        department
         profileImage
         cvUrl
         status
-        createdAt
       }
-      nextToken
+    }
+  }
+`;
+
+// ✅ Staff Query
+const LIST_STAFF = `
+  query ListDeptStaff(
+    $deptId: ID!,
+    $staffType: String,
+    $limit: Int,
+    $tenantId:String
+  ) {
+    listDeptStaff(
+      deptId: $deptId,
+      staffType: $staffType,
+      limit: $limit,
+      tenantId:$tenantId
+    ) {
+      items {
+        deptStaffId
+        name
+        designation
+        staffType
+        imageUrl
+      }
     }
   }
 `;
@@ -40,94 +50,126 @@ const DepartmentPeople = () => {
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [data, setData] = useState(null);
   const [faculty, setFaculty] = useState([]);
-  const [loadingFaculty, setLoadingFaculty] = useState(true);
+  const [staff, setStaff] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch JSON (staff + students)
-  useEffect(() => {
-    if (!shortName) return;
+  const [activeTab, setActiveTab] = useState("faculty");
 
-    fetch(`/data/departments/cse.json`)
-      .then((res) => res.json())
-      .then((d) => setData(d))
-      .catch((err) => console.error("JSON ERROR:", err));
-  }, [shortName]);
-
-  // ✅ Fetch Faculty from API
+  // ✅ Fetch Data
   useEffect(() => {
     if (!shortName || !isReady) return;
 
-    const fetchFaculty = async () => {
+    const fetchData = async () => {
       try {
-        setLoadingFaculty(true);
+        setLoading(true);
 
         const deptId = getId(shortName);
-        console.log("Resolved deptId:", deptId);
-
         if (!deptId) return;
 
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
-          },
-          body: JSON.stringify({
-            query: LIST_FACULTY,
-            variables: {
-              tenantId: "biet-college",
-              deptId, // ✅ FIXED
+        let staffType = null;
+        if (activeTab === "technical") staffType = "technical";
+        if (activeTab === "supporting") staffType = "supporting";
+
+        // 🔥 FACULTY
+        if (activeTab === "faculty") {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": API_KEY,
             },
-          }),
-        });
+            body: JSON.stringify({
+              query: LIST_FACULTY,
+              variables: {
+                tenantId: "biet-college",
+                deptId,
+              },
+            }),
+          });
 
-        const result = await res.json();
-        console.log("FACULTY API:", result);
+          const result = await res.json();
 
-        setFaculty(result?.data?.listFaculty?.items || []);
+          const facultyList =
+            result?.data?.listFaculty?.items || [];
+
+          setFaculty(
+            facultyList.filter((f) => f.status === "active")
+          );
+        }
+
+        // 🔥 STAFF
+        else {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": API_KEY,
+            },
+            body: JSON.stringify({
+              query: LIST_STAFF,
+              variables: {
+                deptId,
+                staffType,
+                limit: 100,
+                tenantId: "biet-college",
+              },
+            }),
+          });
+
+          const result = await res.json();
+
+          const staffList =
+            result?.data?.listDeptStaff?.items || [];
+
+          setStaff(staffList);
+        }
       } catch (err) {
-        console.error("FACULTY FETCH ERROR:", err);
+        console.error("FETCH ERROR:", err);
       } finally {
-        setLoadingFaculty(false);
+        setLoading(false);
       }
     };
 
-    fetchFaculty();
-  }, [shortName, isReady]);
+    fetchData();
+  }, [shortName, isReady, activeTab]);
 
-  if (!data)
-    return <div className="text-center py-20">Loading people…</div>;
-
-  const people = data.people;
-
-  // ✅ Card renderer
-  const renderCards = (list, type = "json") => (
+  // ✅ Card Renderer
+  const renderCards = (list, type) => (
     <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
       {list.map((p, i) => {
         const isFaculty = type === "faculty";
 
-        const name = p.name;
         const image = isFaculty
           ? p.profileImage ||
             `https://i.pravatar.cc/150?img=${(i % 70) + 1}`
-          : p.photo;
-
-        const designation = p.designation;
+          : p.imageUrl ||
+            `https://i.pravatar.cc/150?img=${(i % 70) + 1}`;
 
         return (
           <div
             key={i}
-            className="bg-white shadow rounded-lg p-6 text-center hover:shadow-lg transition"
+            onClick={() => {
+              if (isFaculty && p.cvUrl) {
+                window.open(p.cvUrl, "_blank");
+              }
+            }}
+            className={`bg-white shadow rounded-lg p-6 text-center transition ${
+              isFaculty ? "hover:shadow-lg cursor-pointer" : ""
+            }`}
           >
-            <img
-              src={image}
-              alt={name}
-              className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            />
+            <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-gray-100">
+              <img
+                src={image}
+                alt={p.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
 
-            <h3 className="font-semibold">{name}</h3>
-            <p className="text-sm text-gray-500">{designation}</p>
+            <h3 className="font-semibold">{p.name}</h3>
+            <p className="text-sm text-gray-500">
+              {p.designation}
+            </p>
           </div>
         );
       })}
@@ -136,42 +178,66 @@ const DepartmentPeople = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-20">
-      <h1 className="text-4xl font-bold mb-16 text-center">
+      <h1 className="text-4xl font-bold mb-12 text-center">
         People
       </h1>
 
-      {/* Faculty */}
-      <section id="faculty" className="mb-24 scroll-mt-32">
-        <h2 className="text-2xl font-semibold mb-8">
+      {/* 🔥 TABS */}
+      <div className="flex justify-center mb-12 gap-4 flex-wrap">
+        <button
+          onClick={() => setActiveTab("faculty")}
+          className={`px-6 py-2 rounded-full ${
+            activeTab === "faculty"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200"
+          }`}
+        >
           Faculty
-        </h2>
+        </button>
 
-        {loadingFaculty ? (
-          <p className="text-gray-500">Loading faculty...</p>
-        ) : faculty.length === 0 ? (
-          <p className="text-gray-500">No faculty found</p>
+        <button
+          onClick={() => setActiveTab("technical")}
+          className={`px-6 py-2 rounded-full ${
+            activeTab === "technical"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200"
+          }`}
+        >
+          Technical Staff
+        </button>
+
+        <button
+          onClick={() => setActiveTab("supporting")}
+          className={`px-6 py-2 rounded-full ${
+            activeTab === "supporting"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200"
+          }`}
+        >
+          Supporting Staff
+        </button>
+      </div>
+
+      {/* 🔥 CONTENT */}
+      {loading ? (
+        <p className="text-center text-gray-500">
+          Loading...
+        </p>
+      ) : activeTab === "faculty" ? (
+        faculty.length === 0 ? (
+          <p className="text-center text-gray-500">
+            No faculty found
+          </p>
         ) : (
           renderCards(faculty, "faculty")
-        )}
-      </section>
-
-      {/* Staff */}
-      <section id="staff" className="mb-24 scroll-mt-32">
-        <h2 className="text-2xl font-semibold mb-8">
-          Staff
-        </h2>
-
-        {renderCards(people.staff)}
-      </section>
-
-      {/* Students */}
-      <section id="students" className="scroll-mt-32">
-        <h2 className="text-2xl font-semibold mb-8">
-          Students
-        </h2>
-
-        {renderCards(people.students)}
-      </section>
+        )
+      ) : staff.length === 0 ? (
+        <p className="text-center text-gray-500">
+          No {activeTab} staff found
+        </p>
+      ) : (
+        renderCards(staff, "staff")
+      )}
     </div>
   );
 };

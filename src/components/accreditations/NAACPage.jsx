@@ -1,0 +1,171 @@
+import React, { useEffect, useState } from 'react';
+
+const NAACPage = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeId, setActiveId] = useState('');
+
+  useEffect(() => {
+    fetch('/data/naac.json')
+      .then((r) => r.json())
+      .then((d) => {
+        setData(d);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        setError(e);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (data && data.sections.length > 0) {
+      setActiveId(slugify(data.sections[0].title));
+    }
+  }, [data]);
+
+  const handleClick = (id) => {
+    setActiveId(id);
+  };
+
+  const slugify = (text) =>
+    text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-on-surface">
+        Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen text-error">
+        Failed to load data
+      </div>
+    );
+  }
+
+  const { sections } = data;
+  const ids = sections.map((sec) => slugify(sec.title));
+
+  const activeSection = sections.find(
+    (sec, idx) => ids[idx] === activeId
+  );
+
+  return (
+    <div className="bg-surface text-on-surface min-h-screen px-6 py-10">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-[280px_1fr] gap-10">
+
+        {/* ================= SIDEBAR ================= */}
+        <aside className="sticky top-24 h-fit">
+          <div className="bg-surface-container rounded-2xl p-3 shadow-sm border border-outline-variant/10">
+
+            <p className="text-xs font-bold text-surface-tint px-3 mb-3">
+              NAAC Sections
+            </p>
+
+            <nav className="space-y-1">
+              {sections.map((sec, idx) => {
+                const id = ids[idx];
+                const active = activeId === id;
+
+                return (
+                  <button
+                    key={id}
+                    onClick={() => handleClick(id)}
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
+                      
+                      ${active
+                        ? 'bg-primary-container text-white shadow-md'
+                        : 'text-on-surface-variant hover:bg-surface-container-high'
+                      }
+                    `}
+                  >
+                    <span className="truncate">{sec.title}</span>
+
+                    <span
+                      className={`material-symbols-outlined text-sm transition ${
+                        active ? 'opacity-100' : 'opacity-40'
+                      }`}
+                    >
+                      chevron_right
+                    </span>
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+        </aside>
+
+        {/* ================= MAIN ================= */}
+        <main>
+
+          {/* HERO */}
+          <section className="mb-10">
+            <span className="inline-block bg-tertiary-container text-on-tertiary-container text-[10px] px-3 py-1 rounded-full font-bold tracking-widest uppercase mb-3">
+              Quality Assurance
+            </span>
+
+            <h1 className="text-4xl font-extrabold font-headline text-primary tracking-tight">
+              Excellence through Accreditation
+            </h1>
+
+            <p className="text-on-surface-variant mt-4 max-w-2xl text-sm leading-relaxed">
+              Our institution has undergone rigorous evaluation by NAAC,
+              ensuring high standards of academic excellence and continuous improvement.
+            </p>
+          </section>
+
+          {/* ACTIVE SECTION */}
+          {activeSection && (
+            <section className="animate-fadeIn">
+              <h2 className="text-2xl font-bold font-headline text-primary mb-6">
+                {activeSection.title}
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {activeSection.items.map((item, i) => (
+                  <div
+                    key={i}
+                    className="bg-surface-container-lowest border border-outline-variant/10 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all"
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-sm font-semibold text-primary leading-snug">
+                        {item.name}
+                      </h3>
+
+                      <span className="material-symbols-outlined text-surface-tint text-lg">
+                        description
+                      </span>
+                    </div>
+
+                    <button
+  onClick={() => window.open(item.file, '_blank')}
+  className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl 
+             bg-blue-950 text-white text-sm font-semibold
+             transition-all duration-200
+             hover:bg-blue-900 hover:shadow-md
+             active:scale-95"
+>
+  View
+  <span className="material-symbols-outlined text-base">
+    arrow_forward
+  </span>
+</button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default NAACPage;

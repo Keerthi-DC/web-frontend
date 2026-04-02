@@ -1,453 +1,269 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import PropTypes from "prop-types";
-import StatCard from "../components/ui/StatCard";
+import React, { useEffect, useState } from "react";
+import { FaUniversity, FaUserTie, FaBuilding } from "react-icons/fa";
 
-const FacultyPage = () => {
+const API_ENDPOINT = import.meta.env.VITE_APPSYNC_URL;
+const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
-  const location = useLocation();
-
-  const [faculty, setFaculty] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [deptFilter, setDeptFilter] = useState("All");
-  const [designationFilter, setDesignationFilter] = useState("All");
-  const [selectedFaculty, setSelectedFaculty] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  /* ---------------------------
-     Read department query param
-  --------------------------- */
-
-  useEffect(() => {
-
-    const params = new URLSearchParams(location.search);
-    const dept = params.get("department");
-
-    if (dept && dept !== "undefined" && dept !== "null") {
-      setDeptFilter(dept);
-    } else {
-      setDeptFilter("All");
-    }
-
-  }, [location]);
-
-  /* ---------------------------
-     Fetch faculty from AppSync
-  --------------------------- */
-
-  useEffect(() => {
-
-    const fetchFaculty = async () => {
-
-      try {
-
-        const response = await fetch(
-          "https://gh6gat7bdrg2ditrfb2b7zsiqe.appsync-api.ap-south-1.amazonaws.com/graphql",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": "da2-pmh5ou3irbgntczk43qj4r6aum"
-            },
-            body: JSON.stringify({
-              query: `
-                query {
-                  listFaculty {
-                    id
-                    name
-                    photo
-                    department
-                    designation
-                    education
-                    experience
-                    linkedin
-                    research
-                    subjects
-                    cv
-                  }
-                }
-              `
-            })
-          }
-        );
-
-        const result = await response.json();
-
-        console.log("GraphQL response:", result);
-
-        if (result.data?.listFaculty?.items) {
-          setFaculty(result.data.listFaculty.items);
-        }
-        else if (Array.isArray(result.data?.listFaculty)) {
-          setFaculty(result.data.listFaculty);
-        }
-
-        setLoading(false);
-
-      } catch (error) {
-
-        console.error("GraphQL error:", error);
-        setLoading(false);
-
+const LIST_DEPARTMENTS_QUERY = `
+  query ListDepartments {
+    listDepartments {
+      items {
+        departmentId
+        name
+        shortName
       }
+    }
+  }
+`;
 
+const LIST_FACULTY_QUERY = `
+  query ListFaculty($deptId: ID, $tenantId: ID) {
+    listFaculty(deptId: $deptId, tenantId: $tenantId) {
+      items {
+        facultyId
+        name
+        designation
+        profileImage
+        cvUrl
+        status
+        deptId
+      }
+    }
+  }
+`;
+
+export default function FacultyPage() {
+  const [departments, setDepartments] = useState([]);
+  const [faculty, setFaculty] = useState([]);
+  const [selectedDept, setSelectedDept] = useState("");
+  const [view, setView] = useState("grid");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const tenantId = "biet-college";
+
+  // 🔥 Fetch Departments
+  const fetchDepartments = async () => {
+    const res = await fetch(API_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": API_KEY,
+      },
+      body: JSON.stringify({ query: LIST_DEPARTMENTS_QUERY }),
+    });
+
+    const data = await res.json();
+    setDepartments(data?.data?.listDepartments?.items || []);
+  };
+
+  // 🔥 Fetch Faculty
+  const fetchFaculty = async (deptId = null) => {
+    const variables = { deptId: deptId || null, tenantId };
+
+    const res = await fetch(API_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": API_KEY,
+      },
+      body: JSON.stringify({
+        query: LIST_FACULTY_QUERY,
+        variables,
+      }),
+    });
+
+    const data = await res.json();
+    setFaculty(data?.data?.listFaculty?.items || []);
+  };
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        setLoading(true);
+        await fetchDepartments();
+        await fetchFaculty();
+      } catch (e) {
+        console.error(e);
+        setError("Failed to load data");
+      } finally {
+        setLoading(false);
+      }
     };
-
-    fetchFaculty();
-
+    init();
   }, []);
 
-  /* ---------------------------
-     Unique departments
-  --------------------------- */
+  // 🔥 Filter logic
+  const filteredFaculty = selectedDept
+    ? faculty.filter((f) => f.departmentId === selectedDept)
+    : faculty;
 
-  const departments = useMemo(() => {
-
-    const set = new Set();
-
-    faculty.forEach((f) => {
-      if (f.department) set.add(f.department);
-    });
-
-    return Array.from(set).sort();
-
-  }, [faculty]);
-
-  /* ---------------------------
-     Filtering
-  --------------------------- */
-
-  const filteredFaculty = useMemo(() => {
-
-    return faculty.filter((f) => {
-
-      const matchesSearch = (f.name || "")
-        .toLowerCase()
-        .includes(search.toLowerCase());
-
-      const matchesDept =
-        deptFilter === "All" ||
-        (f.department || "") === deptFilter;
-
-      const matchesDesignation =
-        designationFilter === "All" ||
-        (f.designation || "") === designationFilter;
-
-      return matchesSearch && matchesDept && matchesDesignation;
-
-    });
-
-  }, [faculty, search, deptFilter, designationFilter]);
-
-  /* ---------------------------
-     Stats
-  --------------------------- */
-
-  const stats = useMemo(() => {
-
-    const total = faculty.length;
-
-    const deptCount =
-      new Set(
-        faculty
-          .map((f) => f.department)
-          .filter(Boolean)
-      ).size;
-
-    const professors =
-      faculty.filter((f) =>
-        (f.designation || "").includes("Professor")
-      ).length;
-
-    const staff =
-      faculty.filter(
-        (f) => (f.designation || "") === "Staff / Peon"
-      ).length;
-
-    return { total, deptCount, professors, staff };
-
-  }, [faculty]);
-
-  /* ---------------------------
-     Modal Controls
-  --------------------------- */
-
-  const openModal = (faculty) => {
-    setSelectedFaculty(faculty);
-    setModalOpen(true);
+  // 🔥 Grouping logic
+  const grouped = {
+    principal: [],
+    hods: [],
+    associate: [],
+    assistant: [],
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
-    setSelectedFaculty(null);
+  filteredFaculty.forEach((f) => {
+    const role = f.designation?.toLowerCase() || "";
+
+    if (role.includes("principal")) grouped.principal.push(f);
+    else if (role.includes("hod")) grouped.hods.push(f);
+    else if (role.includes("associate")) grouped.associate.push(f);
+    else grouped.assistant.push(f);
+  });
+
+  // 🔥 Icons mapping
+  const sectionIcons = {
+    Principal: <FaUniversity className="text-blue-600" />,
+    "Heads of Department": <FaBuilding className="text-gray-600" />,
+    "Associate Professors": <FaUserTie className="text-gray-600" />,
+    "Assistant Professors": <FaUserTie className="text-gray-500" />,
   };
 
-  const designationOptions = [
-    "Assistant Professor",
-    "Associate Professor",
-    "HOD",
-    "Dean",
-    "Principal",
-    "Staff / Peon"
-  ];
+  // 🔥 Card UI
+  const renderCard = (f) => (
+    <div
+      key={f.facultyId}
+      className="flex flex-col items-center bg-white rounded-md shadow-sm p-4 hover:shadow-md transition"
+    >
+      <img
+        src={f.profileImage}
+        alt={f.name}
+        className="w-24 h-24 rounded-full object-cover mb-3"
+      />
+      <h3 className="text-lg font-semibold text-gray-800">{f.name}</h3>
+      <p className="text-sm text-gray-600">{f.designation}</p>
+      <a
+        href={f.cvUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 text-sm mt-2 hover:underline"
+      >
+        View CV
+      </a>
+    </div>
+  );
 
-  /* ---------------------------
-     Loading Screen
-  --------------------------- */
+  // 🔥 GRID VIEW
+  const renderGrid = () => {
+    const sections = [
+      { title: "Principal", items: grouped.principal, highlight: true },
+      { title: "Heads of Department", items: grouped.hods },
+      { title: "Associate Professors", items: grouped.associate },
+      { title: "Assistant Professors", items: grouped.assistant },
+    ];
 
-  if (loading) {
     return (
-      <div className="p-6 flex justify-center items-center">
-        <div className="animate-pulse text-gray-500">
-          Loading Faculty Directory...
+      <div className="space-y-8">
+        {sections.map((s) => (
+          <div key={s.title}>
+            <h4
+              className={`flex items-center gap-2 font-semibold border-b pb-1 ${
+                s.highlight
+                  ? "text-blue-600 border-blue-200"
+                  : "text-gray-700 border-gray-200"
+              }`}
+            >
+              {sectionIcons[s.title]}
+              {s.title}
+            </h4>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
+              {s.items.length > 0 ? (
+                s.items.map(renderCard)
+              ) : (
+                <p className="text-gray-500">
+                  No {s.title.toLowerCase()}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  // 🔥 HIERARCHY VIEW (simple version)
+  const renderHierarchy = () => {
+    const renderNode = (f) => (
+      <div key={f.facultyId} className="text-center">
+        <div className="bg-white shadow px-4 py-2 rounded-full inline-block">
+          {f.name}
         </div>
       </div>
     );
-  }
+
+    return (
+      <div className="flex flex-col items-center space-y-6">
+        {grouped.principal.length > 0 && renderNode(grouped.principal[0])}
+
+        {grouped.hods.length > 0 && (
+          <div className="flex gap-6 flex-wrap justify-center">
+            {grouped.hods.map(renderNode)}
+          </div>
+        )}
+
+        {grouped.associate.length > 0 && (
+          <div className="flex gap-6 flex-wrap justify-center">
+            {grouped.associate.map(renderNode)}
+          </div>
+        )}
+
+        {grouped.assistant.length > 0 && (
+          <div className="flex gap-6 flex-wrap justify-center">
+            {grouped.assistant.map(renderNode)}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
+    <div className="container mx-auto py-8 px-4">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+        <h1 className="text-3xl font-semibold text-gray-900">
+          Faculty Directory
+        </h1>
 
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="container mx-auto py-6 px-4"
-    >
-
-      <h1 className="text-3xl font-semibold mb-4">
-        Faculty
-      </h1>
-
-      {/* Stats */}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-
-        <StatCard title="Total Faculty" value={stats.total} />
-        <StatCard title="Departments" value={stats.deptCount} />
-        <StatCard title="Professors" value={stats.professors} />
-        <StatCard title="Staff" value={stats.staff} />
-
-      </div>
-
-      {/* Filters */}
-
-      <div className="flex flex-col sm:flex-row gap-4 mb-4">
-
-        <input
-          type="text"
-          placeholder="Search by name"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto"
-        />
-
+        {/* FILTER */}
         <select
-          value={deptFilter}
-          onChange={(e) => setDeptFilter(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2"
+          value={selectedDept}
+          onChange={(e) => setSelectedDept(e.target.value)}
+          className="border px-3 py-2 rounded mt-4 md:mt-0"
         >
-
-          <option value="All">All Departments</option>
-
+          <option value="">All Departments</option>
           {departments.map((d) => (
-            <option key={d}>{d}</option>
+            <option key={d.departmentId} value={d.departmentId}>
+              {d.name}
+            </option>
           ))}
-
         </select>
 
-        <select
-          value={designationFilter}
-          onChange={(e) => setDesignationFilter(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2"
-        >
-
-          <option value="All">All Designations</option>
-
-          {designationOptions.map((d) => (
-            <option key={d}>{d}</option>
-          ))}
-
-        </select>
-
-      </div>
-
-      {/* Desktop Table */}
-
-      <div className="hidden md:block">
-
-        <table className="min-w-full divide-y divide-gray-200">
-
-          <thead>
-            <tr>
-              <th className="px-6 py-3">Photo</th>
-              <th className="px-6 py-3">Name</th>
-              <th className="px-6 py-3">Department</th>
-              <th className="px-6 py-3">Designation</th>
-              <th className="px-6 py-3">Education</th>
-              <th className="px-6 py-3">Experience</th>
-              <th className="px-6 py-3">LinkedIn</th>
-              <th className="px-6 py-3">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody className="bg-white divide-y divide-gray-200">
-
-            {filteredFaculty.map((f) => (
-
-              <motion.tr
-                key={f.id}
-                whileHover={{
-                  y: -2,
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
-                }}
-              >
-
-                <td className="px-6 py-4">
-                  <img
-                    src={f.photo}
-                    alt={f.name}
-                    className="w-12 h-12 rounded-full"
-                  />
-                </td>
-
-                <td className="px-6 py-4">{f.name}</td>
-                <td className="px-6 py-4">{f.department}</td>
-                <td className="px-6 py-4">{f.designation}</td>
-                <td className="px-6 py-4">{f.education}</td>
-                <td className="px-6 py-4">{f.experience}</td>
-
-                <td className="px-6 py-4">
-                  <a href={f.linkedin} target="_blank">
-                    LinkedIn
-                  </a>
-                </td>
-
-                <td className="px-6 py-4">
-
-                  <button
-                    onClick={() => openModal(f)}
-                    className="px-4 py-1 bg-indigo-600 text-white rounded"
-                  >
-                    Read More
-                  </button>
-
-                </td>
-
-              </motion.tr>
-
-            ))}
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-      {/* Mobile View */}
-
-      <div className="md:hidden grid grid-cols-1 gap-4">
-
-        {filteredFaculty.map((f) => (
-
-          <div
-            key={f.id}
-            className="border rounded-lg p-4 flex items-center space-x-4"
-          >
-
-            <img
-              src={f.photo}
-              alt={f.name}
-              className="w-16 h-16 rounded-full"
-            />
-
-            <div className="flex-1">
-
-              <h3 className="text-lg font-semibold">
-                {f.name}
-              </h3>
-
-              <p className="text-sm text-gray-600">
-                {f.department} – {f.designation}
-              </p>
-
-              <button
-                onClick={() => openModal(f)}
-                className="text-indigo-600 mt-2"
-              >
-                Read More
-              </button>
-
-            </div>
-
-          </div>
-
-        ))}
-
-      </div>
-
-      {modalOpen && selectedFaculty && (
-        <Modal faculty={selectedFaculty} onClose={closeModal} />
-      )}
-
-    </motion.div>
-
-  );
-
-};
-
-/* ---------------------------
-   Modal Component
---------------------------- */
-
-const Modal = ({ faculty, onClose }) => (
-
-  <motion.div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-
-    <div className="bg-white p-6 rounded-lg shadow-xl w-11/12 md:w-2/3">
-
-      <button
-        onClick={onClose}
-        className="float-right text-gray-600"
-      >
-        ✕
-      </button>
-
-      <div className="flex flex-col md:flex-row gap-4">
-
-        <img
-          src={faculty.photo}
-          alt={faculty.name}
-          className="w-32 h-32 rounded-full"
-        />
-
-        <div>
-
-          <h2 className="text-2xl font-semibold">
-            {faculty.name}
-          </h2>
-
-          <p><strong>Department:</strong> {faculty.department}</p>
-          <p><strong>Designation:</strong> {faculty.designation}</p>
-          <p><strong>Education:</strong> {faculty.education}</p>
-          <p><strong>Experience:</strong> {faculty.experience}</p>
-          <p><strong>Research:</strong> {faculty.research}</p>
-          <p><strong>Subjects:</strong> {faculty.subjects}</p>
-
+        {/* TOGGLE */}
+        <div className="flex items-center gap-2 mt-4 md:mt-0">
+          <span>Grid</span>
+          <input
+            type="checkbox"
+            checked={view === "hierarchy"}
+            onChange={(e) =>
+              setView(e.target.checked ? "hierarchy" : "grid")
+            }
+          />
+          <span>Hierarchy</span>
         </div>
-
       </div>
 
+      {/* STATES */}
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {!loading && !error && (
+        <div>{view === "grid" ? renderGrid() : renderHierarchy()}</div>
+      )}
     </div>
-
-  </motion.div>
-
-);
-
-Modal.propTypes = {
-  faculty: PropTypes.object,
-  onClose: PropTypes.func
-};
-
-export default FacultyPage;
+  );
+}

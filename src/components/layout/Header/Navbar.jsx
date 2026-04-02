@@ -6,7 +6,6 @@ import logo from "../../../../assets/BIET_logo.png";
 const Navbar = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
 
   useEffect(() => {
     fetch("/data/navbar.json")
@@ -14,69 +13,146 @@ const Navbar = () => {
       .then((data) => setMenuItems(data.menu));
   }, []);
 
-  const toggleMobileMenu = () => setMobileOpen(!mobileOpen);
-  const toggleDropdown = (index) =>
-    setOpenDropdownIndex(openDropdownIndex === index ? null : index);
+  // ICON MAP
+  const iconMap = {
+    Academics: "school",
+    Admissions: "auto_stories",
+    Accreditations: "verified",
+    "Campus Life": "park",
+    About: "info",
+    Research: "science",
+    "News & Events": "newspaper",
+  };
 
   return (
     <header className="sticky top-0 z-50">
+      {/* TOP BAR */}
       <TopBar />
 
-      <nav className="w-full bg-[#0a2a66] text-white py-3 px-6 lg:px-12 flex items-center justify-between">
+      {/* MAIN NAVBAR */}
+      <nav className="bg-white/90 backdrop-blur-xl shadow-sm border-b">
+        <div className="w-full px-6 py-4 flex items-center">
+          
+          {/* LEFT: LOGO */}
+          <div className="flex items-center gap-4">
+            <Link to="/">
+             <div className="h-16 w-16 rounded-full overflow-hidden border border-gray-200 shadow-md flex items-center justify-center bg-white">
+              <img
+                src={logo}
+                alt="College Logo"
+                className="h-full w-full object-contain"
+              />
+            </div>
+            </Link>
 
-        {/* Logo */}
-        <div className="flex items-center space-x-4">
-          <Link to="/">
-            <img src={logo} alt="College Logo" className="h-16 w-auto animate-float" />
-          </Link>
+            <div className="leading-tight">
+              <h1 className="text-lg font-extrabold text-[#001430] tracking-wide">
+                Bapuji Institute of
+              </h1>
+              <h1 className="text-sm font-extrabold text-[#001430] tracking-wide">
+                Engineering & Technology
+              </h1>
+            </div>
+          </div>
 
-          <div className="text-left">
-            <div className="font-semibold text-lg">Bapuji Institute of</div>
-            <div className="text-lg"> Engineering &Technology</div>
-            <div className="text-xs">Autonomous Institute</div>
+          {/* CENTER: MENU */}
+          <div className="hidden md:flex flex-1 justify-evenly items-center">
+            {menuItems.map((item) => (
+              <div key={item.label} className="relative group">
+                
+                <NavLink
+                  to={item.path || "#"}
+                  end
+                  className={({ isActive }) =>
+  `flex items-center gap-2 text-sm font-semibold transition-all ${
+    isActive
+      ? "text-[#001430]"   // only color
+      : "text-gray-500 hover:text-blue-700"
+  }`
+}
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    {iconMap[item.label]}
+                  </span>
+
+                  {item.label}
+                </NavLink>
+
+                {/* DROPDOWN */}
+                {item.dropdown && (
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-64 bg-white rounded-2xl shadow-xl 
+                  opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+                  transition-all duration-200 overflow-hidden z-50">
+
+                    {item.dropdown.map((sub) => (
+                      <NavLink
+                        key={sub.label}
+                        to={sub.path}
+                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100 transition"
+                      >
+                        <span className="material-symbols-outlined text-[16px] text-gray-400">
+                          arrow_right
+                        </span>
+
+                        {sub.label}
+                      </NavLink>
+                    ))}
+
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* RIGHT: ICONS */}
+          <div className="flex items-center gap-3">
+          
+
+            {/* MOBILE MENU BUTTON */}
+            <button
+              className="md:hidden p-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              <span className="material-symbols-outlined">menu</span>
+            </button>
           </div>
         </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8">
+        {/* MOBILE MENU */}
+        {mobileOpen && (
+          <div className="md:hidden bg-white px-6 pb-4 space-y-2 border-t">
+            {menuItems.map((item) => (
+              <div key={item.label}>
+                <NavLink
+                  to={item.path || "#"}
+                  end
+                  className="flex items-center gap-2 py-3 text-gray-800 font-medium"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    {iconMap[item.label]}
+                  </span>
 
-          {menuItems.map((item, idx) => (
-            <div key={item.label} className="relative group">
+                  {item.label}
+                </NavLink>
 
-              <NavLink
-                to={"#"}
-                className="hover:text-yellow-300 transition"
-              >
-                {item.label}
-              </NavLink>
-
-              {item.dropdown && (
-                <div className="absolute left-0 top-full mt-2 w-64 bg-white text-gray-800 rounded-lg shadow-lg 
-                opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                transition-all duration-200">
-
-                  {item.dropdown.map((sub) => (
+                {item.dropdown &&
+                  item.dropdown.map((sub) => (
                     <NavLink
                       key={sub.label}
                       to={sub.path}
-                      className="block px-5 py-3 text-sm hover:bg-blue-50"
+                      className="flex items-center gap-2 pl-6 py-2 text-sm text-gray-500"
                     >
+                      <span className="material-symbols-outlined text-[14px]">
+                        arrow_right
+                      </span>
+
                       {sub.label}
                     </NavLink>
                   ))}
-
-                </div>
-              )}
-            </div>
-          ))}
-
-        </div>
-
-        {/* Mobile Button */}
-        <button className="md:hidden" onClick={toggleMobileMenu}>
-          ☰
-        </button>
-
+              </div>
+            ))}
+          </div>
+        )}
       </nav>
     </header>
   );

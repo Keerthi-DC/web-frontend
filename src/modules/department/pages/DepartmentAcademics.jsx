@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import CoursesPage from "./CoursesPage";
 import TimetablePage from "./TimetablePage";
 import MaterialsPage from "./MaterialsPage";
-import TeachingPage from "./TeachingPage";
+import InnovativeTeachingPage from "./InnovativeTeachingPage";
 import ResultsPage from "./ResultsPage";
 
 export default function DepartmentAcademics() {
@@ -13,7 +13,7 @@ export default function DepartmentAcademics() {
         <Route path="courses" element={<CoursesPage />} />
         <Route path="timetable" element={<TimetablePage />} />
         <Route path="materials" element={<MaterialsPage />} />
-        <Route path="teaching" element={<TeachingPage />} />
+        <Route path="teaching" element={<InnovativeTeachingPage />} />
         <Route path="results" element={<ResultsPage />} />
         <Route path="*" element={<Navigate replace to="courses" />} />
       </Routes>

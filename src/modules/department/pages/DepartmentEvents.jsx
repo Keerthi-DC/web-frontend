@@ -1,22 +1,17 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import EventCard from "../../../components/common/EventCard";
-import { useDepartmentMeta } from "../../../hooks/useDepartmentMeta";
 import { useAppSync } from "../../../hooks/useAppSync";
 import { LIST_EVENTS } from "../../../graphql/department/events";
 
 const DepartmentEvents = () => {
   const { shortName } = useParams();
-  const { getId, isReady } = useDepartmentMeta();
 
-  const deptId = isReady ? getId(shortName) : null;
-
-  // ✅ Fetch events
   const { data, loading, error } = useAppSync(
     LIST_EVENTS,
-    deptId
+    shortName
       ? {
-          department: shortName,   // 🔥 use shortName for this API
+          department: shortName,
           status: "upcoming",
           approvalStatus: "approved",
           limit: 100,
@@ -25,21 +20,38 @@ const DepartmentEvents = () => {
       : null
   );
 
-  if (loading) return <div className="p-8 text-center">Loading…</div>;
-  if (error) return <div className="p-8 text-red-500">{error.message}</div>;
+  console.log("shortName:", shortName);
+  console.log("EVENT DATA:", data);
+  console.log("ERROR:", error);
 
-  // ✅ Filter (safe)
-  const events =
-    data?.listEvents?.items?.filter(
-      (e) =>
-        e.department?.toLowerCase() === shortName?.toLowerCase()
-    ) || [];
+  if (loading)
+    return <div className="p-8 text-center">Loading…</div>;
 
-  if (!events.length)
-    return <div className="p-8 text-center">No events available.</div>;
+  if (error)
+    return (
+      <div className="p-8 text-red-500">
+        Error loading events
+      </div>
+    );
+
+  const events = data?.listEvents?.items ?? [];
+
+  // ✅ Sort by nearest event
+  const sortedEvents = events.sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  if (!sortedEvents.length)
+    return (
+      <div className="p-8 text-center">
+        No events available.
+      </div>
+    );
 
   return (
     <section className="h-full flex flex-col">
+
+      {/* HEADER */}
       <div className="relative mb-8">
         <div className="inline-flex items-center gap-4 px-5 py-3 rounded-xl bg-white/60 backdrop-blur-md shadow-lg border border-white/40">
           <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-lg">
@@ -56,12 +68,14 @@ const DepartmentEvents = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {events.map((e) => (
-          <EventCard key={e.eventId || e.id} event={e} />
+      {/* EVENTS GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 m-4 p-4">
+        {sortedEvents.map((e) => (
+          <EventCard key={e.eventId} event={e} />
         ))}
       </div>
 
+      {/* VIEW ALL */}
       <div className="mt-3 pt-2 border-t text-center">
         <Link
           to="/events"
@@ -70,6 +84,7 @@ const DepartmentEvents = () => {
           View All Events
         </Link>
       </div>
+
     </section>
   );
 };

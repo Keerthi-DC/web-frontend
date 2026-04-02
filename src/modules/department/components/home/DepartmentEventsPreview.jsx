@@ -27,10 +27,6 @@ const DepartmentEventsPreview = ({ deptId = "cse" }) => {
 
   const items = data?.listEvents?.items ?? [];
 
-  // ✅ NO DATE FILTER — take all events
-  const allEvents = items;
-
-  // ✅ Robust pinned check (handles all formats)
   const isPinned = (val) => {
     if (val === true || val === 1 || val === "1") return true;
     if (typeof val === "string") {
@@ -39,13 +35,8 @@ const DepartmentEventsPreview = ({ deptId = "cse" }) => {
     return false;
   };
 
-  const pinnedEvents = allEvents.filter((e) => isPinned(e.pinned));
-  const normalEvents = allEvents.filter((e) => !isPinned(e.pinned));
-
-  // 🔍 Debug (remove later if not needed)
-  console.log("ALL EVENTS:", items);
-  console.log("PINNED:", pinnedEvents);
-  console.log("NORMAL:", normalEvents);
+  const pinnedEvents = items.filter((e) => isPinned(e.pinned));
+  const normalEvents = items.filter((e) => !isPinned(e.pinned));
 
   if (!pinnedEvents.length && !normalEvents.length) {
     return (
@@ -56,56 +47,65 @@ const DepartmentEventsPreview = ({ deptId = "cse" }) => {
   }
 
   return (
-    <div className="h-full flex flex-col overflow-hidden">
+    <div className="events-card">
+
+      {/* HEADER */}
+      <div className="events-header">
+        <h3>Upcoming Events 🗓️</h3>
+      </div>
 
       {/* 📌 PINNED EVENTS */}
       {pinnedEvents.length > 0 && (
-        <div className="flex-shrink-0 px-2 py-2 border-b bg-white">
+        <div className="pinned-section">
           {pinnedEvents.map((event, i) => (
-            <div
-              key={event.eventId || i}
-              className="flex gap-2 bg-yellow-100 border-l-4 border-yellow-500 p-2 mb-2 rounded"
-            >
-              <span className="text-base">📌</span>
-
-              <div className="text-sm">
-                <p className="font-semibold text-gray-800">
-                  {event.title}
-                </p>
-                <p className="text-xs text-gray-600">
-                  {event.date} | {event.time}
-                </p>
-                <p className="text-xs text-gray-500">
-                  {event.venue}
-                </p>
-              </div>
-            </div>
+            <EventItem key={event.eventId || i} event={event} pinned />
           ))}
         </div>
       )}
 
       {/* 🔁 SCROLLING EVENTS */}
-      <div className="flex-1 overflow-hidden relative">
-        <div className="absolute w-full animate-scrollEvents flex flex-col gap-3 px-2">
+      <div className="scroll-container">
+        <div className="scroll-track">
 
           {[...normalEvents, ...normalEvents].map((event, i) => (
-            <div
-              key={`${event.eventId || "event"}-${i}`}
-              className="p-2 border-b hover:bg-gray-50 transition"
-            >
-              <p className="font-medium text-sm text-gray-800">
-                {event.title}
-              </p>
-              <p className="text-xs text-gray-600">
-                {event.date} | {event.time}
-              </p>
-              <p className="text-xs text-gray-500">
-                {event.venue}
-              </p>
-            </div>
+            <EventItem key={`${event.eventId || i}-${i}`} event={event} />
           ))}
 
         </div>
+      </div>
+
+      {/* BUTTON */}
+      <div className="p-3 border-t bg-white">
+              <a
+                href={`/departments/${data?.id || "cse"}/events`}
+                className="w-full inline-flex justify-center items-center px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700"
+              >
+                View All Events →
+              </a>
+            </div>
+    </div>
+  );
+};
+
+const EventItem = ({ event, pinned }) => {
+  const dateObj = new Date(event.date);
+
+  const day = dateObj.getDate();
+  const month = dateObj.toLocaleString("en-US", { month: "short" });
+
+  return (
+    <div className={`event-item ${pinned ? "pinned" : ""}`}>
+
+      <div className="date-box">
+        <span className="day">{day}</span>
+        <span className="month">{month}</span>
+      </div>
+
+      <div className="event-content">
+        <p className="event-title">{event.title}</p>
+        <p className="event-meta">
+          {event.time} • {event.venue}
+        </p>
       </div>
 
     </div>

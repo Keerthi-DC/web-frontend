@@ -26,8 +26,8 @@ const DepartmentAchievements = () => {
   const [facultyAchievements, setFacultyAchievements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
+  const [activeTab, setActiveTab] = useState("student");
 
-  // ✅ Fetch function
   const fetchAchievements = async (type, deptId) => {
     try {
       const res = await fetch(API_URL, {
@@ -47,16 +47,9 @@ const DepartmentAchievements = () => {
       });
 
       const result = await res.json();
-      console.log(`🔥 ${type} response:`, result);
-
-      if (result.errors) {
-        console.error(result.errors);
-        return [];
-      }
-
       return result.data?.listAchievements?.items || [];
     } catch (err) {
-      console.error("FETCH ERROR:", err);
+      console.error(err);
       return [];
     }
   };
@@ -65,102 +58,162 @@ const DepartmentAchievements = () => {
     if (!shortName || !isReady) return;
 
     const loadData = async () => {
-      setLoading(true);
-
-      // ✅ Resolve deptId dynamically
       const deptId = getId(shortName);
-      console.log("Resolved deptId:", deptId);
-
-      if (!deptId) {
-        setLoading(false);
-        return;
-      }
+      if (!deptId) return;
 
       const students = await fetchAchievements("student", deptId);
       const faculty = await fetchAchievements("staff", deptId);
 
       setStudentAchievements(students);
       setFacultyAchievements(faculty);
-
       setLoading(false);
     };
 
     loadData();
   }, [shortName, isReady]);
 
-  // ✅ Loading
   if (loading) {
     return (
-      <div className="text-center py-20 text-gray-500">
+      <div className="flex items-center justify-center h-screen text-gray-500 text-lg">
         Loading achievements...
       </div>
     );
   }
 
-  // ✅ Card renderer
-  const renderCards = (items) => {
-    if (!items || items.length === 0) {
-      return <p className="text-gray-400">No data available</p>;
-    }
+  return (
+    <div className="bg-gradient-to-b from-[#f8f9fa] to-white min-h-screen font-sans text-[#1a1a1a]">
 
-    return (
-      <div className="grid md:grid-cols-3 gap-8">
-        {items.map((item, i) => (
-          <div
-            key={i}
-            onClick={() => setSelected(item)}
-            className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg transition p-5"
-          >
-            <h3 className="font-semibold text-lg mb-2">
-              Achievement #{item.achievementId}
-            </h3>
+      <main className="pt-28 pb-20 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
 
-            <p className="text-gray-600 text-sm line-clamp-3">
-              {item.text}
+        {/* HERO */}
+        <section className="mb-20 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <span className="uppercase tracking-widest text-yellow-600 font-semibold text-xs">
+              Achievements & Recognition
+            </span>
+
+            <h2 className="text-5xl md:text-6xl font-bold leading-tight text-[#0f172a]">
+              Celebrating <span className="text-yellow-600">Excellence</span>
+            </h2>
+
+            <p className="text-gray-600 max-w-md">
+              A glimpse into outstanding accomplishments of our students and faculty shaping the future.
             </p>
           </div>
-        ))}
+
+          <div className="rounded-2xl overflow-hidden shadow-xl">
+           <img
+  src="https://images.unsplash.com/photo-1523580494863-6f3031224c94"
+  className="w-full h-[320px] object-cover"
+/>
+          </div>
+        </section>
+
+        {/* TAB SWITCH */}
+        <div className="flex justify-center mb-16">
+          <div className="bg-gray-100 rounded-full p-1 flex gap-1 shadow-inner">
+            {["student", "faculty"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  activeTab === tab
+                    ? "bg-white shadow text-[#0f172a]"
+                    : "text-gray-500 hover:text-black"
+                }`}
+              >
+                {tab === "student" ? "Students" : "Faculty"}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* STUDENT */}
+        {activeTab === "student" && (
+          <section className="mb-24">
+            <h3 className="text-3xl font-bold mb-10 text-[#0f172a]">
+              Student Achievements
+            </h3>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+              {studentAchievements.map((item, i) => (
+                <div
+                  key={i}
+                  onClick={() => setSelected(item)}
+                  className="group bg-white/70 backdrop-blur-lg p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
+                >
+                  <div className="h-1 w-10 bg-yellow-500 mb-4 rounded"></div>
+
+                  <p className="text-gray-700 text-sm leading-relaxed line-clamp-4">
+                    {item.text}
+                  </p>
+
+                  <div className="mt-4 text-xs text-gray-400">
+                    Click to view
+                  </div>
+                </div>
+              ))}
+
+            </div>
+          </section>
+        )}
+
+        {/* FACULTY */}
+        {activeTab === "faculty" && (
+          <section>
+            <h3 className="text-3xl font-bold mb-10 text-[#0f172a]">
+              Faculty Achievements
+            </h3>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {facultyAchievements.map((item, i) => (
+    <div
+      key={i}
+      onClick={() => setSelected(item)}
+      className="group bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
+    >
+      <div className="h-1 w-10 bg-yellow-500 mb-4 rounded"></div>
+
+      <p className="text-gray-700 text-sm italic line-clamp-4">
+        {item.text}
+      </p>
+
+      {/* 👇 ADD THIS */}
+      <div className="mt-4 text-xs text-gray-400 group-hover:text-gray-600 transition">
+        Click to view →
       </div>
-    );
-  };
+    </div>
+  ))}
+</div>
+          </section>
+        )}
+      </main>
 
-  return (
-    <div className="max-w-7xl mx-auto px-6 py-20">
-      <h1 className="text-4xl font-bold mb-16 text-center">
-        Achievements
-      </h1>
-
-      {/* Students */}
-      <section id="students" className="mb-24">
-        <h2 className="text-2xl font-semibold mb-8">
-          Student Achievements
-        </h2>
-        {renderCards(studentAchievements)}
-      </section>
-
-      {/* Faculty */}
-      <section id="faculty">
-        <h2 className="text-2xl font-semibold mb-8">
-          Faculty Achievements
-        </h2>
-        {renderCards(facultyAchievements)}
-      </section>
-
-      {/* Modal */}
+      {/* MODAL */}
       {selected && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white rounded-lg max-w-xl p-8"
+            className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fadeIn"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-2xl font-bold mb-4">
-              Achievement #{selected.achievementId}
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-black"
+            >
+              ✕
+            </button>
+
+            <h3 className="text-xl font-bold mb-4 text-[#0f172a]">
+              Achievement Details
             </h3>
 
-            <p className="text-gray-700">{selected.text}</p>
+            <p className="text-gray-600 leading-relaxed">
+              {selected.text}
+            </p>
           </div>
         </div>
       )}

@@ -1,7 +1,230 @@
-/* Sticky link styles */
-.link-sticky {
-  position: sticky;
-  bottom: 0;
-  background: linear-gradient(to top, rgba(255,255,255,0.98), rgba(255,255,255,0.7), transparent);
-  padding: 0.5rem 1rem;
+/* MAIN CARD */
+.events-card {
+  width: 340px;
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+/* HEADER */
+.events-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+  color: #1e293b;
+}
+
+/* LIST */
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* EVENT ITEM */
+.event-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.event-item:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+}
+
+/* PINNED */
+.event-item.pinned {
+  background: #fff8db;
+  border-left: 4px solid #facc15;
+}
+
+/* DATE BOX */
+.date-box {
+  width: 52px;
+  height: 52px;
+  background: #eef2ff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.day {
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.month {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #6366f1;
+}
+
+/* CONTENT */
+.event-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.event-meta {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* BUTTON */
+.view-all-btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 11px;
+  border-radius: 12px;
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
+  color: white;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.view-all-btn:hover {
+  opacity: 0.9;
+}
+/* MAIN CARD */
+.events-card {
+  width: 340px;
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* HEADER */
+.events-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+  color: #1e293b;
+}
+
+/* PINNED */
+.pinned-section {
+  margin-bottom: 10px;
+}
+
+/* EVENT ITEM */
+.event-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.event-item:hover {
+  background: #f8fafc;
+}
+
+/* PINNED STYLE */
+.event-item.pinned {
+  background: #fff8db;
+  border-left: 4px solid #facc15;
+}
+
+/* DATE BOX */
+.date-box {
+  width: 52px;
+  height: 52px;
+  background: #eef2ff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.day {
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.month {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #6366f1;
+}
+
+/* CONTENT */
+.event-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.event-meta {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* 🔁 SCROLL AREA */
+.scroll-container {
+  height: 160px;
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll-track {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: scrollUp 8s linear infinite;
+}
+
+/* SCROLL ANIMATION */
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* BUTTON */
+.view-all-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 11px;
+  border-radius: 12px;
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
+  color: white;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.view-all-btn:hover {
+  opacity: 0.9;
 }

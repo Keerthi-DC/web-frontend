@@ -154,7 +154,7 @@ const DepartmentNavbar = () => {
   return (
     <header className="w-full shadow-md sticky top-0 z-50 bg-white">
       
-      <div className="bg-[#0a2a66] text-white relative">
+      <div className="bg-white text-[#0a2a66] relative">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           
           <div className="flex items-center space-x-4">
@@ -168,19 +168,57 @@ const DepartmentNavbar = () => {
               <h2 className="text-lg font-semibold">
                 {departmentName || "Loading..."}
               </h2>
-              <p className="text-sm text-blue-200 hidden md:block">
+              <p className="text-sm text-[#0b3c5d] hidden md:block">
                 Bapuji Institute of Engineering & Technology
               </p>
             </div>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="px-3 py-1 rounded text-black text-sm focus:outline-none"
-            />
+           <div className="flex justify-center">
+  <div className="flex items-center w-[550px] bg-white rounded-full px-5 py-3 shadow-sm hover:shadow-md transition border border-gray-200">
 
+    {/* 🔍 SVG ICON (Google style) */}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      className="w-5 h-5 text-gray-500 mr-3"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m21 21-4.35-4.35M16 10a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z"
+      />
+    </svg>
+
+    {/* INPUT */}
+    <input
+      type="text"
+      placeholder="Search"
+      className="flex-grow bg-transparent outline-none text-sm text-gray-700"
+    />
+
+    {/* 🎤 OPTIONAL MIC ICON */}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      className="w-5 h-5 text-gray-500 ml-3 cursor-pointer"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 18v3m0 0h3m-3 0H9m3-3a6 6 0 0 0 6-6V7a6 6 0 1 0-12 0v5a6 6 0 0 0 6 6Z"
+      />
+    </svg>
+
+  </div>
+</div>
             <img
               src={badgeLogo}
               alt="Department Badge"
@@ -200,16 +238,10 @@ const DepartmentNavbar = () => {
           </button>
         </div>
 
-        <div className="icon-strip">
-          <div className="icon-track">
-            {[...icons, ...icons].map((src, idx) => (
-              <img key={idx} src={src} alt="icon" className="icon-item" />
-            ))}
-          </div>
-        </div>
+        
       </div>
 
-      <nav className="bg-[#001a4d] text-white text-sm flex items-center justify-end py-1 px-6">
+      <nav className="bg-[#0b3c5d] text-white text-sm flex items-center justify-end py-1 px-6">
         <div
           className={`max-w-7xl mx-auto px-4 flex flex-col md:flex-row md:items-center md:justify-center md:space-x-8 py-3 ${
             mobileOpen ? "block" : "hidden md:flex"

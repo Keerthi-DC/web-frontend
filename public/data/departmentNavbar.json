@@ -17,7 +17,7 @@
         },
         {
           "label": "Accreditation",
-          "path": "/people#accreditation"
+          "path": "/accreditation"
         }
       ]
     },
@@ -58,20 +58,17 @@
         {
           "label": "Forum Activities",
           "path": "/activities#forum"
-        },
-        {
-          "label": "Workshops & Seminars",
-          "path": "/activities#workshops"
         }
+        
       ]
     },
     {
       "label": "Alumni",
-      "path": "/departments/cse/alumni"
+      "path": "/alumni"
     },
     {
       "label": "Gallery",
-      "path": "/departments/cse/gallery"
+      "path": "/gallery"
     }
   ]
 }

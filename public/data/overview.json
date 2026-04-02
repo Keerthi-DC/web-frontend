@@ -1,0 +1,91 @@
+{
+  "hero": {
+    "title": "Bapuji Educational Association",
+    "subtitle": "A legacy of education, excellence, and service since 1958",
+    "image": "https://source.unsplash.com/1600x600/?university,campus"
+  },
+
+  "about": {
+    "title": "About the Association",
+    "description": "The Bapuji Educational Association, established in 1958, is one of the oldest and most prestigious educational institutions in Karnataka. It was founded with the vision of providing quality higher education to aspiring students. Over the years, it has expanded into a wide network of institutions covering diverse fields."
+  },
+
+  "growth": {
+    "title": "Growth & Impact",
+    "points": [
+      "Over 45 institutions under one umbrella",
+      "Courses from Nursery to Post Graduation",
+      "Engineering, Medical, Dental, Nursing & Pharmacy",
+      "A strong contribution to the development of Davangere"
+    ]
+  },
+
+  "leadership": {
+    "title": "Leadership",
+    "highlight": "Dr. Shamanur Shivashankarappa",
+    "description": "The most significant personality behind the development of the association, whose vision and leadership have shaped its success."
+  },
+
+  "anthem": {
+    "title": "BEA Anthem",
+    "lines": [
+      "We are the seekers of knowledge and wisdom",
+      "We are the torchbearers of truth and justice",
+      "We are the champions of innovation and excellence",
+      "We are the leaders of tomorrow's world",
+      "We learn from the past and shape the future",
+      "We face every challenge with courage and grace",
+      "We strive for the highest ideals and values",
+      "We are one, we are many, we are one family",
+      "We are the Bapuji Educational Association"
+    ]
+  },
+
+  "governingCouncil": [
+    {
+      "name": "Sri. Rajanahalli Ramanand",
+      "role": "President",
+      "image": "https://source.unsplash.com/300x300/?portrait,man"
+    },
+    {
+      "name": "K.A. Girijamma",
+      "role": "Vice President",
+      "image": "https://source.unsplash.com/300x300/?portrait,woman"
+    },
+    {
+      "name": "Dr. Shamanur Shivashankarappa",
+      "role": "Hon. Secretary",
+      "image": "https://source.unsplash.com/300x300/?leader"
+    },
+    {
+      "name": "Sri. S.S. Mallikarjuna",
+      "role": "Joint Secretary",
+      "image": "https://source.unsplash.com/300x300/?businessman"
+    },
+    {
+      "name": "Sri. A.S. Niranjan",
+      "role": "Treasurer",
+      "image": "https://source.unsplash.com/300x300/?person"
+    },
+    {
+      "name": "Sri. A.S. Veeranna",
+      "role": "Member",
+      "image": "https://source.unsplash.com/300x300/?executive"
+    },
+    {
+      "name": "Dr. Prabha Mallikarjuna",
+      "role": "Member",
+      "image": "https://source.unsplash.com/300x300/?indian,woman"
+    },
+    {
+      "name": "Sampanna Muthalik",
+      "role": "Member",
+      "image": "https://source.unsplash.com/300x300/?indian,man"
+    }
+  ],
+
+  "davangere": {
+    "title": "About Davangere",
+    "description": "Davangere, located on National Highway 4, is a major educational hub of Karnataka. Once known as the 'Manchester of Karnataka' for its textile industry, it is now called the 'Oxford of Karnataka' due to its educational growth. The city hosts numerous institutions catering to students from across India and abroad."
+  }
+}
