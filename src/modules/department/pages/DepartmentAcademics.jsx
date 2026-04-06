@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import CoursesPage from "./CoursesPage";
-import TimetablePage from "./TimetablePage";
+import TimetablePage from "./DepartmentTimetablePage";
 import MaterialsPage from "./MaterialsPage";
 import InnovativeTeachingPage from "./InnovativeTeachingPage";
 import ResultsPage from "./ResultsPage";

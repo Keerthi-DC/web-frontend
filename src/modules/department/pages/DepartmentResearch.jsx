@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../../hooks/useDepartmentMeta";
 import researchBg from "/assets/research-background.gif";
+import { Award, FileText, X } from "lucide-react";
 
 const TABS = [
   "profiles",
@@ -26,6 +27,7 @@ const DepartmentResearch = () => {
   const { getId, isReady } = useDepartmentMeta();
 
   const [activeTab, setActiveTab] = useState("profiles");
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const [data, setData] = useState({
     publications: [],
@@ -175,7 +177,6 @@ const DepartmentResearch = () => {
         <h1 className="relative text-4xl font-bold">Research & Development</h1>
       </div>
 
-      {/* MAIN LAYOUT */}
       <div className="max-w-7xl mx-auto px-6 py-10 flex gap-8">
 
         {/* SIDEBAR */}
@@ -220,12 +221,14 @@ const DepartmentResearch = () => {
 
                     <div className="flex gap-3 mt-6">
                       {p.googleScholarLink && (
-                        <a href={p.googleScholarLink} target="_blank" className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded"rel="noreferrer">
+                        <a href={p.googleScholarLink} target="_blank" rel="noreferrer"
+                          className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded">
                           Scholar
                         </a>
                       )}
                       {p.irinsLink && (
-                        <a href={p.irinsLink} target="_blank" className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded" rel="noreferrer">
+                        <a href={p.irinsLink} target="_blank" rel="noreferrer"
+                          className="flex-1 text-center bg-gray-100 hover:bg-blue-600 hover:text-white py-2 rounded">
                           IRINS
                         </a>
                       )}
@@ -236,16 +239,87 @@ const DepartmentResearch = () => {
             </div>
           )}
 
+          {/* GRANTS */}
           {activeTab === "grants" && (
-            <Table title="Research Grants" headers={["#", "Details"]}
-              rows={data.grants.map((g, i) => [i + 1, g.text])} />
+            <div>
+              <h2 className="text-2xl font-semibold mb-6">Research Grants</h2>
+
+              {data.grants.length === 0 ? (
+                <p className="text-gray-500">No data available</p>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {data.grants.map((g, i) => (
+                    <div
+                      key={i}
+                      onClick={() => setSelectedItem(g)}
+                      className="bg-white rounded-xl p-6 shadow hover:shadow-lg transition border-l-4 border-blue-600 cursor-pointer"
+                    >
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="flex items-center gap-2 text-blue-700">
+                          <Award size={18} />
+                          <span className="text-sm font-medium">Grant #{i + 1}</span>
+                        </div>
+
+                        <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                          Funded
+                        </span>
+                      </div>
+
+                      <p className="text-gray-700 text-sm line-clamp-3">
+                        {g.text}
+                      </p>
+
+                      <span className="text-blue-600 text-xs mt-2 inline-block">
+                        Click to read →
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
 
+          {/* PATENTS */}
           {activeTab === "patents" && (
-            <Table title="Patents" headers={["#", "Details"]}
-              rows={data.patents.map((p, i) => [i + 1, p.text])} />
+            <div>
+              <h2 className="text-2xl font-semibold mb-6">Patents</h2>
+
+              {data.patents.length === 0 ? (
+                <p className="text-gray-500">No data available</p>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {data.patents.map((p, i) => (
+                    <div
+                      key={i}
+                      onClick={() => setSelectedItem(p)}
+                      className="bg-white rounded-xl p-6 shadow hover:shadow-lg transition border-l-4 border-purple-600 cursor-pointer"
+                    >
+                      <div className="flex justify-between items-center mb-4">
+                        <div className="flex items-center gap-2 text-purple-700">
+                          <FileText size={18} />
+                          <span className="text-sm font-medium">Patent #{i + 1}</span>
+                        </div>
+
+                        <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                          Filed
+                        </span>
+                      </div>
+
+                      <p className="text-gray-700 text-sm line-clamp-3">
+                        {p.text}
+                      </p>
+
+                      <span className="text-purple-600 text-xs mt-2 inline-block">
+                        Click to read →
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
 
+          {/* REST SAME (tables untouched) */}
           {activeTab === "summaries" && (
             <Table
               title="Faculty Research Summary"
@@ -283,6 +357,28 @@ const DepartmentResearch = () => {
 
         </div>
       </div>
+
+      {/* MODAL */}
+      {selectedItem && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white max-w-2xl w-full rounded-xl p-6 shadow-xl relative">
+
+            <button
+              onClick={() => setSelectedItem(null)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-red-500"
+            >
+              <X size={22} />
+            </button>
+
+            <h3 className="text-xl font-semibold mb-4">Details</h3>
+
+            <p className="text-gray-700 leading-relaxed">
+              {selectedItem.text}
+            </p>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };
