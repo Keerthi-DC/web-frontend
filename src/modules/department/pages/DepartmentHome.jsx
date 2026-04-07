@@ -18,7 +18,10 @@ const API_URL = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
 const DepartmentHome = () => {
-  const { shortName } = useParams();
+  // ✅ FIX: map route param correctly
+  const params = useParams();
+  const shortName = params.shortName || params.id; // supports both
+
   const { getId, isReady } = useDepartmentMeta();
 
   const [deptId, setDeptId] = useState(null);
@@ -35,10 +38,8 @@ const DepartmentHome = () => {
       try {
         setLoading(true);
 
-        // ✅ Resolve deptId using hook
+        // ✅ resolve deptId from shortName
         const resolvedDeptId = getId(shortName);
-        console.log("Resolved deptId:", resolvedDeptId);
-
         if (!resolvedDeptId) {
           throw new Error("Department not found");
         }
@@ -85,7 +86,7 @@ const DepartmentHome = () => {
         );
 
         // =========================
-        // ✅ INTRO / ABOUT / SWOT
+        // ✅ INTRO
         // =========================
         let introResData = null;
 
@@ -233,10 +234,13 @@ const DepartmentHome = () => {
       <DepartmentHero data={introData.hero} />
       <DepartmentIntro data={introData} />
       <DepartmentHOD data={hod} />
-      <FacultyPreview data={faculty} slug={deptId} />
+
+      {/* ✅ FIXED HERE */}
+      <FacultyPreview data={faculty} shortName={shortName} />
+
       <ResearchPreview data={{}} />
       <PlacementStats data={{}} />
-      <AchievementsPreview/>
+      <AchievementsPreview />
       <QuickLinksPreview shortName={shortName} />
       <GalleryPreview data={{}} />
       <Footer />

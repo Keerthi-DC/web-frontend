@@ -6,7 +6,8 @@
     "prepare": "husky",
     "lint": "eslint .",
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@aws-amplify/auth": "^6.19.1",

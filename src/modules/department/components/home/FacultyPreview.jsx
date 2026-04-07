@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FacultyPreview = ({ data = [], slug }) => {
+const FacultyPreview = ({ data = [], shortName }) => {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
 
@@ -10,12 +10,7 @@ const FacultyPreview = ({ data = [], slug }) => {
     const container = scrollRef.current;
     if (!container) return;
 
-    let scrollAmount = 0;
-
     const interval = setInterval(() => {
-      if (!container) return;
-
-      scrollAmount += 1;
       container.scrollLeft += 1;
 
       // 🔁 loop back to start
@@ -24,9 +19,8 @@ const FacultyPreview = ({ data = [], slug }) => {
         container.scrollWidth
       ) {
         container.scrollLeft = 0;
-        scrollAmount = 0;
       }
-    }, 20); // speed (lower = faster)
+    }, 20);
 
     return () => clearInterval(interval);
   }, []);
@@ -44,7 +38,7 @@ const FacultyPreview = ({ data = [], slug }) => {
           </h2>
 
           <button
-            onClick={() => navigate(`/departments/${slug}/people`)}
+            onClick={() => navigate(`/departments/${shortName}/people`)}
             className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-semibold shadow-md transition"
           >
             Read More →
@@ -52,13 +46,10 @@ const FacultyPreview = ({ data = [], slug }) => {
         </div>
 
         {/* 🔥 AUTO MOVING ROW */}
-        <div
-          ref={scrollRef}
-          className="overflow-hidden"
-        >
+        <div ref={scrollRef} className="overflow-hidden">
           <div className="flex gap-6 w-max">
 
-            {/* 🔁 duplicate data for smooth infinite loop */}
+            {/* 🔁 duplicate for infinite scroll */}
             {[...data, ...data].map((p, i) => {
               const image =
                 p.profileImage ||
@@ -74,7 +65,6 @@ const FacultyPreview = ({ data = [], slug }) => {
                   }}
                   className="w-[220px] bg-white shadow rounded-lg p-6 text-center hover:shadow-lg cursor-pointer flex-shrink-0"
                 >
-                  {/* IMAGE */}
                   <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-gray-100">
                     <img
                       src={image}
@@ -83,12 +73,10 @@ const FacultyPreview = ({ data = [], slug }) => {
                     />
                   </div>
 
-                  {/* NAME */}
                   <h3 className="font-semibold">
                     {p.name || "Faculty"}
                   </h3>
 
-                  {/* DESIGNATION */}
                   <p className="text-sm text-gray-500">
                     {p.designation || "Faculty"}
                   </p>
