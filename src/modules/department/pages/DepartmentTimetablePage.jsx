@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../../hooks/useDepartmentMeta";
 
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const PERIODS = [1, 2, 3, 4, 5, 6, 7];
 
 const TYPE_CELL = {
-  theory: "bg-blue-50 text-blue-800 border border-blue-200",
-  lab: "bg-emerald-50 text-emerald-800 border border-emerald-200",
-  elective: "bg-amber-50 text-amber-800 border border-amber-200",
+  theory: "bg-blue-100 text-blue-900 border border-blue-200",
+  lab: "bg-green-100 text-green-900 border border-green-200",
+  elective: "bg-yellow-100 text-yellow-900 border border-yellow-200",
 };
 
 export default function TimetablePage() {
@@ -20,13 +20,16 @@ export default function TimetablePage() {
 
   const [batches, setBatches] = useState([]);
   const [sections, setSections] = useState([]);
-  const [allSlots, setAllSlots] = useState([]);
+  const [slots, setSlots] = useState([]);
 
   const [selectedBatch, setSelectedBatch] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedSectionId, setSelectedSectionId] = useState("");
 
   const [loading, setLoading] = useState(false);
+
+  // 🔧 Normalize day (IMPORTANT FIX)
+  const normalizeDay = (d) => d?.toLowerCase().slice(0, 3);
 
   // ================= FETCH BATCHES =================
   useEffect(() => {
@@ -52,7 +55,12 @@ export default function TimetablePage() {
       });
 
       const json = await res.json();
-      setBatches(json?.data?.listDeptBatches?.items || []);
+
+      const unique = [
+        ...new Set(json?.data?.listDeptBatches?.items.map(b => b.name)),
+      ];
+
+      setBatches(unique);
     };
 
     fetchBatches();
@@ -98,64 +106,58 @@ export default function TimetablePage() {
 
   // ================= FETCH SLOTS =================
   useEffect(() => {
-    if (!deptId || sections.length === 0) return;
+    if (!deptId || !selectedSectionId) return;
 
-    const fetchAllSlots = async () => {
+    const fetchSlots = async () => {
       try {
         setLoading(true);
 
-        let allData = [];
-
-        for (const sec of sections) {
-          const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
-            },
-            body: JSON.stringify({
-              query: `
-                query ($deptId: ID!, $sectionId: ID!, $tenantId: ID) {
-                  listDeptSlots(
-                    deptId: $deptId
-                    sectionId: $sectionId
-                    tenantId: $tenantId
-                  ) {
-                    items {
-                      day
-                      period
-                      courseCode
-                      courseName
-                      type
-                      sectionId
-                    }
+        const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
+          },
+          body: JSON.stringify({
+            query: `
+              query ($deptId: ID!, $sectionId: ID!, $tenantId: ID) {
+                listDeptSlots(
+                  deptId: $deptId
+                  sectionId: $sectionId
+                  tenantId: $tenantId
+                ) {
+                  items {
+                    day
+                    period
+                    courseCode
+                    courseName
+                    type
+                    sectionId
                   }
                 }
-              `,
-              variables: {
-                deptId,
-                sectionId: sec.name, // 🔥 FIXED HERE
-                tenantId: TENANT_ID,
-              },
-            }),
-          });
+              }
+            `,
+            variables: {
+              deptId,
+              sectionId: selectedSectionId,
+              tenantId: TENANT_ID,
+            },
+          }),
+        });
 
-          const json = await res.json();
-          const items = json?.data?.listDeptSlots?.items || [];
+        const json = await res.json();
+        console.log("🎯 Slots:", json);
 
-          allData = [...allData, ...items];
-        }
-
-        setAllSlots(allData);
+        setSlots(json?.data?.listDeptSlots?.items || []);
       } catch (err) {
-        console.error("Slot fetch error:", err);
+        console.error("❌ Slot fetch error:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAllSlots();
-  }, [deptId, sections]);
+    fetchSlots();
+  }, [deptId, selectedSectionId]);
 
   // ================= DERIVED =================
   const semesters = [
@@ -164,7 +166,7 @@ export default function TimetablePage() {
         .filter(s => !selectedBatch || s.batchName === selectedBatch)
         .map(s => Number(s.semester))
     ),
-  ].sort((a, b) => a - b);
+  ];
 
   const filteredSections = sections.filter(s => {
     if (selectedBatch && s.batchName !== selectedBatch) return false;
@@ -172,38 +174,24 @@ export default function TimetablePage() {
     return true;
   });
 
-  // 🔥 FIXED FILTER
-  const slots = allSlots.filter(slot => {
-    const section = sections.find(
-      s => s.name === slot.sectionId // 🔥 FIXED HERE
-    );
-
-    if (!section) return false;
-
-    if (selectedBatch && section.batchName !== selectedBatch) return false;
-    if (selectedSemester && Number(section.semester) !== Number(selectedSemester)) return false;
-
-    if (selectedSectionId) {
-      const selectedSection = sections.find(
-        s => s.deptSectionId === selectedSectionId
-      );
-      if (!selectedSection || slot.sectionId !== selectedSection.name) {
-        return false;
-      }
-    }
-
-    return true;
-  });
-
+  // ================= SLOT MATCH =================
   const getSlot = (day, period) =>
-    slots.find(s => s.day === day && Number(s.period) === Number(period));
+    slots.find(
+      (s) =>
+        normalizeDay(s.day) === normalizeDay(day) &&
+        Number(s.period) === Number(period)
+    );
 
   // ================= UI =================
   return (
     <div className="px-6 py-8 space-y-6">
 
-      <h2 className="text-3xl font-bold text-[#003178]">📅 Timetable</h2>
+      {/* HEADER */}
+      <h2 className="text-3xl font-bold text-[#003178] flex items-center gap-2">
+        📅 Timetable
+      </h2>
 
+      {/* FILTERS */}
       <div className="flex gap-3 flex-wrap">
 
         <select
@@ -212,12 +200,13 @@ export default function TimetablePage() {
             setSelectedBatch(e.target.value);
             setSelectedSemester("");
             setSelectedSectionId("");
+            setSlots([]);
           }}
-          className="border px-3 py-2 rounded"
+          className="border px-3 py-2 rounded-lg shadow-sm"
         >
           <option value="">Batch</option>
           {batches.map((b, i) => (
-            <option key={i} value={b.name}>{b.name}</option>
+            <option key={i} value={b}>{b}</option>
           ))}
         </select>
 
@@ -226,9 +215,9 @@ export default function TimetablePage() {
           onChange={(e) => {
             setSelectedSemester(e.target.value);
             setSelectedSectionId("");
+            setSlots([]);
           }}
-          className="border px-3 py-2 rounded"
-          disabled={!semesters.length}
+          className="border px-3 py-2 rounded-lg shadow-sm"
         >
           <option value="">Semester</option>
           {semesters.map((s) => (
@@ -239,8 +228,7 @@ export default function TimetablePage() {
         <select
           value={selectedSectionId}
           onChange={(e) => setSelectedSectionId(e.target.value)}
-          className="border px-3 py-2 rounded"
-          disabled={!filteredSections.length}
+          className="border px-3 py-2 rounded-lg shadow-sm"
         >
           <option value="">Section</option>
           {filteredSections.map((s) => (
@@ -252,40 +240,62 @@ export default function TimetablePage() {
 
       </div>
 
-      {loading && <div className="text-center py-10">Loading...</div>}
-
-      {!slots.length && !loading && (
-        <div className="text-center py-10 text-red-500">
-          No timetable data found ⚠️
+      {/* STATES */}
+      {!selectedSectionId && (
+        <div className="text-center py-10 text-gray-500">
+          Please select Batch, Semester and Section 👆
         </div>
       )}
 
+      {loading && <div className="text-center py-10">Loading...</div>}
+
+      {!slots.length && selectedSectionId && !loading && (
+        <div className="text-center py-10 text-red-500">
+          No timetable found ⚠️
+        </div>
+      )}
+
+      {/* PREMIUM TABLE */}
       {slots.length > 0 && (
-        <>
-          <div className="grid grid-cols-7 bg-gray-100 text-center text-sm font-semibold">
-            <div>Period</div>
-            {DAYS.map(d => <div key={d}>{d}</div>)}
+        <div className="overflow-x-auto rounded-xl shadow-lg border">
+
+          {/* HEADER */}
+          <div className="grid grid-cols-8 bg-gradient-to-r from-[#0a2f6b] to-[#003178] text-white font-semibold text-sm">
+            <div className="p-3 text-center border-r">Day</div>
+            {PERIODS.map(p => (
+              <div key={p} className="p-3 text-center border-r">P{p}</div>
+            ))}
           </div>
 
-          {PERIODS.map(period => (
-            <div key={period} className="grid grid-cols-7 border-t text-sm">
-              <div className="p-2 text-center font-semibold">{period}</div>
-              {DAYS.map(day => {
+          {/* BODY */}
+          {DAYS.map((day, i) => (
+            <div
+              key={day}
+              className={`grid grid-cols-8 text-sm ${
+                i % 2 === 0 ? "bg-gray-50" : "bg-white"
+              }`}
+            >
+              <div className="p-3 font-semibold border-r">{day}</div>
+
+              {PERIODS.map(period => {
                 const slot = getSlot(day, period);
+
                 return (
-                  <div key={day} className="p-2 border-l min-h-[70px]">
-                    {slot && (
-                      <div className={`p-2 rounded ${TYPE_CELL[slot.type]}`}>
-                        <p className="font-bold text-xs">{slot.courseCode}</p>
-                        <p className="text-xs">{slot.courseName}</p>
+                  <div key={period} className="p-2 border-r border-t min-h-[70px] flex items-center justify-center">
+                    {slot ? (
+                      <div className={`w-full text-center p-2 rounded-lg shadow-sm hover:scale-105 transition ${TYPE_CELL[slot.type]}`}>
+                        <p className="font-semibold text-xs">{slot.courseCode}</p>
+                        <p className="text-[11px]">{slot.courseName}</p>
                       </div>
+                    ) : (
+                      <span className="text-gray-300 text-xs">—</span>
                     )}
                   </div>
                 );
               })}
             </div>
           ))}
-        </>
+        </div>
       )}
 
     </div>
