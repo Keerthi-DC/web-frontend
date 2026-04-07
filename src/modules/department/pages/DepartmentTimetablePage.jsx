@@ -18,11 +18,9 @@ export default function TimetablePage() {
   const deptId = getId(shortName);
   const TENANT_ID = "biet-college";
 
-  // ================= STATE =================
   const [batches, setBatches] = useState([]);
-  const [semesters, setSemesters] = useState([]);
   const [sections, setSections] = useState([]);
-  const [slots, setSlots] = useState([]);
+  const [allSlots, setAllSlots] = useState([]);
 
   const [selectedBatch, setSelectedBatch] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
@@ -35,205 +33,81 @@ export default function TimetablePage() {
     if (!deptId) return;
 
     const fetchBatches = async () => {
-      try {
-        console.log("🚀 FETCH BATCHES");
-
-        const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
-          },
-          body: JSON.stringify({
-            query: `
-              query ($deptId: ID!, $tenantId: ID) {
-                listDeptBatches(deptId: $deptId, tenantId: $tenantId) {
-                  items { name }
-                }
+      const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
+        },
+        body: JSON.stringify({
+          query: `
+            query ($deptId: ID!, $tenantId: ID) {
+              listDeptBatches(deptId: $deptId, tenantId: $tenantId) {
+                items { name }
               }
-            `,
-            variables: { deptId, tenantId: TENANT_ID },
-          }),
-        });
+            }
+          `,
+          variables: { deptId, tenantId: TENANT_ID },
+        }),
+      });
 
-        const json = await res.json();
-        console.log("✅ BATCHES:", json);
-
-        setBatches(json?.data?.listDeptBatches?.items || []);
-      } catch (err) {
-        console.error("❌ Batch fetch error:", err);
-      }
+      const json = await res.json();
+      setBatches(json?.data?.listDeptBatches?.items || []);
     };
 
     fetchBatches();
   }, [deptId]);
 
-  // ================= FETCH SEMESTERS =================
-  useEffect(() => {
-    if (!deptId || !selectedBatch) {
-      setSemesters([]);
-      return;
-    }
-
-    const fetchSemesters = async () => {
-      try {
-        console.log("🚀 FETCH SEMESTERS");
-
-        const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
-          },
-          body: JSON.stringify({
-            query: `
-              query ($deptId: ID!, $batchName: String!, $tenantId: ID) {
-                listDeptSections(
-                  deptId: $deptId
-                  batchName: $batchName
-                  tenantId: $tenantId
-                ) {
-                  items { semester }
-                }
-              }
-            `,
-            variables: {
-              deptId,
-              batchName: selectedBatch,
-              tenantId: TENANT_ID,
-            },
-          }),
-        });
-
-        const json = await res.json();
-        const items = json?.data?.listDeptSections?.items || [];
-
-        const uniqueSems = [...new Set(items.map(i => i.semester))];
-
-        console.log("🎯 SEMESTERS:", uniqueSems);
-
-        setSemesters(uniqueSems);
-      } catch (err) {
-        console.error("❌ Semester fetch error:", err);
-      }
-    };
-
-    fetchSemesters();
-  }, [deptId, selectedBatch]);
-
   // ================= FETCH SECTIONS =================
   useEffect(() => {
-    if (!deptId || !selectedBatch || !selectedSemester) {
-      setSections([]);
-      setSelectedSectionId("");
-      return;
-    }
+    if (!deptId) return;
 
     const fetchSections = async () => {
-      try {
-        console.log("🚀 FETCH SECTIONS");
-
-        const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
-          },
-          body: JSON.stringify({
-            query: `
-              query ($deptId: ID!, $semester: Int!, $batchName: String!, $tenantId: ID) {
-                listDeptSections(
-                  deptId: $deptId
-                  semester: $semester
-                  batchName: $batchName
-                  tenantId: $tenantId
-                ) {
-                  items {
-                    deptSectionId
-                    name
-                  }
+      const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
+        },
+        body: JSON.stringify({
+          query: `
+            query ($deptId: ID!, $tenantId: ID) {
+              listDeptSections(
+                deptId: $deptId
+                tenantId: $tenantId
+              ) {
+                items {
+                  deptSectionId
+                  name
+                  semester
+                  batchName
                 }
               }
-            `,
-            variables: {
-              deptId,
-              semester: Number(selectedSemester),
-              batchName: selectedBatch,
-              tenantId: TENANT_ID,
-            },
-          }),
-        });
+            }
+          `,
+          variables: { deptId, tenantId: TENANT_ID },
+        }),
+      });
 
-        const json = await res.json();
-        console.log("✅ SECTIONS:", json);
-
-        setSections(json?.data?.listDeptSections?.items || []);
-        setSelectedSectionId("");
-      } catch (err) {
-        console.error("❌ Section fetch error:", err);
-      }
+      const json = await res.json();
+      setSections(json?.data?.listDeptSections?.items || []);
     };
 
     fetchSections();
-  }, [deptId, selectedBatch, selectedSemester]);
+  }, [deptId]);
 
-  // ================= FETCH TIMETABLE (SMART FALLBACK) =================
+  // ================= FETCH SLOTS =================
   useEffect(() => {
-    if (!deptId || !selectedSectionId) {
-      setSlots([]);
-      return;
-    }
+    if (!deptId || sections.length === 0) return;
 
-    const fetchTimetable = async () => {
+    const fetchAllSlots = async () => {
       try {
         setLoading(true);
 
-        console.log("🚀 PRIMARY QUERY");
+        let allData = [];
 
-        // PRIMARY
-        let res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
-          },
-          body: JSON.stringify({
-            query: `
-              query ($deptId: ID!, $sectionId: ID!, $tenantId: ID) {
-                listDeptSlots(
-                  deptId: $deptId
-                  sectionId: $sectionId
-                  tenantId: $tenantId
-                ) {
-                  items {
-                    day
-                    period
-                    courseCode
-                    courseName
-                    type
-                    sectionId
-                  }
-                }
-              }
-            `,
-            variables: {
-              deptId,
-              sectionId: selectedSectionId,
-              tenantId: TENANT_ID,
-            },
-          }),
-        });
-
-        let json = await res.json();
-        let items = json?.data?.listDeptSlots?.items || [];
-
-        console.log("PRIMARY RESULT:", items);
-
-        // FALLBACK
-        if (!items.length) {
-          console.warn("⚠️ FALLBACK TRIGGERED");
-
-          res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+        for (const sec of sections) {
+          const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -241,9 +115,10 @@ export default function TimetablePage() {
             },
             body: JSON.stringify({
               query: `
-                query ($deptId: ID!, $tenantId: ID) {
+                query ($deptId: ID!, $sectionId: ID!, $tenantId: ID) {
                   listDeptSlots(
                     deptId: $deptId
+                    sectionId: $sectionId
                     tenantId: $tenantId
                   ) {
                     items {
@@ -259,52 +134,75 @@ export default function TimetablePage() {
               `,
               variables: {
                 deptId,
+                sectionId: sec.name, // 🔥 FIXED HERE
                 tenantId: TENANT_ID,
               },
             }),
           });
 
-          json = await res.json();
-          const allSlots = json?.data?.listDeptSlots?.items || [];
+          const json = await res.json();
+          const items = json?.data?.listDeptSlots?.items || [];
 
-          console.log("ALL SLOTS:", allSlots);
-
-          // try match
-          items = allSlots.filter(s => s.sectionId === selectedSectionId);
-
-          // final fallback
-          if (!items.length) {
-            console.warn("⚠️ Showing ALL slots");
-            items = allSlots;
-          }
+          allData = [...allData, ...items];
         }
 
-        setSlots(items);
+        setAllSlots(allData);
       } catch (err) {
-        console.error("❌ Timetable fetch error:", err);
+        console.error("Slot fetch error:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchTimetable();
-  }, [deptId, selectedSectionId]);
+    fetchAllSlots();
+  }, [deptId, sections]);
 
-  // ================= GET SLOT =================
-  const getSlot = (day, period) =>
-    slots.find(
-      (s) =>
-        s.day === day &&
-        Number(s.period) === Number(period)
+  // ================= DERIVED =================
+  const semesters = [
+    ...new Set(
+      sections
+        .filter(s => !selectedBatch || s.batchName === selectedBatch)
+        .map(s => Number(s.semester))
+    ),
+  ].sort((a, b) => a - b);
+
+  const filteredSections = sections.filter(s => {
+    if (selectedBatch && s.batchName !== selectedBatch) return false;
+    if (selectedSemester && Number(s.semester) !== Number(selectedSemester)) return false;
+    return true;
+  });
+
+  // 🔥 FIXED FILTER
+  const slots = allSlots.filter(slot => {
+    const section = sections.find(
+      s => s.name === slot.sectionId // 🔥 FIXED HERE
     );
+
+    if (!section) return false;
+
+    if (selectedBatch && section.batchName !== selectedBatch) return false;
+    if (selectedSemester && Number(section.semester) !== Number(selectedSemester)) return false;
+
+    if (selectedSectionId) {
+      const selectedSection = sections.find(
+        s => s.deptSectionId === selectedSectionId
+      );
+      if (!selectedSection || slot.sectionId !== selectedSection.name) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+
+  const getSlot = (day, period) =>
+    slots.find(s => s.day === day && Number(s.period) === Number(period));
 
   // ================= UI =================
   return (
     <div className="px-6 py-8 space-y-6">
 
-      <h2 className="text-3xl font-bold text-[#003178]">
-        📅 Timetable
-      </h2>
+      <h2 className="text-3xl font-bold text-[#003178]">📅 Timetable</h2>
 
       <div className="flex gap-3 flex-wrap">
 
@@ -342,10 +240,10 @@ export default function TimetablePage() {
           value={selectedSectionId}
           onChange={(e) => setSelectedSectionId(e.target.value)}
           className="border px-3 py-2 rounded"
-          disabled={!sections.length}
+          disabled={!filteredSections.length}
         >
           <option value="">Section</option>
-          {sections.map((s) => (
+          {filteredSections.map((s) => (
             <option key={s.deptSectionId} value={s.deptSectionId}>
               {s.name}
             </option>
@@ -362,29 +260,33 @@ export default function TimetablePage() {
         </div>
       )}
 
-      <div className="grid grid-cols-7 bg-gray-100 text-center text-sm font-semibold">
-        <div>Period</div>
-        {DAYS.map(d => <div key={d}>{d}</div>)}
-      </div>
+      {slots.length > 0 && (
+        <>
+          <div className="grid grid-cols-7 bg-gray-100 text-center text-sm font-semibold">
+            <div>Period</div>
+            {DAYS.map(d => <div key={d}>{d}</div>)}
+          </div>
 
-      {PERIODS.map(period => (
-        <div key={period} className="grid grid-cols-7 border-t text-sm">
-          <div className="p-2 text-center font-semibold">{period}</div>
-          {DAYS.map(day => {
-            const slot = getSlot(day, period);
-            return (
-              <div key={day} className="p-2 border-l min-h-[70px]">
-                {slot && (
-                  <div className={`p-2 rounded ${TYPE_CELL[slot.type]}`}>
-                    <p className="font-bold text-xs">{slot.courseCode}</p>
-                    <p className="text-xs">{slot.courseName}</p>
+          {PERIODS.map(period => (
+            <div key={period} className="grid grid-cols-7 border-t text-sm">
+              <div className="p-2 text-center font-semibold">{period}</div>
+              {DAYS.map(day => {
+                const slot = getSlot(day, period);
+                return (
+                  <div key={day} className="p-2 border-l min-h-[70px]">
+                    {slot && (
+                      <div className={`p-2 rounded ${TYPE_CELL[slot.type]}`}>
+                        <p className="font-bold text-xs">{slot.courseCode}</p>
+                        <p className="text-xs">{slot.courseName}</p>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      ))}
+                );
+              })}
+            </div>
+          ))}
+        </>
+      )}
 
     </div>
   );

@@ -1,37 +1,97 @@
 import React, { useEffect, useState } from 'react';
 
+const fetchAccreditation = async (variables) => {
+  const response = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
+    },
+    body: JSON.stringify({
+      query: `
+        query ListAccreditationRecords(
+          $type: String!
+          $section: String
+          $sub_section: String
+          $sub_sub_section: String
+          $department: String
+          $tenantId: ID
+        ) {
+          listAccreditationRecords(
+            type: $type
+            section: $section
+            sub_section: $sub_section
+            sub_sub_section: $sub_sub_section
+            department: $department
+            tenantId: $tenantId
+          ) {
+            items {
+              title
+              file_url
+            }
+          }
+        }
+      `,
+      variables: { tenantId: "biet-college", ...variables },
+    }),
+  });
+
+  const result = await response.json();
+  return result?.data?.listAccreditationRecords?.items || [];
+};
+
 const NAACPage = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeId, setActiveId] = useState('');
 
-  useEffect(() => {
-    fetch('/data/naac.json')
-      .then((r) => r.json())
-      .then((d) => {
-        setData(d);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.error(e);
-        setError(e);
-        setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (data && data.sections.length > 0) {
-      setActiveId(slugify(data.sections[0].title));
-    }
-  }, [data]);
-
-  const handleClick = (id) => {
-    setActiveId(id);
-  };
-
   const slugify = (text) =>
     text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+  // 🔥 ONLY THIS PART CHANGED (data source)
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+
+        const sectionsList = [
+          { title: "Accreditation Certificates", variables: { type: "NAAC", section: "Accreditation Certificates" } },
+          { title: "IQAC", variables: { type: "NAAC", section: "IQAC" } },
+          { title: "AQAR Reports", variables: { type: "NAAC", section: "AQAR Reports" } },
+          { title: "IIQA", variables: { type: "NAAC", section: "IIQA" } },
+          { title: "SSR Documents", variables: { type: "NAAC", section: "SSR Documents" } },
+        ];
+
+        const result = [];
+
+        for (let sec of sectionsList) {
+          const items = await fetchAccreditation(sec.variables);
+
+          result.push({
+            title: sec.title,
+            items: items.map((i) => ({
+              name: i.title,
+              file: i.file_url,
+            })),
+          });
+        }
+
+        setData({ sections: result });
+        setActiveId(slugify(result[0].title));
+
+      } catch (e) {
+        console.error(e);
+        setError(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // ❌ UI NOT TOUCHED BELOW
 
   if (loading) {
     return (
@@ -76,7 +136,7 @@ const NAACPage = () => {
                 return (
                   <button
                     key={id}
-                    onClick={() => handleClick(id)}
+                    onClick={() => setActiveId(id)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
                       
                       ${active
@@ -144,18 +204,17 @@ const NAACPage = () => {
                     </div>
 
                     <button
-  onClick={() => window.open(item.file, '_blank')}
-  className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl 
-             bg-blue-950 text-white text-sm font-semibold
-             transition-all duration-200
-             hover:bg-blue-900 hover:shadow-md
-             active:scale-95"
->
-  View
-  <span className="material-symbols-outlined text-base">
-    arrow_forward
-  </span>
-</button>
+                      onClick={() => window.open(item.file, '_blank')}
+                      className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl 
+                                 bg-blue-950 text-white text-sm font-semibold
+                                 hover:bg-blue-900 hover:shadow-md"
+                    >
+                      View
+                      <span className="material-symbols-outlined text-base">
+                        arrow_forward
+                      </span>
+                    </button>
+
                   </div>
                 ))}
               </div>

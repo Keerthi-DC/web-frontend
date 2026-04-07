@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../../../hooks/useDepartmentMeta";
+import { Award, FileText, Layers } from "lucide-react";
 
 const ResearchPreview = () => {
   const navigate = useNavigate();
-
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
   const [data, setData] = useState({
-    publications: [],
     patents: [],
     grants: []
   });
+
+  const [animatedCounts, setAnimatedCounts] = useState({
+    patents: 0,
+    grants: 0
+  });
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!shortName || !isReady) return;
@@ -21,23 +27,13 @@ const ResearchPreview = () => {
     const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
     const deptId = getId(shortName);
-    console.log("Resolved deptId:", deptId);
-
     if (!deptId) return;
 
     const fetchData = async () => {
       try {
+        setLoading(true);
+
         const queries = [
-          {
-            key: "publications",
-            query: `
-              query ($deptId: ID!, $tenantId: ID!) {
-                listDeptPublications(deptId: $deptId, tenantId: $tenantId) {
-                  items { title }
-                }
-              }
-            `
-          },
           {
             key: "patents",
             query: `
@@ -80,7 +76,6 @@ const ResearchPreview = () => {
         );
 
         const result = {
-          publications: [],
           patents: [],
           grants: []
         };
@@ -90,37 +85,45 @@ const ResearchPreview = () => {
           result[queries[index].key] = json.data?.[key]?.items || [];
         });
 
-        console.log("🔥 Preview Data:", result);
         setData(result);
 
+        animateCount("patents", result.patents.length);
+        animateCount("grants", result.grants.length);
+
       } catch (err) {
-        console.error("❌ Fetch Error:", err);
+        console.error("Fetch Error:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [shortName, isReady]);
 
-  const items = [
-    {
-      title: "Publications",
-      count: data.publications.length,
-      subtitle: "Research Papers"
-    },
-    {
-      title: "Patents",
-      count: data.patents.length,
-      subtitle: "Innovations Filed"
-    },
-    {
-      title: "Research Grants",
-      count: data.grants.length,
-      subtitle: "Funded Projects"
-    }
-  ];
+  const animateCount = (key, target) => {
+    let start = 0;
+    const duration = 800;
+    const increment = target / (duration / 16);
+
+    const counter = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        start = target;
+        clearInterval(counter);
+      }
+
+      setAnimatedCounts(prev => ({
+        ...prev,
+        [key]: Math.floor(start)
+      }));
+    }, 16);
+  };
+
+  const patentCount = data.patents.length;
+  const grantCount = data.grants.length;
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Heading */}
@@ -130,34 +133,47 @@ const ResearchPreview = () => {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {items.map((item, i) => (
-            <div
-              key={i}
-              className="relative bg-cover bg-center rounded-xl shadow-lg overflow-hidden flex flex-col justify-center px-6"
-              style={{
-                backgroundImage: "url('/assets/sticky-note-blue.png')",
-                height: "300px",
-                padding:"100px"
-              }}
-            >
-              <div className="absolute inset-0 bg-white/30"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-              <div className="relative z-10 ">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {item.title}
-                </h3>
-
-                <p className="text-4xl font-bold text-blue-700 mt-2">
-                  {item.count}
+          {loading ? (
+            // 🔥 Skeleton Loader
+            [...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="h-[160px] rounded-2xl bg-gray-200 animate-pulse"
+              />
+            ))
+          ) : (
+            <>
+              {/* Filed Patents */}
+              <div className="bg-blue-50 rounded-2xl p-6 flex flex-col justify-center items-center h-[160px] hover:shadow-md transition">
+                <Award className="text-blue-600 mb-2" size={28} />
+                <p className="text-3xl font-bold text-blue-700">
+                  {animatedCounts.patents}
                 </p>
-
-                <p className="text-sm text-gray-600 mt-1">
-                  {item.subtitle}
-                </p>
+                <p className="text-sm text-gray-600">Filed Patents</p>
               </div>
-            </div>
-          ))}
+
+              {/* Total Patents */}
+              <div className="bg-indigo-50 rounded-2xl p-6 flex flex-col justify-center items-center h-[160px] hover:shadow-md transition">
+                <Layers className="text-indigo-600 mb-2" size={28} />
+                <p className="text-3xl font-bold text-indigo-700">
+                  {patentCount}
+                </p>
+                <p className="text-sm text-gray-600">Total Patents</p>
+              </div>
+
+              {/* Grants */}
+              <div className="bg-green-50 rounded-2xl p-6 flex flex-col justify-center items-center h-[160px] hover:shadow-md transition">
+                <FileText className="text-green-600 mb-2" size={28} />
+                <p className="text-3xl font-bold text-green-700">
+                  {animatedCounts.grants}
+                </p>
+                <p className="text-sm text-gray-600">Grants</p>
+              </div>
+            </>
+          )}
+
         </div>
 
         {/* Button */}
@@ -166,7 +182,7 @@ const ResearchPreview = () => {
             onClick={() =>
               navigate(`/departments/${shortName}/research`)
             }
-            className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-semibold shadow-md transition"
+            className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition"
           >
             Explore Research →
           </button>

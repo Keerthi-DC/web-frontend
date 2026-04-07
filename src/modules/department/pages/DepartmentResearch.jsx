@@ -292,15 +292,15 @@ const DepartmentResearch = () => {
                     <div
                       key={i}
                       onClick={() => setSelectedItem(p)}
-                      className="bg-white rounded-xl p-6 shadow hover:shadow-lg transition border-l-4 border-purple-600 cursor-pointer"
+                      className="bg-white rounded-xl p-6 shadow hover:shadow-lg transition border-l-4 border-blue-600 cursor-pointer"
                     >
                       <div className="flex justify-between items-center mb-4">
-                        <div className="flex items-center gap-2 text-purple-700">
+                        <div className="flex items-center gap-2 text-blue-600">
                           <FileText size={18} />
                           <span className="text-sm font-medium">Patent #{i + 1}</span>
                         </div>
 
-                        <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                        <span className="text-xs bg-purple-100 text-blue-600 px-2 py-1 rounded">
                           Filed
                         </span>
                       </div>
@@ -309,7 +309,7 @@ const DepartmentResearch = () => {
                         {p.text}
                       </p>
 
-                      <span className="text-purple-600 text-xs mt-2 inline-block">
+                      <span className="text-blue-600 text-xs mt-2 inline-block">
                         Click to read →
                       </span>
                     </div>
@@ -392,7 +392,7 @@ const Table = ({ title, headers, rows }) => (
     ) : (
       <div className="overflow-x-auto bg-white shadow rounded-xl">
         <table className="min-w-full text-sm">
-          <thead className="bg-[#0b3c5d] text-white">
+          <thead className="bg-blue-600 text-white">
             <tr>
               {headers.map((h, i) => (
                 <th key={i} className="px-4 py-3">{h}</th>
