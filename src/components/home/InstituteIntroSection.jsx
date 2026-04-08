@@ -1,86 +1,87 @@
- import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-  const InstituteIntroSection = () => {
-    const [data, setData] = useState(null);
-    const [expanded, setExpanded] = useState(false);
+const InstituteIntroSection = () => {
+  const [data, setData] = useState(null);
 
-    useEffect(() => {
-      fetch("/data/instituteIntro.json")
-        .then((res) => res.json())
-        .then((json) => setData(json))
-        .catch((err) => console.error("Error loading intro data:", err));
-    }, []);
+  useEffect(() => {
+    fetch("/data/instituteIntro.json")
+      .then((res) => res.json())
+      .then((json) => setData(json))
+      .catch((err) => console.error("Error loading intro data:", err));
+  }, []);
 
-    if (!data) return null;
+  if (!data) return null;
 
-    const previewText = data.details.slice(0, 2);
+  // fallback icons (if not provided in JSON)
+  const iconMap = ["visibility", "architecture", "auto_awesome"];
 
-    return (
-      <section className="relative py-20 institute-intro-section">
-        {/* Back‑ground gradient (slow flowing) */}
-        <div className="absolute inset-0 -z-10 bg-gradient" />
+  return (
+    <section className="py-24 px-12 md:px-24 bg-[#f8f9fa]">
 
-        {/* Optional orb background */}
-        <div className="absolute inset-0 -z-20 opacity-15 flex justify-center items-center">
-          <div className="orb" />
+      {/* ================= TOP SECTION ================= */}
+      <div className="flex flex-col md:flex-row gap-16 mb-24 items-center">
+
+        {/* LEFT TEXT */}
+        <div className="md:w-1/2">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#001c40] leading-tight mb-8">
+            {data.title}
+          </h2>
+
+          <p className="text-lg text-gray-600 mb-10 leading-relaxed italic">
+            {data.details?.[0]}
+          </p>
+
+          <button className="px-8 py-3 border-2 border-[#001c40] text-[#001c40] text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-[#001c40] hover:text-white transition-all">
+            {data.buttonText || "Our Legacy"}
+          </button>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-          {/* Text block */}
-          <div className="animate-slide-left">
-            <p className="text-sm tracking-wide text-gray-500 mb-2">
-              {data.subtitle}
+        {/* RIGHT IMAGES */}
+        <div className="md:w-1/2 grid grid-cols-2 gap-4">
+
+          <img
+            src={data.image}
+            alt="intro1"
+            className="w-full h-80 object-cover rounded-2xl"
+          />
+
+          <img
+            src={data.image2 || data.image}
+            alt="intro2"
+            className="w-full h-80 object-cover rounded-2xl mt-12"
+          />
+
+        </div>
+      </div>
+
+      {/* ================= CARDS SECTION ================= */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        {data.subAbout?.map((item, index) => (
+          <div
+            key={index}
+            className="bg-[#f3f4f5] p-10 rounded-2xl hover:-translate-y-2 transition-all group"
+          >
+            {/* ICON */}
+            <span className="material-symbols-outlined text-4xl text-yellow-400 mb-6 block group-hover:scale-110 transition-transform">
+              {item.icon || iconMap[index]}
+            </span>
+
+            {/* TITLE */}
+            <h3 className="text-xl font-bold text-[#001c40] mb-4">
+              {item.title}
+            </h3>
+
+            {/* DESCRIPTION */}
+            <p className="text-gray-600 leading-relaxed">
+              {item.detail}
             </p>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {data.title}
-            </h2>
-
-            {(expanded ? data.details : previewText).map((p, i) => (
-              <p key={i} className="text-gray-600 mb-4 leading-relaxed">
-                {p}
-              </p>
-            ))}
-
-            <button
-              onClick={() => setExpanded(!expanded)}
-              className=" bg-yellow-400 text-black px-6 py-3 rounded font-semibold hero-btn"
-            >
-              {expanded ? "Show less" : "Read more →"}
-            </button>
           </div>
+        ))}
 
-          {/* Institute image */}
-          <div className="animate-float-img">
-            <img
-              src={data.image}
-              alt="Institute"
-              className="rounded-lg shadow-lg w-full object-cover"
-            />
-          </div>
-        </div>
+      </div>
+    </section>
+  );
+};
 
-        {/* Sub‑about cards (breathing glow) */}
-        <div className="grid md:grid-cols-3 gap-8 mt-12 border-t pt-10">
-          {data.subAbout.map((item, index) => (
-            <div
-              key={index}
-              className="group card-item animate-breathe"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition">
-                → {item.title}
-              </h3>
-              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                {item.detail}
-              </p>
-              <button className=" bg-yellow-400 text-black px-6 py-3 rounded font-semibold hero-btn">
-                Read more
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-    );
-  };
-
-  export default InstituteIntroSection;
+export default InstituteIntroSection;

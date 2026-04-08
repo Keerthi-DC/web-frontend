@@ -5,7 +5,7 @@ const Counter = ({ value, start }) => {
 
   useEffect(() => {
     if (!start) {
-      setCount(0); // reset when leaving section
+      setCount(0);
       return;
     }
 
@@ -43,41 +43,35 @@ const QuickFacts = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(entry.isIntersecting);
-      },
+      ([entry]) => setVisible(entry.isIntersecting),
       { threshold: 0.3 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    if (sectionRef.current) observer.observe(sectionRef.current);
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-gray-100 py-20">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section
+      ref={sectionRef}
+      className="bg-[#001c40] py-16 px-12 md:px-24"
+    >
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
 
         {facts.map((fact, index) => (
-          <div
-            key={index}
-            className={`bg-white p-8 rounded-xl shadow-md text-center
-            transition duration-500
-            ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
-            <h2 className="text-5xl font-bold text-blue-900">
+          <div key={index} className="text-center md:text-left">
+
+            {/* NUMBER */}
+            <p className="text-yellow-400 text-4xl font-extrabold mb-2">
               <Counter value={fact.value} start={visible} />
-            </h2>
-
-            <h3 className="text-lg font-semibold mt-4">
-              {fact.title}
-            </h3>
-
-            <p className="text-gray-600 mt-2 text-sm">
-              {fact.description}
             </p>
+
+            {/* TITLE */}
+            <p className="text-white/60 text-xs font-bold uppercase tracking-wider">
+              {fact.title}
+            </p>
+
           </div>
         ))}
 

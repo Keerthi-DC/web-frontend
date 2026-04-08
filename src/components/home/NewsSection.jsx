@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export const NewsSection = () => {
+const NewsSection = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
@@ -15,60 +15,84 @@ export const NewsSection = () => {
   const featured = news[0];
   const others = news.slice(1, 4);
 
-  const truncate = (text, len = 90) =>
-    text.length > len ? text.substring(0, len) + "…" : text;
-
   return (
-    <section className="py-16">
-      <h2 className="text-2xl font-bold m-20 shake-text">News Updates</h2>
-      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <section className="py-24 px-12 md:px-24 bg-white">
 
-        {/* Featured Card */}
-        <div className="flex flex-col gap-3 hero-float border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img
-            src={featured.image}
-            alt={featured.title}
-            className="h-150 w-full object-cover rounded-lg"
-          />
-
-          <h3 className="text-xl font-bold">{featured.title}</h3>
-          <p className="text-xs text-gray-500">{featured.date}</p>
-          <p className="text-sm">{truncate(featured.details)}</p>
+      {/* HEADER */}
+      <div className="flex justify-between items-end mb-16">
+        <div>
+          <h2 className="text-4xl font-bold text-[#001c40] mb-4">
+            News Updates
+          </h2>
+          <div className="w-20 h-1 bg-yellow-400"></div>
         </div>
 
-        {/* Other Cards */}
-        <div className="grid gap-4">
-          {others.map((n) => (
-            <div
-              key={n.id}
-              className="flex gap-4 border rounded-lg p-4 items-start shadow-md hero-float hover:shadow-lg transition-shadow duration-300"
-            >
-              {/* Image */}
+        <a
+          href="/news"
+          className="text-yellow-500 text-sm font-bold uppercase tracking-widest flex items-center gap-2 hover:gap-4 transition-all"
+        >
+          View All →
+        </a>
+      </div>
+
+      {/* GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+        {/* FEATURED */}
+        <div className="lg:col-span-2">
+          <div className="relative rounded-3xl overflow-hidden group h-[500px]">
+
+            <img
+              src={featured.image}
+              alt={featured.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+            <div className="absolute bottom-0 p-10 text-white">
+              <span className="bg-yellow-400 text-black px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded mb-4 inline-block">
+                Breaking
+              </span>
+
+              <h3 className="text-3xl font-bold mb-4 leading-tight">
+                {featured.title}
+              </h3>
+
+              <p className="text-white/80 italic mb-6 line-clamp-2">
+                {featured.details}
+              </p>
+
+              <button className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                Read Article →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* SIDE NEWS */}
+        <div className="space-y-8">
+          {others.map((n, index) => (
+            <div key={index} className="flex gap-6 group cursor-pointer">
               <img
                 src={n.image}
                 alt={n.title}
-                className="h-20 w-20 object-cover rounded"
+                className="w-24 h-24 rounded-2xl object-cover shrink-0"
               />
 
-              {/* Text */}
               <div>
-                <h4 className="text-base font-semibold">{n.title}</h4>
-                <p className="text-xs text-gray-500">{n.date}</p>
-                <p className="text-sm mt-1">{truncate(n.details)}</p>
+                <p className="text-yellow-500 text-[10px] font-bold uppercase mb-1">
+                  {n.date}
+                </p>
+
+                <h4 className="font-bold text-[#001c40] leading-snug group-hover:text-yellow-500 transition-colors">
+                  {n.title}
+                </h4>
               </div>
             </div>
           ))}
         </div>
 
-      </div>
-
-      <div className="text-center mt-8">
-        <a
-          href="/news"
-          className=" bg-yellow-400 text-black px-6 py-3 rounded font-semibold hero-btn"
-        >
-          View More
-        </a>
       </div>
     </section>
   );

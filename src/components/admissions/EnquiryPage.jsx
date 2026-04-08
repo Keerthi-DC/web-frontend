@@ -70,7 +70,7 @@
       <section className="p-12 bg-gray-50">
         {/* HERO */}
         <div className="p-4 m-4 flex flex-col items-center justify-center text-center rounded-3xl bg-gradient-to-br from-[#001b4b] to-[#002f76]
-   p-10 md:p-16 text-white shadow-xl">
+    md:p-16 text-white shadow-xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-wide">
             {hero.title}
           </h1>

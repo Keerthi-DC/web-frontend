@@ -9,14 +9,27 @@ const AnnouncementBar = () => {
       .then((data) => setMessages(data));
   }, []);
 
+  if (!messages.length) return null;
+
   return (
-    <div className="bg-[#0a2a66] text-white py-2 overflow-hidden">
-      <div className="ticker">
-        {messages.map((msg, index) => (
-          <span key={index} className="mx-10">
+    <div className="w-full bg-[#001c40] text-white py-3 overflow-hidden relative">
+
+      {/* Gradient fade (left & right) */}
+      <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-[#001c40] to-transparent z-10"></div>
+      <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-[#001c40] to-transparent z-10"></div>
+
+      {/* Scrolling Content */}
+      <div className="flex whitespace-nowrap animate-scroll">
+
+        {[...messages, ...messages].map((msg, index) => (
+          <span
+            key={index}
+            className="mx-12 text-sm font-medium tracking-wide"
+          >
             {msg.text}
           </span>
         ))}
+
       </div>
     </div>
   );

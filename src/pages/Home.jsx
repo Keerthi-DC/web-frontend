@@ -13,10 +13,10 @@ import PlacementSection from "../components/home/PlacementSection";
 import GallerySection from "../components/home/GallerySection";
 import AlumniSection from "../components/home/AlumniSection";
 import CallToActionSection from "../components/home/CallToActionSection";
-import Footer from "../components/Footer";
+import Footer from "../components/layout/Footer";
 
 const Home = () => (
-  <div className="flex flex-col min-h-screen">
+  <div className="flex flex-col min-h-screen p-4 m-4 gap-4">
     <HeroSection />
     <AnnouncementBar />
     <QuickFacts />

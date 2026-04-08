@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SectionContainer from "../common/SectionContainer";
-import SectionTitle from "../common/SectionTitle";
-import ReadMoreButton from "../common/ReadMoreButton";
 import { Link } from "react-router-dom";
+
 const GallerySection = () => {
   const [gallery, setGallery] = useState([]);
 
@@ -18,31 +16,46 @@ const GallerySection = () => {
   const firstSix = gallery.slice(0, 6);
 
   return (
-    <SectionContainer className="bg-gray-200 py-16">
-      <h2 className="text-2xl text-center font-bold mb-8 shake-text">Gallery</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {firstSix.map((item) => (
+    <section className="py-24 px-12 md:px-24 bg-[#f8f9fa]">
+
+      {/* HEADER */}
+      <h2 className="text-4xl font-bold text-[#001c40] mb-16 text-center">
+        Gallery
+      </h2>
+
+      {/* GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+        {firstSix.map((item, index) => (
           <div
-            key={item.id}
-            className="group relative rounded overflow-hidden shadow-lg transform transition duration-300 hover:scale-105"
+            key={index}
+            className="relative rounded-2xl overflow-hidden group"
           >
+            {/* IMAGE */}
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-48 object-cover"
+              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
             />
+
+            {/* OPTIONAL OVERLAY */}
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all"></div>
           </div>
         ))}
+
       </div>
-      <div className="text-center mt-8">
+
+      {/* BUTTON */}
+      <div className="mt-16 text-center">
         <Link
-            to="/gallery"
-            className="bg-yellow-400 text-black px-8 py-3 rounded-md font-semibold hero-btn"
-          >
-            View More
-          </Link>
+          to="/gallery"
+          className="bg-yellow-400 text-black px-8 py-3 rounded-lg font-bold uppercase tracking-widest hover:scale-105 transition-all"
+        >
+          View Gallery →
+        </Link>
       </div>
-    </SectionContainer>
+
+    </section>
   );
 };
 

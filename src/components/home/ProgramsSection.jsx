@@ -15,33 +15,41 @@ const ProgramsSection = () => {
   const displayed = programs.slice(0, 6);
 
   return (
-    <section className="py-16 bg-slate-50">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+    <section className="py-24 px-12 md:px-24 bg-[#f3f4f5]">
 
-        <h2 className="text-3xl font-bold mb-10 shake-text">
+      {/* HEADER */}
+      <div className="text-center mb-20">
+        <h2 className="text-5xl font-bold text-[#001c40] mb-4">
           Programs Offered
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <p className="text-gray-600 text-xl max-w-2xl mx-auto italic">
+          Explore our diverse range of world-class academic programs designed to launch your career.
+        </p>
+      </div>
 
-          {displayed.map((p) => (
-            <div
-              key={p.id}
-              className="bg-white rounded-xl shadow-md
-              flex items-center justify-center
-              h-28
-              transform transition-all duration-300
-              hover:-translate-y-2 hover:shadow-xl"
-            >
-              <span className="text-2xl font-bold text-gray-800 tracking-wide shake-text">
-                {p.name}
-              </span>
-            </div>
-          ))}
+      {/* PROGRAM GRID */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
 
-        </div>
+        {displayed.map((p, index) => (
+          <div
+            key={index}
+            className="bg-white p-8 rounded-2xl text-center shadow-sm hover:shadow-md transition-all"
+          >
+            {/* PROGRAM NAME */}
+            <h4 className="text-2xl font-black text-[#001c40] mb-1">
+              {p.name}
+            </h4>
+
+            {/* SUBTEXT (optional) */}
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+              {p.type || "Program"}
+            </p>
+          </div>
+        ))}
 
       </div>
+
     </section>
   );
 };

@@ -1,78 +1,81 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch("/data/footer.json")
-      .then((res) => res.json())
-      .then(setData)
-      .catch(console.error);
-  }, []);
-
-  if (!data) return null;
-
-  const { logo, address, sections, bottomLinks, copyright } = data;
-
   return (
-    <footer
-      className="text-white relative"
-      style={{
-  
-        backgroundImage: 'url(/images/footer-bg.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center'
-      }}
-    >
-      <div className="bg-black bg-opacity-50" style={{ backdropFilter: 'blur(4px)' }}>
-        <div className="max-w-7xl mx-auto py-12 px-6 md:px-8 grid grid-cols-1 md:grid-cols-5 gap-8">
-          {/* Left side – logo & address */}
-          <div className="md:col-span-1 flex flex-col space-y-4">
-            <Link to="/" className="inline-block">
-              <img src={logo} alt="Website Logo" className="h-12" />
-            </Link>
-            <p className="text-sm">{address}</p>
+    <footer className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-[#001c40] text-white pt-16 pb-8">
+      <div className="px-12 md:px-24">
+
+        {/* ================= MAIN GRID ================= */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
+
+          {/* LOGO + ADDRESS */}
+          <div>
+            <h3 className="text-2xl font-bold mb-4">Your Logo</h3>
+
+            <p className="text-sm text-gray-300 leading-relaxed">
+              325, Shamanur Rd, BIET,<br />
+              Davanagere, Karnataka 577004
+            </p>
           </div>
 
-          {/* Right side – sections */}
-          {sections.map((sec, idx) => (
-            <div key={idx} className="grid gap-2">
-              <h4 className="text-lg font-semibold mb-2">{sec.title}</h4>
-              <ul className="space-y-1">
-                {sec.links.map((link, li) => (
-                  <li key={li}>
+          {/* COLUMN */}
+          {[
+            {
+              title: "About Us",
+              links: ["BEA", "Director Office", "Principal Office", "Campus Life"]
+            },
+            {
+              title: "Academics",
+              links: ["Undergraduate", "Postgraduate", "Research"]
+            },
+            {
+              title: "Information For",
+              links: ["Current Students", "Faculty / Staff", "Alumni", "Visitors", "Career"]
+            },
+            {
+              title: "Tools",
+              links: ["Student Portal", "ERP Login", "Downloads"]
+            }
+          ].map((section, idx) => (
+            <div key={idx}>
+              <h4 className="text-[11px] font-bold uppercase tracking-widest text-yellow-400 mb-4">
+                {section.title}
+              </h4>
+
+              <ul className="space-y-2">
+                {section.links.map((link, i) => (
+                  <li key={i}>
                     <Link
-                      to={link.url}
-                      className="text-sm hover:underline"
+                      to="#"
+                      className="text-sm text-gray-300 hover:text-white transition"
                     >
-                      {link.name}
+                      {link}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
+
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t bg-blue-950 py-4 text-sm">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between px-6 md:px-8">
-            <p>{copyright}</p>
-            <div className="flex space-x-4">
-              {bottomLinks.map((bl, i) => (
-                <Link
-                  key={i}
-                  to={bl.url}
-                  className="hover:underline"
-                >
-                  {bl.name}
-                </Link>
-              ))}
-            </div>
+        {/* ================= DIVIDER ================= */}
+        <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+
+          <p className="text-xs text-gray-400">
+            Copyright © 2025 Bapuji Institute of Engineering and Technology, Davanagere
+          </p>
+
+          <div className="flex gap-6 text-xs uppercase tracking-wider">
+            <Link to="#" className="hover:text-yellow-400">Terms of use</Link>
+            <Link to="#" className="hover:text-yellow-400">Privacy Policy</Link>
           </div>
+
         </div>
+
       </div>
+
     </footer>
   );
 };

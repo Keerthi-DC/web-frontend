@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import SectionContainer from "../common/SectionContainer";
-import SectionTitle from "../common/SectionTitle";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AlumniSection = () => {
   const [alumni, setAlumni] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/data/alumni.json")
@@ -18,35 +17,47 @@ const AlumniSection = () => {
   const first4 = alumni.slice(0, 4);
 
   return (
-    <div className="bg-gray-700 text-white py-20">
-      <h2 className="text-2xl text-center font-bold mb-8 shake-text">Alumni</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {first4.map((a) => (
-          <div
-            key={a.id}
-            className="rounded overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
+    <section className="py-24 px-12 md:px-24 bg-[#f8f9fa]">
+
+      <div className="flex flex-col md:flex-row gap-12 items-center">
+
+        {/* LEFT TEXT */}
+        <div className="md:w-1/3">
+          <h2 className="text-4xl font-bold text-[#001c40] mb-6">
+            Alumni Excellence
+          </h2>
+
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            Our alumni are global leaders, innovators, and changemakers shaping the future across every industry.
+          </p>
+
+          <button
+            onClick={() => navigate("/alumni")}
+            className="flex items-center gap-3 text-[#001c40] font-bold hover:text-yellow-500 transition-colors group"
+          >
+            Join the Network →
+          </button>
+        </div>
+
+        {/* RIGHT IMAGE GRID */}
+        <div className="md:w-2/3 grid grid-cols-4 gap-4 h-96">
+
+          {first4.map((a, index) => (
             <img
+              key={index}
               src={a.image}
               alt={a.name}
-              className="w-full h-48 object-cover"
+              className={`h-full w-full object-cover rounded-2xl ${
+                index % 2 !== 0 ? "mt-8" : ""
+              }`}
             />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{a.name}</h3>
-              <p className="text-sm font-medium text-gray-700">{a.company}</p>
-              <span className="text-xs text-gray-500">{a.position}</span>
-            </div>
-          </div>
-        ))}
+          ))}
+
+        </div>
+
       </div>
-      <div className="text-center mt-8">
-       <Link
-            to="/alumni"
-            className="bg-yellow-400 text-black px-8 py-3 rounded-md font-semibold hero-btn"
-          >
-            View More
-          </Link>
-      </div>
-    </div>
+
+    </section>
   );
 };
 

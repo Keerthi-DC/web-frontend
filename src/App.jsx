@@ -22,6 +22,7 @@ import BietGuide from "./components/BietGuide";
   import AdmissionOverview from "./components/admissions/OverviewPage";
   import ProspectusPage from "./components/admissions/ProspectusPage";
   import FeeStructurePage from "./components/admissions/FeeStructurePage";
+  
   import DepartmentHome from "./modules/department/pages/DepartmentHome";
   import DepartmentEvents from "./modules/department/pages/DepartmentEvents";
   import DepartmentPlacements from "./modules/department/pages/DepartmentPlacements";
@@ -35,8 +36,12 @@ import BietGuide from "./components/BietGuide";
   import DepartmentGallery from "./modules/department/pages/DepartmentGallery";
   import DepartmentNewsletter from "./modules/department/pages/DepartmentNewsletter";
   import DepartmentAccreditation from "./modules/department/pages/DepartmentAccreditation";
+  
+  import AICTEPage from "./components/accreditations/AICTEPage";
   import NAACPage from "./components/accreditations/NAACPage";
   import NBAPage from "./components/accreditations/NBAPage";
+  import AISHEPage from "./components/accreditations/AISHEPage";
+  
   import ScholarshipPage from "./components/admissions/ScholarshipPage";
   import EnquiryPage from "./components/admissions/EnquiryPage";
 
@@ -65,6 +70,8 @@ import BietGuide from "./components/BietGuide";
           {/*accreditation pages */}
           <Route path="/accreditations/naac" element={<NAACPage />} />
           <Route path="/accreditations/nba" element={<NBAPage />} />
+          <Route path="/accreditations/aicte" element={<AICTEPage />} />
+          <Route path="/accreditations/aishe" element={<AISHEPage />} />
 
           {/* academics-specific pages */}
           <Route path="/academics/departments" element={<DepartmentsPage />} />

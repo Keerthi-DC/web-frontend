@@ -32,7 +32,8 @@
         { "label": "NAAC", "path": "/accreditations/naac" },
         { "label": "NBA", "path": "/accreditations/nba" },
         { "label": "AICTE", "path": "/accreditations/aicte" },
-        { "label": "UGC", "path": "/accreditations/ugc" }
+        { "label": "NIRF", "path": "/accreditations/nirf" },
+        { "label": " AISHE", "path": "/accreditations/aishe" }
       ]
     },
     {

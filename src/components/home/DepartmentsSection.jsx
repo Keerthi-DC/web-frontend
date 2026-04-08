@@ -2,76 +2,66 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const DepartmentsSection = () => {
+  const [departments, setDepartments] = useState([]);
+  const navigate = useNavigate();
 
-const [departments,setDepartments] = useState([]);
-const navigate = useNavigate();
+  useEffect(() => {
+    fetch("/data/departments.json")
+      .then((res) => res.json())
+      .then((data) => setDepartments(data)) // show ALL
+      .catch((err) => console.error(err));
+  }, []);
 
-useEffect(()=>{
+  if (!departments.length) return null;
 
-fetch("/data/departments.json")
-.then(res=>res.json())
-.then(data=>setDepartments(data.slice(0,6)))
-.catch(err=>console.error(err));
+  return (
+    <section className="py-24 px-12 md:px-24 bg-[#001c40] text-white rounded-[3rem]">
 
-},[])
+      {/* HEADER */}
+      <div className="text-center mb-16">
+        <h3 className="text-4xl font-bold mb-4">
+          Specialized Departments
+        </h3>
 
-return (
+        <p className="text-white/60 text-sm max-w-xl mx-auto">
+          Explore our diverse academic departments shaping future innovators.
+        </p>
+      </div>
 
-<section className="py-16 bg-gray-50 overflow-hidden">
+      {/* GRID (ALL DEPARTMENTS) */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-<div className="max-w-7xl mx-auto px-4">
+        {departments.map((dep, index) => (
+          <div
+            key={index}
+            className="bg-white/10 backdrop-blur-md p-6 rounded-2xl hover:scale-105 transition-all text-center"
+          >
+            {/* SHORT */}
+            <h5 className="font-bold text-yellow-400 mb-2 text-lg">
+              {dep.short || dep.name.slice(0, 2).toUpperCase()}
+            </h5>
 
-<h2 className="text-3xl font-bold text-center mb-10 shake-text">
-Departments
-</h2>
+            {/* FULL */}
+            <p className="text-xs text-white/70">
+              {dep.name}
+            </p>
+          </div>
+        ))}
 
-<div className="flex gap-6 animate-scroll">
+      </div>
 
-{departments.map(dep => (
+      {/* BUTTON */}
+      <div className="mt-16 text-center">
+        <button
+          onClick={() => navigate("/departments")}
+          className="bg-yellow-400 text-black px-8 py-3 rounded-lg font-bold uppercase tracking-widest hover:scale-105 transition-all"
+        >
+          View All Departments →
+        </button>
+      </div>
 
-<div
-key={dep.id}
-className="min-w-[260px] bg-white rounded-xl shadow-lg hover:-translate-y-2 transition duration-300"
->
-
-<div className="overflow-hidden rounded-t-xl">
-
-<img
-src={dep.image}
-alt={dep.name}
-className="w-full h-48 object-cover transform hover:scale-110 transition duration-500"
-/>
-
-</div>
-
-<div className="p-4 text-center">
-
-<h3 className="font-semibold text-lg mb-3">
-{dep.name}
-</h3>
-
-</div>
-
-</div>
-
-))}
-
-</div>
-<button
-onClick={()=>navigate("/departments")}
-className="bg-yellow-300 text-black px-4 py-2 rounded hover:bg-blue-700 transition bg-center hero-btn mt-10 block mx-auto"
->
-
-Read More
-
-</button>
-
-</div>
-
-</section>
-
-)
-
-}
+    </section>
+  );
+};
 
 export default DepartmentsSection;

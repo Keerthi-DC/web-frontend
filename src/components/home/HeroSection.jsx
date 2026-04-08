@@ -13,39 +13,51 @@ const HeroSection = () => {
   if (!hero) return null;
 
   return (
-    <section className="relative h-[75vh] flex items-center overflow-hidden hero-light">
+    <section className="relative h-[820px] w-full overflow-hidden flex items-center">
 
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center hero-bg"
-        style={{ backgroundImage: `url(${hero.image})` }}
-      ></div>
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={hero.image}
+          alt="hero"
+          className="w-full h-full object-cover"
+        />
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+        {/* GRADIENT OVERLAY (IMPORTANT) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#001c40] via-[#001c40]/60 to-transparent"></div>
+      </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-8 text-white hero-float">
-        <div className="max-w-xl">
-          <h1 className="text-5xl font-bold mb-6">
-            {hero.title}
-          </h1>
+      <div className="relative z-10 px-12 md:px-24 max-w-4xl text-white">
 
-          <p className="text-lg mb-8 text-gray-200">
-            {hero.description}
-          </p>
+        {/* Badge */}
+        <span className="inline-block px-4 py-1 mb-6 bg-yellow-300 text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full">
+          Enrolling for 2027
+        </span>
 
-          <div className="flex gap-4">
-            {hero.buttons.map((btn, index) => (
-              <a
-                key={index}
-                href={btn.link}
-                className=" bg-yellow-400 text-black px-6 py-3 rounded font-semibold hero-btn"
-              >
-                → {btn.text}
-              </a>
-            ))}
-          </div>
+        {/* Title */}
+        <h1 className="text-6xl md:text-8xl font-extrabold leading-tight mb-8">
+          {hero.title}
+        </h1>
+
+        {/* Buttons */}
+        <div className="flex items-center gap-6">
+
+          {/* Primary */}
+          <a
+            href={hero.buttons[0]?.link}
+            className="px-10 py-4 bg-yellow-400 text-black font-bold uppercase tracking-widest rounded-lg hover:shadow-xl transition-all"
+          >
+            {hero.buttons[0]?.text}
+          </a>
+
+          {/* Glass button */}
+          <a
+            href={hero.buttons[1]?.link}
+            className="px-10 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold uppercase tracking-widest rounded-lg hover:bg-white/20 transition-all"
+          >
+            {hero.buttons[1]?.text}
+          </a>
         </div>
       </div>
     </section>
