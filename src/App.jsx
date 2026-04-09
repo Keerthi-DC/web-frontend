@@ -4,6 +4,9 @@ import BietGuide from "./components/BietGuide";
   import { Routes, Route, useLocation } from "react-router-dom";
   import Navbar from "./components/layout/Header/Navbar";
   import DepartmentNavbar from "./components/layout/Header/DepartmentNavbar";
+  import Footer from "./components/layout/Footer";
+  import DepartmentFooter from "./components/layout/DepartmentFooter";
+  
   import Home from "./pages/Home";
   import NewsPage from "./components/news&events/NewsPage";
   import EventsPage from "./components/news&events/EventsPage";
@@ -108,6 +111,7 @@ import BietGuide from "./components/BietGuide";
           <Route path="/departments/:shortName/newsletter" element={<DepartmentNewsletter />} />
           <Route path="/departments/:shortName/accreditation"element={<DepartmentAccreditation />}/>
         </Routes>
+       {isDepartmentPage ? <DepartmentFooter /> : <Footer />}
      </div >
     );
   };

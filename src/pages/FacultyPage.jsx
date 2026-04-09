@@ -1,67 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { FaUniversity, FaUserTie, FaBuilding } from "react-icons/fa";
 
 const API_ENDPOINT = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
-const LIST_DEPARTMENTS_QUERY = `
-  query ListDepartments {
-    listDepartments {
-      items {
-        departmentId
-        name
-        shortName
-      }
-    }
-  }
-`;
-
 const LIST_FACULTY_QUERY = `
-  query ListFaculty($deptId: ID, $tenantId: ID) {
-    listFaculty(deptId: $deptId, tenantId: $tenantId) {
-      items {
-        facultyId
-        name
-        designation
-        profileImage
-        cvUrl
-        status
-        deptId
-      }
+query ListFaculty($tenantId: ID) {
+  listFaculty(tenantId: $tenantId) {
+    items {
+      facultyId
+      name
+      designation
+      profileImage
+      cvUrl
     }
   }
+}
 `;
 
 export default function FacultyPage() {
-  const [departments, setDepartments] = useState([]);
   const [faculty, setFaculty] = useState([]);
-  const [selectedDept, setSelectedDept] = useState("");
-  const [view, setView] = useState("grid");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [view, setView] = useState("hierarchy");
 
   const tenantId = "biet-college";
 
-  // 🔥 Fetch Departments
-  const fetchDepartments = async () => {
-    const res = await fetch(API_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": API_KEY,
-      },
-      body: JSON.stringify({ query: LIST_DEPARTMENTS_QUERY }),
-    });
-
-    const data = await res.json();
-    setDepartments(data?.data?.listDepartments?.items || []);
-  };
-
-  // 🔥 Fetch Faculty
-  const fetchFaculty = async (deptId = null) => {
-    const variables = { deptId: deptId || null, tenantId };
-
-    const res = await fetch(API_ENDPOINT, {
+  useEffect(() => {
+    fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,201 +32,320 @@ export default function FacultyPage() {
       },
       body: JSON.stringify({
         query: LIST_FACULTY_QUERY,
-        variables,
+        variables: { tenantId },
       }),
-    });
-
-    const data = await res.json();
-    setFaculty(data?.data?.listFaculty?.items || []);
-  };
-
-  useEffect(() => {
-    const init = async () => {
-      try {
-        setLoading(true);
-        await fetchDepartments();
-        await fetchFaculty();
-      } catch (e) {
-        console.error(e);
-        setError("Failed to load data");
-      } finally {
-        setLoading(false);
-      }
-    };
-    init();
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFaculty(data?.data?.listFaculty?.items || []);
+      });
   }, []);
 
-  // 🔥 Filter logic
-  const filteredFaculty = selectedDept
-    ? faculty.filter((f) => f.departmentId === selectedDept)
-    : faculty;
+  // ================= GROUPING =================
+  const principal = faculty.find((f) =>
+    f.designation?.toLowerCase().includes("principal")
+  );
 
-  // 🔥 Grouping logic
-  const grouped = {
-    principal: [],
-    hods: [],
-    associate: [],
-    assistant: [],
-  };
+  const hods = faculty.filter((f) =>
+    f.designation?.toLowerCase().includes("hod")
+  );
 
-  filteredFaculty.forEach((f) => {
-    const role = f.designation?.toLowerCase() || "";
+  const associate = faculty.filter((f) =>
+    f.designation?.toLowerCase().includes("associate")
+  );
 
-    if (role.includes("principal")) grouped.principal.push(f);
-    else if (role.includes("hod")) grouped.hods.push(f);
-    else if (role.includes("associate")) grouped.associate.push(f);
-    else grouped.assistant.push(f);
-  });
+  const assistant = faculty.filter(
+    (f) =>
+      !f.designation?.toLowerCase().includes("principal") &&
+      !f.designation?.toLowerCase().includes("hod") &&
+      !f.designation?.toLowerCase().includes("associate")
+  );
 
-  // 🔥 Icons mapping
-  const sectionIcons = {
-    Principal: <FaUniversity className="text-blue-600" />,
-    "Heads of Department": <FaBuilding className="text-gray-600" />,
-    "Associate Professors": <FaUserTie className="text-gray-600" />,
-    "Assistant Professors": <FaUserTie className="text-gray-500" />,
-  };
+  // ================= HIERARCHY VIEW =================
+  const HierarchyView = () => (
+    <div className="space-y-16">
+      
+      {/* PRINCIPAL */}
+      <section>
+        <div className="flex justify-center">
+          <div className="w-full max-w-md bg-surface-container-lowest p-8 rounded-[1.5rem] shadow-[0px_12px_32px_rgba(0,10,30,0.08)] flex flex-col items-center text-center border border-outline-variant/5">
+            
+            <div className="relative mb-6">
+              <div className="absolute inset-0 bg-primary/5 rounded-full scale-110 blur-xl"></div>
 
-  // 🔥 Card UI
-  const renderCard = (f) => (
-    <div
-      key={f.facultyId}
-      className="flex flex-col items-center bg-white rounded-md shadow-sm p-4 hover:shadow-md transition"
-    >
-      <img
-        src={f.profileImage}
-        alt={f.name}
-        className="w-24 h-24 rounded-full object-cover mb-3"
-      />
-      <h3 className="text-lg font-semibold text-gray-800">{f.name}</h3>
-      <p className="text-sm text-gray-600">{f.designation}</p>
-      <a
-        href={f.cvUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-blue-600 text-sm mt-2 hover:underline"
-      >
-        View CV
-      </a>
+              <img
+                src={principal?.profileImage}
+                className="relative w-32 h-32 rounded-full object-cover border-4 border-white shadow-md"
+              />
+            </div>
+
+            <span className="px-4 py-1.5 bg-primary-container text-on-primary-container rounded-full text-xs font-bold uppercase mb-3">
+              Institutional Head
+            </span>
+
+            <h4 className="text-xl font-bold text-on-surface mb-1">
+              {principal?.name}
+            </h4>
+
+            <p className="text-on-surface-variant text-sm">
+              {principal?.designation}
+            </p>
+
+            <a
+              href={principal?.cvUrl}
+              className="text-xs font-bold text-primary mt-3 hover:underline"
+            >
+              VIEW LEADERSHIP PROFILE
+            </a>
+          </div>
+        </div>
+
+        {/* LINE */}
+        <div className="w-[1px] h-12 bg-outline-variant mx-auto"></div>
+      </section>
+
+      {/* HOD */}
+      <section>
+        <div className="flex justify-center">
+          {hods.map((hod) => (
+            <div
+              key={hod.facultyId}
+              className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/15 flex flex-col items-center w-64 shadow-sm"
+            >
+              <img
+                src={hod.profileImage}
+                className="w-20 h-20 rounded-full object-cover mb-3 border-2 border-white"
+              />
+              <h3 className="font-bold text-primary">{hod.name}</h3>
+              <p className="text-xs uppercase text-on-surface-variant">
+                Head of Department
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="w-[1px] h-12 bg-outline-variant mx-auto"></div>
+      </section>
+
+      {/* ASSOCIATES */}
+      <section>
+        <div className="flex justify-center gap-10 flex-wrap">
+          {associate.map((f) => (
+            <div
+              key={f.facultyId}
+              className="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/10 w-52 shadow-sm"
+            >
+              <div className="flex items-center gap-3">
+                <img
+                  src={f.profileImage}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 className="text-sm font-bold">{f.name}</h4>
+                  <p className="text-[10px] uppercase">
+                    Assoc. Professor
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="w-[1px] h-10 bg-outline-variant/50 mx-auto mt-4"></div>
+      </section>
+
+      {/* ASSISTANTS */}
+      <section>
+        <div className="flex justify-center gap-6 flex-wrap">
+          {assistant.map((f) => (
+            <div
+              key={f.facultyId}
+              className="bg-white p-3 rounded-lg border border-outline-variant/5 w-40 text-center"
+            >
+              <h5 className="text-xs font-bold">{f.name}</h5>
+              <p className="text-[9px] text-on-surface-variant">
+                Asst. Professor
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+  {/* CARD 1 */}
+  <div className="group bg-surface-container-high p-8 rounded-2xl transition-all duration-300 hover:bg-primary-container">
+    <h3 className="text-xl font-bold mb-2 group-hover:text-white">
+      Structural Integrity
+    </h3>
+    <p className="text-sm text-on-surface-variant group-hover:text-white/90">
+      Our hierarchy ensures rigorous academic supervision and
+      mentorship across all research domains.
+    </p>
+  </div>
+
+  {/* CARD 2 */}
+  <div className="group bg-surface-container-high p-8 rounded-2xl transition-all duration-300 hover:bg-primary-container">
+    <h3 className="text-xl font-bold mb-2 group-hover:text-white">
+      Faculty Strength
+    </h3>
+    <p className="text-sm text-on-surface-variant group-hover:text-white/90">
+      Over 45 distinguished PhD holders across Computer
+      Science, Data Science, and AI research wings.
+    </p>
+  </div>
+
+  {/* CARD 3 */}
+  <div className="group bg-surface-container-high p-8 rounded-2xl transition-all duration-300 hover:bg-primary-container">
+    <h3 className="text-xl font-bold mb-2 group-hover:text-white">
+      Accreditations
+    </h3>
+    <p className="text-sm text-on-surface-variant group-hover:text-white/90">
+      Tier-1 Institutional ranking with faculty citations
+      exceeding 5,000+ annually in global journals.
+    </p>
+  </div>
+
+</section>
     </div>
   );
 
-  // 🔥 GRID VIEW
-  const renderGrid = () => {
-    const sections = [
-      { title: "Principal", items: grouped.principal, highlight: true },
-      { title: "Heads of Department", items: grouped.hods },
-      { title: "Associate Professors", items: grouped.associate },
-      { title: "Assistant Professors", items: grouped.assistant },
-    ];
+const GridView = () => (
+  <div className="space-y-16">
 
-    return (
-      <div className="space-y-8">
-        {sections.map((s) => (
-          <div key={s.title}>
-            <h4
-              className={`flex items-center gap-2 font-semibold border-b pb-1 ${
-                s.highlight
-                  ? "text-blue-600 border-blue-200"
-                  : "text-gray-700 border-gray-200"
-              }`}
-            >
-              {sectionIcons[s.title]}
-              {s.title}
-            </h4>
+    {/* PRINCIPAL */}
+    {principal && (
+      <section>
+        <div className="mb-8 flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-outline-variant/30"></div>
+          <h3 className="text-xs uppercase tracking-widest">Principal</h3>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-outline-variant/30"></div>
+        </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
-              {s.items.length > 0 ? (
-                s.items.map(renderCard)
-              ) : (
-                <p className="text-gray-500">
-                  No {s.title.toLowerCase()}
-                </p>
-              )}
+        <div className="flex justify-center">
+          <div className="w-full max-w-md bg-surface-container-lowest p-8 rounded-[1.5rem] shadow flex flex-col items-center text-center">
+            <img
+              src={principal.profileImage}
+              className="w-28 h-28 rounded-full object-cover mb-4"
+            />
+            <h4 className="text-xl font-bold">{principal.name}</h4>
+            <p className="text-sm">{principal.designation}</p>
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* HOD */}
+    <section>
+      <div className="mb-6 text-xs uppercase">Head of Department</div>
+      <div className="space-y-4">
+        {hods.map((f) => (
+          <div
+            key={f.facultyId}
+            className="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl"
+          >
+            <img
+              src={f.profileImage}
+              className="w-16 h-16 rounded-full object-cover"
+            />
+            <div>
+              <h4 className="font-bold">{f.name}</h4>
+              <p className="text-xs">{f.designation}</p>
             </div>
           </div>
         ))}
       </div>
-    );
-  };
+    </section>
 
-  // 🔥 HIERARCHY VIEW (simple version)
-  const renderHierarchy = () => {
-    const renderNode = (f) => (
-      <div key={f.facultyId} className="text-center">
-        <div className="bg-white shadow px-4 py-2 rounded-full inline-block">
-          {f.name}
-        </div>
+    {/* ASSOCIATE */}
+    <section>
+      <div className="mb-6 text-xs uppercase">Associate Professors</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {associate.map((f) => (
+          <div
+            key={f.facultyId}
+            className="flex items-center gap-3 bg-surface-container-lowest p-4 rounded-xl"
+          >
+            <img
+              src={f.profileImage}
+              className="w-12 h-12 rounded-full object-cover"
+            />
+            <div>
+              <h4 className="font-bold">{f.name}</h4>
+              <p className="text-xs">{f.designation}</p>
+            </div>
+          </div>
+        ))}
       </div>
-    );
+    </section>
 
-    return (
-      <div className="flex flex-col items-center space-y-6">
-        {grouped.principal.length > 0 && renderNode(grouped.principal[0])}
-
-        {grouped.hods.length > 0 && (
-          <div className="flex gap-6 flex-wrap justify-center">
-            {grouped.hods.map(renderNode)}
+    {/* ASSISTANT */}
+    <section>
+      <div className="mb-6 text-xs uppercase">Assistant Professors</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {assistant.map((f) => (
+          <div
+            key={f.facultyId}
+            className="bg-surface-container-lowest p-4 rounded-xl text-center"
+          >
+            <img
+              src={f.profileImage}
+              className="w-14 h-14 rounded-full mx-auto mb-2 object-cover"
+            />
+            <h4 className="text-sm font-bold">{f.name}</h4>
+            <p className="text-xs">{f.designation}</p>
           </div>
-        )}
-
-        {grouped.associate.length > 0 && (
-          <div className="flex gap-6 flex-wrap justify-center">
-            {grouped.associate.map(renderNode)}
-          </div>
-        )}
-
-        {grouped.assistant.length > 0 && (
-          <div className="flex gap-6 flex-wrap justify-center">
-            {grouped.assistant.map(renderNode)}
-          </div>
-        )}
+        ))}
       </div>
-    );
-  };
+    </section>
+
+  </div>
+);
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
-        <h1 className="text-3xl font-semibold text-gray-900">
-          Faculty Directory
-        </h1>
-
-        {/* FILTER */}
-        <select
-          value={selectedDept}
-          onChange={(e) => setSelectedDept(e.target.value)}
-          className="border px-3 py-2 rounded mt-4 md:mt-0"
-        >
-          <option value="">All Departments</option>
-          {departments.map((d) => (
-            <option key={d.departmentId} value={d.departmentId}>
-              {d.name}
-            </option>
-          ))}
-        </select>
+    <div className="bg-surface min-h-screen px-6 md:px-12 py-10">
+      
+      {/* TITLE + TOGGLE */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+        
+        <div>
+          <h2 className="text-4xl font-extrabold text-primary">
+            Faculty Hierarchy
+          </h2>
+          <p className="text-on-surface-variant mt-2">
+            An overview of the institutional leadership and academic
+            structure of the Department.
+          </p>
+        </div>
 
         {/* TOGGLE */}
-        <div className="flex items-center gap-2 mt-4 md:mt-0">
-          <span>Grid</span>
-          <input
-            type="checkbox"
-            checked={view === "hierarchy"}
-            onChange={(e) =>
-              setView(e.target.checked ? "hierarchy" : "grid")
-            }
-          />
-          <span>Hierarchy</span>
+        <div className="flex p-1.5 bg-surface-container-high rounded-full shadow-inner">
+          <button
+            onClick={() => setView("grid")}
+            className={`px-6 py-2 rounded-full text-sm font-semibold ${
+              view === "grid"
+                ? "bg-primary text-white shadow-lg"
+                : "text-on-surface-variant"
+            }`}
+          >
+            Grid
+          </button>
+
+          <button
+            onClick={() => setView("hierarchy")}
+            className={`px-6 py-2 rounded-full text-sm font-semibold ${
+              view === "hierarchy"
+                ? "bg-primary text-white shadow-lg"
+                : "text-on-surface-variant"
+            }`}
+          >
+            Hierarchy
+          </button>
         </div>
       </div>
 
-      {/* STATES */}
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-
-      {!loading && !error && (
-        <div>{view === "grid" ? renderGrid() : renderHierarchy()}</div>
-      )}
+      {/* VIEW */}
+      {view === "hierarchy" ? <HierarchyView /> : <GridView />}
     </div>
   );
 }

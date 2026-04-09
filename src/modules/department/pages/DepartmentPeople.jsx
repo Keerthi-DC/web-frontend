@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../../hooks/useDepartmentMeta";
+import { Search, X } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
@@ -53,10 +54,10 @@ const DepartmentPeople = () => {
   const [faculty, setFaculty] = useState([]);
   const [staff, setStaff] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("faculty");
 
-  // ✅ Fetch Data
+  // ✅ FETCH DATA
   useEffect(() => {
     if (!shortName || !isReady) return;
 
@@ -71,7 +72,6 @@ const DepartmentPeople = () => {
         if (activeTab === "technical") staffType = "technical";
         if (activeTab === "supporting") staffType = "supporting";
 
-        // 🔥 FACULTY
         if (activeTab === "faculty") {
           const res = await fetch(API_URL, {
             method: "POST",
@@ -89,17 +89,13 @@ const DepartmentPeople = () => {
           });
 
           const result = await res.json();
-
           const facultyList =
             result?.data?.listFaculty?.items || [];
 
           setFaculty(
             facultyList.filter((f) => f.status === "active")
           );
-        }
-
-        // 🔥 STAFF
-        else {
+        } else {
           const res = await fetch(API_URL, {
             method: "POST",
             headers: {
@@ -118,7 +114,6 @@ const DepartmentPeople = () => {
           });
 
           const result = await res.json();
-
           const staffList =
             result?.data?.listDeptStaff?.items || [];
 
@@ -134,7 +129,14 @@ const DepartmentPeople = () => {
     fetchData();
   }, [shortName, isReady, activeTab]);
 
-  // ✅ Card Renderer
+  // ✅ FILTER (ONLY NAME)
+  const filterPeople = (list) => {
+    return list.filter((p) =>
+      p.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  // ✅ CARD RENDER
   const renderCards = (list, type) => (
     <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
       {list.map((p, i) => {
@@ -178,9 +180,37 @@ const DepartmentPeople = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-20">
-      <h1 className="text-4xl font-bold mb-12 text-center">
+      <h1 className="text-4xl font-bold mb-8 text-center">
         People
       </h1>
+
+      {/* 🔍 SEARCH */}
+      <div className="flex justify-center mb-6">
+        <div className="relative w-full max-w-md">
+          <Search
+            size={18}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+          />
+
+          <input
+            type="text"
+            placeholder="Search people..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-11 pr-10 py-3 rounded-full border border-gray-300 
+            focus:outline-none focus:ring-2 focus:ring-[#0B3C6D] 
+            focus:border-[#0B3C6D] shadow-sm transition-all duration-300"
+          />
+
+          {searchTerm && (
+            <X
+              size={18}
+              onClick={() => setSearchTerm("")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600"
+            />
+          )}
+        </div>
+      </div>
 
       {/* 🔥 TABS */}
       <div className="flex justify-center mb-12 gap-4 flex-wrap">
@@ -188,7 +218,7 @@ const DepartmentPeople = () => {
           onClick={() => setActiveTab("faculty")}
           className={`px-6 py-2 rounded-full ${
             activeTab === "faculty"
-              ? "bg-blue-600 text-white"
+              ? "bg-[#0b3c5d] text-white"
               : "bg-gray-200"
           }`}
         >
@@ -199,7 +229,7 @@ const DepartmentPeople = () => {
           onClick={() => setActiveTab("technical")}
           className={`px-6 py-2 rounded-full ${
             activeTab === "technical"
-              ? "bg-blue-600 text-white"
+              ? "bg-[#0b3c5d] text-white"
               : "bg-gray-200"
           }`}
         >
@@ -210,7 +240,7 @@ const DepartmentPeople = () => {
           onClick={() => setActiveTab("supporting")}
           className={`px-6 py-2 rounded-full ${
             activeTab === "supporting"
-              ? "bg-blue-600 text-white"
+              ? "bg-[#0b3c5d] text-white"
               : "bg-gray-200"
           }`}
         >
@@ -220,23 +250,21 @@ const DepartmentPeople = () => {
 
       {/* 🔥 CONTENT */}
       {loading ? (
-        <p className="text-center text-gray-500">
-          Loading...
-        </p>
+        <p className="text-center text-gray-500">Loading...</p>
       ) : activeTab === "faculty" ? (
-        faculty.length === 0 ? (
+        filterPeople(faculty).length === 0 ? (
           <p className="text-center text-gray-500">
-            No faculty found
+            No results found
           </p>
         ) : (
-          renderCards(faculty, "faculty")
+          renderCards(filterPeople(faculty), "faculty")
         )
-      ) : staff.length === 0 ? (
+      ) : filterPeople(staff).length === 0 ? (
         <p className="text-center text-gray-500">
-          No {activeTab} staff found
+          No results found
         </p>
       ) : (
-        renderCards(staff, "staff")
+        renderCards(filterPeople(staff), "staff")
       )}
     </div>
   );

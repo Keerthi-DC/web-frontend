@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../../../hooks/useDepartmentMeta";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
@@ -20,6 +20,8 @@ query ListAchievements($deptId: ID!, $type: String, $tenantId: ID!) {
 
 const DepartmentAchievements = () => {
   const { shortName } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { getId, isReady } = useDepartmentMeta();
 
   const [studentAchievements, setStudentAchievements] = useState([]);
@@ -28,6 +30,7 @@ const DepartmentAchievements = () => {
   const [selected, setSelected] = useState(null);
   const [activeTab, setActiveTab] = useState("student");
 
+  // ✅ FETCH FUNCTION
   const fetchAchievements = async (type, deptId) => {
     try {
       const res = await fetch(API_URL, {
@@ -54,6 +57,7 @@ const DepartmentAchievements = () => {
     }
   };
 
+  // ✅ LOAD DATA
   useEffect(() => {
     if (!shortName || !isReady) return;
 
@@ -62,7 +66,7 @@ const DepartmentAchievements = () => {
       if (!deptId) return;
 
       const students = await fetchAchievements("student", deptId);
-      const faculty = await fetchAchievements("staff", deptId);
+      const faculty = await fetchAchievements("staff", deptId); // 🔥 IMPORTANT FIX
 
       setStudentAchievements(students);
       setFacultyAchievements(faculty);
@@ -71,6 +75,15 @@ const DepartmentAchievements = () => {
 
     loadData();
   }, [shortName, isReady]);
+
+  // ✅ HASH ROUTING FIX
+  useEffect(() => {
+    if (location.hash === "#faculty") {
+      setActiveTab("faculty");
+    } else {
+      setActiveTab("student");
+    }
+  }, [location.hash]);
 
   if (loading) {
     return (
@@ -82,7 +95,6 @@ const DepartmentAchievements = () => {
 
   return (
     <div className="bg-gradient-to-b from-[#f8f9fa] to-white min-h-screen font-sans text-[#1a1a1a]">
-
       <main className="pt-28 pb-20 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
 
         {/* HERO */}
@@ -102,10 +114,10 @@ const DepartmentAchievements = () => {
           </div>
 
           <div className="rounded-2xl overflow-hidden shadow-xl">
-           <img
-  src="https://images.unsplash.com/photo-1523580494863-6f3031224c94"
-  className="w-full h-[320px] object-cover"
-/>
+            <img
+              src="https://images.unsplash.com/photo-1523580494863-6f3031224c94"
+              className="w-full h-[320px] object-cover"
+            />
           </div>
         </section>
 
@@ -115,7 +127,10 @@ const DepartmentAchievements = () => {
             {["student", "faculty"].map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => {
+                  setActiveTab(tab);
+                  navigate(`#${tab === "student" ? "students" : "faculty"}`);
+                }}
                 className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                   activeTab === tab
                     ? "bg-white shadow text-[#0f172a]"
@@ -128,7 +143,7 @@ const DepartmentAchievements = () => {
           </div>
         </div>
 
-        {/* STUDENT */}
+        {/* STUDENTS */}
         {activeTab === "student" && (
           <section className="mb-24">
             <h3 className="text-3xl font-bold mb-10 text-[#0f172a]">
@@ -136,7 +151,6 @@ const DepartmentAchievements = () => {
             </h3>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
               {studentAchievements.map((item, i) => (
                 <div
                   key={i}
@@ -145,7 +159,7 @@ const DepartmentAchievements = () => {
                 >
                   <div className="h-1 w-10 bg-yellow-500 mb-4 rounded"></div>
 
-                  <p className="text-gray-700 text-sm leading-relaxed line-clamp-4">
+                  <p className="text-gray-700 text-sm line-clamp-4">
                     {item.text}
                   </p>
 
@@ -154,7 +168,6 @@ const DepartmentAchievements = () => {
                   </div>
                 </div>
               ))}
-
             </div>
           </section>
         )}
@@ -167,25 +180,24 @@ const DepartmentAchievements = () => {
             </h3>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {facultyAchievements.map((item, i) => (
-    <div
-      key={i}
-      onClick={() => setSelected(item)}
-      className="group bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
-    >
-      <div className="h-1 w-10 bg-yellow-500 mb-4 rounded"></div>
+              {facultyAchievements.map((item, i) => (
+                <div
+                  key={i}
+                  onClick={() => setSelected(item)}
+                  className="group bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
+                >
+                  <div className="h-1 w-10 bg-yellow-500 mb-4 rounded"></div>
 
-      <p className="text-gray-700 text-sm italic line-clamp-4">
-        {item.text}
-      </p>
+                  <p className="text-gray-700 text-sm italic line-clamp-4">
+                    {item.text}
+                  </p>
 
-      {/* 👇 ADD THIS */}
-      <div className="mt-4 text-xs text-gray-400 group-hover:text-gray-600 transition">
-        Click to view →
-      </div>
-    </div>
-  ))}
-</div>
+                  <div className="mt-4 text-xs text-gray-400">
+                    Click to view →
+                  </div>
+                </div>
+              ))}
+            </div>
           </section>
         )}
       </main>
@@ -197,7 +209,7 @@ const DepartmentAchievements = () => {
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fadeIn"
+            className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -211,7 +223,7 @@ const DepartmentAchievements = () => {
               Achievement Details
             </h3>
 
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-600">
               {selected.text}
             </p>
           </div>

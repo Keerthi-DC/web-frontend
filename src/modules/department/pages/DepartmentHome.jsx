@@ -11,7 +11,7 @@ import ResearchPreview from "../components/home/ResearchPreview";
 import PlacementStats from "../components/home/PlacementStats";
 import AchievementsPreview from "../components/home/AchievementsPreview";
 import GalleryPreview from "../components/home/GalleryPreview";
-import Footer from "../../../components/Footer";
+import Footer from "../../../components/layout/Footer";
 import QuickLinksPreview from "../components/home/QuickLinksPreview";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
@@ -243,7 +243,7 @@ const DepartmentHome = () => {
       <AchievementsPreview />
       <QuickLinksPreview shortName={shortName} />
       <GalleryPreview data={{}} />
-      <Footer />
+      
     </motion.div>
   );
 };

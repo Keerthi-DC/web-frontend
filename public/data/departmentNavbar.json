@@ -11,10 +11,7 @@
           "label": "Faculty",
           "path": "/people#faculty"
         },
-        {
-          "label": "Staff",
-          "path": "/people#staff"
-        },
+
         {
           "label": "Accreditation",
           "path": "/accreditation"
