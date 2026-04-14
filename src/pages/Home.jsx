@@ -31,7 +31,6 @@ const Home = () => (
     <GallerySection />
     <AlumniSection />
     <CallToActionSection />
-    <Footer />
   </div>
 );
 

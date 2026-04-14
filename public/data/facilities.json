@@ -1,0 +1,235 @@
+{
+  "sidebar": [
+    { "id": "boys-hostel", "title": "BOYS HOSTEL" },
+    { "id": "ladies-hostel", "title": "LADIES HOSTEL" },
+    { "id": "ladies-rest-room", "title": "LADIES REST ROOM" },
+    { "id": "canteen", "title": "CANTEEN / CAFETERIA" },
+    { "id": "dispensary", "title": "DISPENSARY" },
+    { "id": "guest-house", "title": "GUEST HOUSE" },
+    { "id": "red-cross", "title": "RED CROSS" },
+    { "id": "ncc", "title": "NCC" },
+    { "id": "nss", "title": "NSS" },
+    { "id": "internet", "title": "INTERNET" },
+    { "id": "elearning", "title": "E-LEARNING" },
+    { "id": "language-lab", "title": "LANGUAGE LAB" }
+  ],
+
+  "content": {
+
+    "boys-hostel": {
+      "title": "BIET Boys Hostel",
+      "sections": [
+        {
+          "type": "image",
+          "images": [
+            "https://source.unsplash.com/1200x500/?boys-hostel",
+            "https://source.unsplash.com/1200x500/?college-hostel"
+          ]
+        },
+        {
+          "type": "info",
+          "data": [
+            { "label": "Start date", "value": "1984" },
+            { "label": "Blocks", "value": "3" },
+            { "label": "Number of Room", "value": "200" },
+            { "label": "Hostel area", "value": "4.5 acres / 12,877.09 Sq" }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "About Hostel"
+        },
+        {
+          "type": "paragraph",
+          "text": "The Hostel is founded in 1984 to accommodate the boys, who come from different parts of the world. The hostel now has three blocks accommodating about 510 boarders. The rooms are well furnished and the surroundings of hostel is very green and pleasant, which encourages the students to study during late nights. The students who stayed in the hostel have secured 18 university ranks right from the inception of the hostel. The hostel is having two dinning halls of North & South Indian to cater the needs of the boarders for their taste."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hostel is known for its discipline and well managed by dedicated faculty & staff members. The Hostel area is spacious as much as 4.5 acres, built up area it self being 12,877.09 Sq feet"
+        },
+        {
+          "type": "heading",
+          "text": "Facilities & Amenities"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Three Color TVs sets for entertainment & Information",
+            "Indoor Games: 'EKALAVYA' Indoor games hall for Shuttle, Badminton, T.T, Carom & chess.",
+            "CCTV Coverage",
+            "Multi gym for Physical fitness",
+            "Vinayaka Reading hall",
+            "Reading room with Kannada & English newspapers, periodicals & Magazine",
+            "Captive power – 125 KVA",
+            "Solar hot water for each blocks & Kitchens Geezer Hot Water",
+            "Drinking water (R.O) & Softener Plant",
+            "Deep freezer",
+            "Vehicle Parking",
+            "Wardrobe in each room",
+            "Banking facility near by campus"
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Boys Room Details",
+          "columns": ["S.No.", "Block", "No. of Rooms", "No. of Boarders"],
+          "rows": [
+            ["1", "KAMADHENU", "72", "216"],
+            ["2", "KALPATARU", "80", "240"],
+            ["", "Total", "152", "456"]
+          ]
+        }
+      ]
+    },
+
+    "ladies-hostel": {
+      "title": "Amrutha Ladies Hostel",
+      "sections": [
+        {
+          "type": "image",
+          "images": [
+            "https://source.unsplash.com/1200x500/?girls-hostel"
+          ]
+        },
+        {
+          "type": "info",
+          "data": [
+            { "label": "Start date", "value": "2008" },
+            { "label": "Blocks", "value": "2" },
+            { "label": "Number of Room", "value": "104" },
+            { "label": "Hostel area", "value": "5029 Sq" }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The Hostel was started in 2008 to accommodate BIET girl students, who come from different parts of the world. The hostel now has one block with 4 Floors, accommodating about 320 boarders. The rooms are well furnished and the surroundings of hostel is very green and pleasant, which encourages the students to study."
+        },
+        {
+          "type": "paragraph",
+          "text": "North Indian & south Indian dishes are prepared in the hostel mess. The hostel mess is managed by the hostel administration itself. Ragging is totally prohibited in the hostel."
+        },
+        {
+          "type": "table",
+          "columns": ["S.No.", "Block", "No. of Rooms", "No. of Boarders"],
+          "rows": [
+            ["1", "AMRUTHA", "104", "320"],
+            ["2", "KALYANA", "52", "156"],
+            ["3", "HEMAVATHI", "72", "280"],
+            ["", "Total", "228", "756"]
+          ]
+        }
+      ]
+    },
+
+    "canteen": {
+      "title": "Canteen",
+      "sections": [
+        {
+          "type": "image",
+          "images": [
+            "https://source.unsplash.com/1200x500/?canteen"
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "Designed to cater to 1000 students & staff",
+            "Modern Kitchen",
+            "Steam Cooked Food",
+            "Bakery Shop",
+            "Hygienic Serving"
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "1000 students & staff not only eat but exchange views food is steam cooked and hygienic serving"
+        },
+        {
+          "type": "paragraph",
+          "text": "The college canteen is designed to cater to 1000 students & staff. The college canteen is a place where students congregate to not only eat but exchange views."
+        }
+      ]
+    },
+
+    "dispensary": {
+      "title": "Dispensary Facility",
+      "sections": [
+        {
+          "type": "list",
+          "items": [
+            "Institute Health Centre",
+            "Bapuji Hospital",
+            "SS Hospital",
+            "Bapuji Dental College & Hospital",
+            "College of Dental Sciences",
+            "All the department laboratories have first-aid kits",
+            "Biomedical Engineering department has facility to measure blood pressure, body temperature, heart rate, oxygen saturation, ECG, eye & ear testing"
+          ]
+        }
+      ]
+    },
+
+    "internet": {
+      "title": "Internet",
+      "sections": [
+        {
+          "type": "table",
+          "columns": ["S.No.", "Type of Connectivity", "Particulars"],
+          "rows": [
+            ["1", "Total number of Computer Systems", "1889"],
+            ["2", "Number of Systems connected to LAN", "1889"],
+            ["3", "500 Mbps Bharathi Airtel", "Leased line (1:1) with OFC backbone, Dynamic IP addressing"],
+            ["4", "500 Mbps Tata Tele Business Services", "Leased line (1:1) with OFC backbone, Dynamic IP addressing"],
+            ["5", "100 Mbps BSNL", "Leased line (1:1) with OFC backbone, Dynamic IP addressing at MBA Campus"],
+            ["6", "300 Mbps broadband", "1X300"]
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "Every department caters to the needs of the students and staff with their respective Internet laboratory.",
+            "Internet facility is provided to the students at the Centre Library (With 18 systems connectivity)"
+          ]
+        }
+      ]
+    },
+
+    "elearning": {
+      "title": "E - Learning",
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Edusat is a satellite based distance learning programme. Our institution is having this facility in Information Science Dept seminar hall. In this programme the students can listen to lecturers from experts related to their subjects."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Satellite based distance education system",
+            "Student can interact with subject experts",
+            "Enhances technical and communication skills"
+          ]
+        }
+      ]
+    },
+
+    "language-lab": {
+      "title": "English Language Lab",
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Our Institution provides Language lab facility to enhance the communication skills of the students. Today’s world requires a student who is in good in English."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Reflection on the organization of sentence components",
+            "Use of vocabulary and grammar",
+            "Vocabulary practice with exercises",
+            "Improve communication skills"
+          ]
+        }
+      ]
+    }
+
+  }
+}

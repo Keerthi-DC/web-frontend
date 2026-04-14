@@ -1,4 +1,4 @@
-import BietGuide from "./components/BietGuide";
+  import BietGuide from "./components/BietGuide";
 // import ChatBot from "./components/ChatBot";
   import "./aws-config";
   import { Routes, Route, useLocation } from "react-router-dom";
@@ -50,7 +50,14 @@ import BietGuide from "./components/BietGuide";
 
   import AboutOverview from "./components/about/AboutOverviewPage";
   import VisionPage from "./components/about/VisionPage";
+  import CommitteesPage from "./components/about/CommitteesPage";
 
+  import Facilities from "./components/campusLife/Facilities";
+  import GymPage from "./components/campusLife/GymPage";
+  import SACPage from "./components/campusLife/SacPage";
+  import SportsPage from "./components/campusLife/SportsPage";
+  import TechnowavePage from "./components/campusLife/TechnowavePage";
+  import GreenCampusPage from "./components/campusLife/GreenCampusPage";
 
   const App = () => {
     const location = useLocation();
@@ -96,6 +103,15 @@ import BietGuide from "./components/BietGuide";
           {/* about‑specific pages */}
           <Route path="/about/overview" element={<AboutOverview />} />
           <Route path="/about/vision" element={<VisionPage />} />
+          <Route path="/about/committees" element={<CommitteesPage />} />
+
+          {/* campus life‑specific pages */}
+          <Route path="/campus-life/facilities" element={<Facilities />} />
+          <Route path="/campus-life/gym" element={<GymPage />} />
+          <Route path="/campus-life/sac" element={<SACPage />} />
+          <Route path="/campus-life/sports" element={<SportsPage />} />
+          <Route path="/campus-life/technowave" element={<TechnowavePage />} />
+          <Route path="/campus-life/green-campus" element={<GreenCampusPage />} />
 
           {/* department‑specific pages */}
           <Route path="/departments/:shortName" element={<DepartmentHome />} />

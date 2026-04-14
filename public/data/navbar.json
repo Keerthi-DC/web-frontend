@@ -1,8 +1,18 @@
 {
   "menu": [
+       {
+      "label": "About",
+      "path": "",
+      "dropdown": [
+        { "label": "Overview", "path": "/about/overview" },
+        { "label": "Vision", "path": "/about/vision" },
+        { "label": "Committees", "path": "/about/committees" },
+        { "label": "Alumni", "path": "/about/alumni" }
+      ]
+    },
     {
       "label": "Academics",
-      "path": "/",
+      "path": "",
       "dropdown": [
         { "label": "Programs", "path": "/academics/programs" },
         { "label": "Departments", "path": "/academics/departments" },
@@ -15,7 +25,7 @@
     },
     {
       "label": "Admissions",
-      "path": "/",
+      "path": "",
       "dropdown": [
         { "label": "Overview", "path": "/admissions/overview" },
         { "label": "Prospectus", "path": "/admissions/prospectus" },
@@ -27,19 +37,20 @@
     },
     {
       "label": "Accreditations",
-      "path":"/",
+      "path":"",
       "dropdown": [
         { "label": "NAAC", "path": "/accreditations/naac" },
         { "label": "NBA", "path": "/accreditations/nba" },
         { "label": "AICTE", "path": "/accreditations/aicte" },
         { "label": "NIRF", "path": "/accreditations/nirf" },
-        { "label": " AISHE", "path": "/accreditations/aishe" }
+        { "label": "AISHE", "path": "/accreditations/aishe" }
       ]
     },
     {
       "label": "Campus Life",
-      "path": "/",
       "dropdown": [
+        {"label": "Facilities", "path": "/campus-life/facilities" },
+        { "label": "Campus Tour", "path": "/campus-life/campusTour" },
         { "label": "Green Campus", "path": "/campus-life/green-campus" },
         { "label": "SAC", "path": "/campus-life/sac" },
         { "label": "Gym", "path": "/campus-life/gym" },
@@ -47,20 +58,10 @@
         { "label": "Technowave", "path": "/campus-life/technowave" }
       ]
     },
-    {
-      "label": "About",
-      "path": "/",
-      "dropdown": [
-        { "label": "Overview", "path": "/about/overview" },
-        { "label": "Vision", "path": "/about/vision" },
-        { "label": "Committees", "path": "/about/committees" },
-        { "label": "Facilities", "path": "/about/facilities" },
-        { "label": "Alumni", "path": "/about/alumni" }
-      ]
-    },
+
     {
       "label": "Research",
-      "path": "/",
+      "path": "",
       "dropdown": [
         { "label": "Projects", "path": "/research/projects" },
         { "label": "Industry Interaction", "path": "/research/industry" },
@@ -69,13 +70,28 @@
     },
     {
       "label": "News & Events",
-      "path": "/",
+      "path": "",
       "dropdown": [
         { "label": "News", "path": "/news" },
         { "label": "Events", "path": "/events" },
         { "label": "Notifications", "path": "/notifications" },
         { "label": "Gallery", "path": "/gallery" }
       ]
+    },
+    {
+      "label": "Institutional Cells",
+      "path": "",
+      "dropdown": [
+        { "label": "Examination Cell", "path": "/cells/examination" },
+        { "label": "Institute Innovative Cell", "path": "/cells/innovation" },
+        { "label": "Skill Development Cell", "path": "/cells/skill-development" },
+        { "label": "Entrepreneurship Development Cell", "path": "/cells/entrepreneurship" },
+        { "label": "Autonomous Cell", "path": "/cells/autonomous" }
+        ]
+  },
+    {
+      "label": "Placement",
+      "path": ""
     }
   ]
 }

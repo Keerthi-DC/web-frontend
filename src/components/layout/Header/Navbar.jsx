@@ -6,6 +6,7 @@ import logo from "../../../../assets/BIET_logo.png";
 const Navbar = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     fetch("/data/navbar.json")
@@ -13,7 +14,14 @@ const Navbar = () => {
       .then((data) => setMenuItems(data.menu));
   }, []);
 
-  // ICON MAP
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => setActiveDropdown(null);
+    window.addEventListener("click", handleClickOutside);
+
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const iconMap = {
     Academics: "school",
     Admissions: "auto_stories",
@@ -22,78 +30,77 @@ const Navbar = () => {
     About: "info",
     Research: "science",
     "News & Events": "newspaper",
+    "Institutional Cells": "hub", // ⭐ NEW
+    Placement: "work", // ⭐ NEW
   };
 
   return (
     <header className="sticky top-0 z-50">
-      {/* TOP BAR */}
       <TopBar />
 
-      {/* MAIN NAVBAR */}
       <nav className="bg-white/90 backdrop-blur-xl shadow-sm border-b">
         <div className="w-full px-6 py-4 flex items-center">
-          
-          {/* LEFT: LOGO */}
+
+          {/* LOGO */}
           <div className="flex items-center gap-4">
             <Link to="/">
-             <div className="h-16 w-16 rounded-full overflow-hidden border border-gray-200 shadow-md flex items-center justify-center bg-white">
-              <img
-                src={logo}
-                alt="College Logo"
-                className="h-full w-full object-contain"
-              />
-            </div>
+              <div className="h-16 w-16 rounded-full overflow-hidden border border-gray-200 shadow-md flex items-center justify-center bg-white">
+                <img
+                  src={logo}
+                  alt="College Logo"
+                  className="h-full w-full object-contain"
+                />
+              </div>
             </Link>
 
             <div className="leading-tight">
-              <h1 className="text-lg font-extrabold text-[#001430] tracking-wide">
+              <h1 className="text-lg font-extrabold text-[#001430]">
                 Bapuji Institute of
               </h1>
-              <h1 className="text-sm font-extrabold text-[#001430] tracking-wide">
+              <h1 className="text-sm font-extrabold text-[#001430]">
                 Engineering & Technology
               </h1>
             </div>
           </div>
 
-          {/* CENTER: MENU */}
+          {/* DESKTOP MENU */}
           <div className="hidden md:flex flex-1 justify-evenly items-center">
             {menuItems.map((item) => (
-              <div key={item.label} className="relative group">
-                
-                <NavLink
-                  to={item.path || "#"}
-                  end
-                  className={({ isActive }) =>
-  `flex items-center gap-2 text-sm font-semibold transition-all ${
-    isActive
-      ? "text-[#001430]"   // only color
-      : "text-gray-500 hover:text-blue-700"
-  }`
-}
+              <div
+                key={item.label}
+                className="relative z-50"
+                onClick={(e) => e.stopPropagation()} // prevent closing
+              >
+
+                {/* CLICKABLE PARENT */}
+                <div
+                  onClick={() =>
+                    setActiveDropdown(
+                      activeDropdown === item.label ? null : item.label
+                    )
+                  }
+                  className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-blue-700 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[18px]">
                     {iconMap[item.label]}
                   </span>
-
                   {item.label}
-                </NavLink>
+                </div>
 
                 {/* DROPDOWN */}
-                {item.dropdown && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-64 bg-white rounded-2xl shadow-xl 
-                  opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                  transition-all duration-200 overflow-hidden z-50">
+                {item.dropdown && activeDropdown === item.label && (
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-64 bg-white rounded-2xl shadow-xl transition-all duration-200 overflow-hidden">
 
                     {item.dropdown.map((sub) => (
                       <NavLink
                         key={sub.label}
                         to={sub.path}
-                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100 transition"
+                        onClick={() => setActiveDropdown(null)}
+                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <span className="material-symbols-outlined text-[16px] text-gray-400">
                           arrow_right
                         </span>
-
                         {sub.label}
                       </NavLink>
                     ))}
@@ -104,11 +111,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* RIGHT: ICONS */}
+          {/* MOBILE BUTTON */}
           <div className="flex items-center gap-3">
-          
-
-            {/* MOBILE MENU BUTTON */}
             <button
               className="md:hidden p-2"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -123,29 +127,27 @@ const Navbar = () => {
           <div className="md:hidden bg-white px-6 pb-4 space-y-2 border-t">
             {menuItems.map((item) => (
               <div key={item.label}>
-                <NavLink
-                  to={item.path || "#"}
-                  end
-                  className="flex items-center gap-2 py-3 text-gray-800 font-medium"
-                >
+
+                {/* MOBILE PARENT */}
+                <div className="flex items-center gap-2 py-3 text-gray-800 font-medium">
                   <span className="material-symbols-outlined text-[18px]">
                     {iconMap[item.label]}
                   </span>
-
                   {item.label}
-                </NavLink>
+                </div>
 
+                {/* MOBILE DROPDOWN */}
                 {item.dropdown &&
                   item.dropdown.map((sub) => (
                     <NavLink
                       key={sub.label}
                       to={sub.path}
+                      onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-2 pl-6 py-2 text-sm text-gray-500"
                     >
                       <span className="material-symbols-outlined text-[14px]">
                         arrow_right
                       </span>
-
                       {sub.label}
                     </NavLink>
                   ))}

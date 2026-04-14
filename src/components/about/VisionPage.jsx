@@ -34,7 +34,7 @@ export default function VisionPage() {
 
   if (!data) return null;
 
-  const { intro, vision, mission, qualityPolicy, swoc } = data;
+  const { intro, vision, mission, qualityPolicy, swot } = data;
 
   /* ---------- UI ---------- */
   return (
@@ -52,13 +52,13 @@ export default function VisionPage() {
 
       {/* TABS */}
       <div className="flex justify-center gap-4 mb-10 flex-wrap">
-        {["vision", "mission", "quality", "swoc"].map((tab) => (
+        {["vision", "mission", "quality", "swot"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`px-5 py-2 rounded-full font-medium transition ${
               activeTab === tab
-                ? "bg-blue-600 text-white"
+                ? "bg-[#001b4b] text-white"
                 : "bg-white shadow text-gray-700"
             }`}
           >
@@ -115,11 +115,11 @@ export default function VisionPage() {
           </div>
         )}
 
-        {/* SWOC */}
-        {activeTab === "swoc" && (
+        {/* SWOT */}
+        {activeTab === "swot" && (
           <div>
             <h2 className="text-2xl font-semibold text-center mb-8">
-              SWOC Analysis
+              SWOT Analysis
             </h2>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -130,7 +130,7 @@ export default function VisionPage() {
                   Strengths
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  {swoc?.strengths?.map((item, i) => (
+                  {swot?.strengths?.map((item, i) => (
                     <li key={i}>• {item}</li>
                   ))}
                 </ul>
@@ -142,7 +142,7 @@ export default function VisionPage() {
                   Weakness
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  {swoc?.weakness?.map((item, i) => (
+                  {swot?.weakness?.map((item, i) => (
                     <li key={i}>• {item}</li>
                   ))}
                 </ul>
@@ -150,11 +150,11 @@ export default function VisionPage() {
 
               {/* Opportunities */}
               <div className="bg-blue-50 rounded-xl p-5 shadow">
-                <h3 className="font-semibold text-blue-700 mb-3">
+                <h3 className="font-semibold text-[#001b4b] mb-3">
                   Opportunities
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  {swoc?.opportunities?.map((item, i) => (
+                  {swot?.opportunities?.map((item, i) => (
                     <li key={i}>• {item}</li>
                   ))}
                 </ul>
@@ -166,7 +166,7 @@ export default function VisionPage() {
                   Threats
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  {swoc?.threats?.map((item, i) => (
+                  {swot?.threats?.map((item, i) => (
                     <li key={i}>• {item}</li>
                   ))}
                 </ul>

@@ -1,0 +1,7 @@
+{
+  "title": "Sports",
+  "reports": [
+    { "title": "Sports 2023-24", "pdf": "/pdfs/s1.pdf" },
+    { "title": "Sports 2022-23", "pdf": "/pdfs/s2.pdf" }
+  ]
+}
