@@ -30,7 +30,7 @@ const CustomDropdown = ({ label, options, value, onChange }) => {
               className={`px-4 py-2 cursor-pointer transition
                 ${
                   value === opt
-                    ? "bg-[#000d22] text-white"
+                    ? "bg-[#002f76] text-white"
                     : "hover:bg-gray-100"
                 }`}
             >

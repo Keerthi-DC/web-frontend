@@ -14,10 +14,8 @@
   import GalleryPage from "./pages/GalleryPage";
   import ResearchPage from "./pages/ResearchPage";
   import PlacementsPage from "./pages/PlacementsPage";
-  import AcademicsPage from "./pages/AcademicsPage";
  
   import FacultyPage from "./pages/FacultyPage";
-  import TimeTablePage from "./pages/TimeTablePage";
 
   {/* academics-specific pages */}
   import DepartmentsPage from "./components/academics/DepartmentsPage";
@@ -89,10 +87,8 @@
           {/* academics-specific pages */}
           <Route path="/academics/departments" element={<DepartmentsPage />} />
           <Route path="/academics/programs" element={<ProgramsPage />} />
-          <Route path="/academics" element={<AcademicsPage />} />
           <Route path="/academics/faculty" element={<FacultyPage />} />
           <Route path="/academics/academic-calendar" element={<AcademicCalendar />} />
-          <Route path="/academics/time-tables" element={<TimeTablePage />} />
           <Route path="/academics/syllabus" element={<SyllabusPage />} />
           <Route path="/academics/rank" element={<RankPage />} />
 
