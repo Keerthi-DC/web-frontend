@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 const ProgramsSection = () => {
   const [departments, setDepartments] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
+  const [loading, setLoading] = useState(true); // ✅ NEW
 
-  // 🔥 Fetch departments instead of programs.json
   useEffect(() => {
     fetch(import.meta.env.VITE_APPSYNC_URL, {
       method: "POST",
@@ -29,8 +29,14 @@ const ProgramsSection = () => {
       })
     })
       .then(res => res.json())
-      .then(res => setDepartments(res.data?.listDepartments?.items || []))
-      .catch(err => console.error(err));
+      .then(res => {
+        setDepartments(res.data?.listDepartments?.items || []);
+        setLoading(false); // ✅ STOP LOADING
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false); // ✅ STOP EVEN ON ERROR
+      });
   }, []);
 
   const durationMap = {
@@ -39,7 +45,6 @@ const ProgramsSection = () => {
     RESEARCH: "3-5 Years"
   };
 
-  // 🔥 Convert departments → program list
   const programs = [];
 
   departments.forEach(dep => {
@@ -54,13 +59,31 @@ const ProgramsSection = () => {
     });
   });
 
-  // FILTER
   const filteredPrograms =
     activeTab === "all"
       ? programs
       : programs.filter(p => p.type === activeTab.toUpperCase());
 
-  if (!departments.length) return null;
+  // ✅ LOADING UI
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-slate-50">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-4 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-600 text-sm">Loading programs...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // ✅ EMPTY STATE (optional but good UX)
+  if (!departments.length) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-gray-500">No programs available</p>
+      </div>
+    );
+  }
 
   return (
     <main className="pt-24 pb-32 px-6 max-w-7xl mx-auto bg-slate-50">
@@ -102,7 +125,6 @@ const ProgramsSection = () => {
 
       {/* GRID */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
         {filteredPrograms.map(p => (
           <div
             key={p.id}
@@ -129,7 +151,6 @@ const ProgramsSection = () => {
             </div>
           </div>
         ))}
-
       </div>
 
     </main>

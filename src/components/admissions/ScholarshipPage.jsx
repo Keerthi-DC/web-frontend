@@ -1,17 +1,3 @@
-/* src/components/admissions/ScholarshipPage.jsx
- *
- * Renders a modern scholarship directory.
- * Data is loaded from /data/scholarships.json.
- *
- * Requirements:
- * • Hero section with title/subtitle/description
- * • Highlight cards (3 icons)
- * • Category sections – title, optional highlight styling
- * • Scholarship cards – name, authority, type badge
- * • Responsive grid, hover scale & shadow, rounded-xl cards
- * • Tailwind only – no custom CSS
- */
-
 import React, { useEffect, useState } from 'react';
 import {
   FaGraduationCap,
@@ -21,123 +7,161 @@ import {
   FaHandshake,
 } from 'react-icons/fa';
 
-export default function ScholarshipPage() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// ✅ GraphQL helper
+const fetchGraphQL = async (query) => {
+  try {
+    const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
+      },
+      body: JSON.stringify({ query }),
+    });
 
-  /** Fetch scholarships JSON on mount */
+    const result = await res.json();
+    return result?.data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export default function ScholarshipPage() {
+  const [data, setData] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [activeType, setActiveType] = useState("ALL");
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch('/data/scholarships.json');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-        setData(json);
-      } catch (e) {
-        console.error(e);
-        setError('Failed to load scholarships');
-      } finally {
-        setLoading(false);
-      }
+    const loadScholarships = async () => {
+      setLoading(true);
+
+      const res = await fetchGraphQL(`
+        query {
+          listScholarships(tenantId: "biet-college") {
+            scholarshipId
+            type
+            name
+            description
+            amount
+            eligibility
+            order
+          }
+        }
+      `);
+
+      const sorted = (res?.listScholarships || []).sort(
+        (a, b) => (a.order ?? 0) - (b.order ?? 0)
+      );
+
+      setData(sorted);
+      setFiltered(sorted);
+      setLoading(false);
     };
-    fetchData();
+
+    loadScholarships();
   }, []);
 
-  // Icons per category (fallback to FaBook)
-  const categoryIcon = title => {
+  // ✅ CATEGORY FILTER LOGIC
+  const handleFilter = (type) => {
+    setActiveType(type);
+
+    if (type === "ALL") {
+      setFiltered(data);
+    } else {
+      setFiltered(data.filter((s) => s.type === type));
+    }
+  };
+
+  // ✅ UNIQUE TYPES
+  const categories = ["ALL", ...new Set(data.map((s) => s.type))];
+
+  // Icons
+  const categoryIcon = (type) => {
     const icons = {
-      'Academic Excellence': <FaGraduationCap className="text-4xl text-blue-600" />,
-      'Community Service': <FaHandshake className="text-4xl text-green-600" />,
-      'Research Grants': <FaUniversity className="text-4xl text-indigo-600" />,
-      'Sports Scholarships': <FaAward className="text-4xl text-yellow-600" />,
+      STATE: <FaUniversity className="text-4xl text-blue-600" />,
+      GOVERNMENT_OF_INDIA: <FaAward className="text-4xl text-yellow-600" />,
+      INSTITUTIONAL: <FaGraduationCap className="text-4xl text-green-600" />,
+      OTHERS: <FaHandshake className="text-4xl text-purple-600" />,
     };
-    return icons[title] ?? <FaBook className="text-4xl text-purple-600" />;
+    return icons[type] ?? <FaBook className="text-4xl text-gray-600" />;
   };
 
   if (loading) {
-    return (
-      <section className="py-12 text-center">
-        <p>Loading scholarships…</p>
-      </section>
-    );
+    return <p className="text-center py-10">Loading...</p>;
   }
-
-  if (error) {
-    return (
-      <section className="py-12 text-center text-red-600">
-        {error}
-      </section>
-    );
-  }
-
-  const { hero, highlights, categories } = data;
 
   return (
-    <section className="p-12 bg-gray-50">
+    <section className="bg-gray-50 min-h-screen">
+
       {/* HERO */}
-      <div className="p-4 m-4 flex flex-col items-center justify-center text-center rounded-3xl bg-gradient-to-br from-[#001b4b] to-[#002f76] md:p-16 text-white shadow-xl">
-
-  <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-wide">
-    {hero.title}
-  </h1>
-
-  <h2 className="text-xl md:text-2xl font-medium mb-4 text-blue-100">
-    {hero.subtitle}
-  </h2>
-
-  <p className="max-w-3xl text-blue-200 leading-relaxed">
-    {hero.description}
-  </p>
-
-</div>
-      {/* HIGHLIGHT CARDS */}
-      <div className="container mx-auto px-4 mb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {highlights.map((h, idx) => (
-          <div
-            key={idx}
-            className="bg-white rounded-xl shadow hover:shadow-md transition-all flex flex-col items-start p-6"
-          >
-            <div className="text-indigo-600 mb-4">{h.icon}</div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">{h.title}</h3>
-            <p className="text-gray-600">{h.text}</p>
-          </div>
-        ))}
+      <div className="p-10 text-center bg-gradient-to-r from-[#001b4b] to-[#002f76] text-white">
+        <h1 className="text-4xl font-bold">Scholarships & Financial Aid</h1>
+        <p className="mt-2 text-blue-200">
+          Explore scholarships based on merit, need, and achievements.
+        </p>
       </div>
 
-      {/* CATEGORY SECTIONS */}
-      {categories.map((cat, idx) => (
-        <section key={idx} className="container mx-auto px-4 mb-20">
-          <h3
-            className={`flex items-center gap-3 text-2xl font-semibold mb-6 ${cat.highlight
-              ? 'border-b border-indigo-600 pb-2 text-indigo-600'
-              : 'border-b border-gray-300 pb-2'}`}
-          >
-            {categoryIcon(cat.title)} {cat.title}
-          </h3>
+      {/* MAIN LAYOUT */}
+      <div className="flex flex-col md:flex-row p-6 gap-6">
 
-          {/* Scholarships Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cat.scholarships.map((s, sIdx) => (
-              <div
-                key={sIdx}
-                className="bg-white rounded-xl shadow hover:shadow-md transition-transform transform hover:scale-105 p-6"
-              >
-                <h4 className="font-semibold text-lg text-gray-800 mb-2">{s.name}</h4>
-                <span className="inline-block text-xs font-medium text-gray-600 mb-3">{s.authority}</span>
-                <span
-                  className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full mr-2 ${s.type === 'Merit'
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-blue-100 text-blue-800'}`}
-                >
-                  {s.type}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-      ))}
+        {/* 🔥 SIDEBAR */}
+        <div className="md:w-1/4 bg-white rounded-xl shadow p-4 h-fit">
+          <h3 className="font-semibold text-lg mb-4">Categories</h3>
+
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => handleFilter(cat)}
+              className={`w-full text-left px-4 py-2 rounded-lg mb-2 transition 
+                ${
+                  activeType === cat
+                    ? "bg-[#002f76] text-white"
+                    : "hover:bg-gray-100 text-gray-700"
+                }`}
+            >
+              {cat.replaceAll("_", " ")}
+            </button>
+          ))}
+        </div>
+
+        {/* 🎯 SCHOLARSHIP GRID */}
+        <div className="md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {filtered.map((s) => (
+            <div
+              key={s.scholarshipId}
+              className="bg-white rounded-xl shadow hover:shadow-lg transition transform hover:scale-105 p-6"
+            >
+              <div className="mb-4">{categoryIcon(s.type)}</div>
+
+              <h4 className="font-semibold text-lg mb-2">{s.name}</h4>
+
+              <p className="text-sm text-gray-600 mb-3">
+                {s.description}
+              </p>
+
+              <span className="inline-block px-2 py-1 text-xs bg-blue-100 text-[#002f76] rounded-full">
+                {s.type.replaceAll("_", " ")}
+              </span>
+
+              {s.amount && (
+                <p className="text-green-600 font-semibold mt-2">
+                  {s.amount}
+                </p>
+              )}
+
+              {s.eligibility && (
+                <p className="text-xs text-gray-500 mt-2">
+                  {s.eligibility}
+                </p>
+              )}
+            </div>
+          ))}
+
+        </div>
+      </div>
     </section>
   );
 }

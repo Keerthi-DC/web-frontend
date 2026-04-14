@@ -20,7 +20,7 @@
         { "label": "Academic Calendar", "path": "/academics/academic-calendar" },
         
         { "label": "Syllabus", "path": "/academics/syllabus" },
-        { "label": "Result Analysis", "path": "/academics/result-analysis" }
+        { "label": "Rank", "path": "/academics/rank" }
       ]
     },
     {

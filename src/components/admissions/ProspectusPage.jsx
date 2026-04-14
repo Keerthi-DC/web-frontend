@@ -1,13 +1,50 @@
 import React, { useEffect, useState } from "react";
 
+// ✅ GraphQL helper
+const fetchGraphQL = async (query) => {
+  try {
+    const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    const result = await res.json();
+    return result?.data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 export default function ProspectusPage() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("/data/prospectus.json")
-      .then((res) => res.json())
-      .then((json) => setData(json.prospectus))
-      .catch((err) => console.error("Error:", err));
+    const loadProspectus = async () => {
+      try {
+        const res = await fetchGraphQL(`
+          query {
+            getProspectus(tenantId: "biet-college") {
+              title
+              description
+              fileUrl
+              fileName
+              uploadedAt
+            }
+          }
+        `);
+
+        setData(res?.getProspectus);
+      } catch (err) {
+        console.error("Error fetching prospectus:", err);
+      }
+    };
+
+    loadProspectus();
   }, []);
 
   if (!data) {
@@ -21,68 +58,54 @@ export default function ProspectusPage() {
   return (
     <section className="bg-[#f5f6f8] py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        
-        {/* Badge */}
-        <span className="inline-block bg-[#e6ebf5] text-[#1e3a8a] text-xs font-semibold px-4 py-1 rounded-full mb-6 tracking-wide">
+
+        {/* HEADER */}
+        <span className="inline-block bg-[#e6ebf5] text-[#1e3a8a] text-xs font-semibold px-4 py-1 rounded-full mb-6">
           ACADEMIC SESSION 2025-26
         </span>
 
-        {/* Main Title */}
-        <h1 className="text-5xl font-bold text-[#0b2c5e] leading-tight mb-6">
-          BIET Prospectus <br /> 2025-26
+        <h1 className="text-5xl font-bold text-[#0b2c5e] mb-6">
+          {data.title}
         </h1>
 
-        {/* Description */}
         <p className="text-gray-600 max-w-2xl mb-10 text-lg">
           {data.description}
         </p>
 
-        {/* Buttons */}
-        <div className="flex flex-wrap gap-4">
-          
-          {/* Download Button */}
+        {/* BUTTONS */}
+        <div className="flex gap-4 mb-12">
           <a
-            href={data.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-[#0b2c5e] text-white px-6 py-3 rounded-lg shadow-md hover:bg-[#082347] transition"
+            href={data.fileUrl}
+            download
+            className="bg-[#0b2c5e] text-white px-6 py-3 rounded-lg shadow-md hover:bg-[#082347] transition"
           >
-            {/* Download Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                d="M8 16L12 20L16 16M12 7V13"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-
-            Download Prospectus (PDF)
+            ⬇ Download {data.fileName || "PDF"}
           </a>
 
-          {/* Requirements Button */}
-          <button className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition">
-            View Requirements
-          </button>
+          <a
+            href={data.fileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-gray-200 px-6 py-3 rounded-lg hover:bg-gray-300 transition"
+          >
+            👁 Open in New Tab
+          </a>
         </div>
-      </div>
 
-      {/* OPTIONAL: Preview Pages Section */}
-      <div className="max-w-6xl mx-auto mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.pages.map((src, index) => (
-          <img
-            key={index}
-            src={src}
-            alt={`page ${index + 1}`}
-            className="rounded-lg shadow-md"
+        {/* PDF PREVIEW */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border">
+          <iframe
+            src={data.fileUrl}
+            title="Prospectus PDF"
+            className="w-full h-[700px]"
           />
-        ))}
+        </div>
+
+        {/* FOOTER */}
+        <p className="text-sm text-gray-400 mt-6">
+          Last updated: {data.uploadedAt || "N/A"}
+        </p>
+
       </div>
     </section>
   );

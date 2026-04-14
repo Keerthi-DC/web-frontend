@@ -261,7 +261,7 @@ export default function EnquiryPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-4 bg-blue-600 text-white rounded-xl"
+              className="w-full py-4 bg-[#002f76] text-white rounded-xl"
             >
               {submitting ? "Submitting..." : "Submit Enquiry"}
             </button>

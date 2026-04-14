@@ -1,6 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+// ✅ SAME helper (keep consistent everywhere)
+const fetchGraphQL = async (query) => {
+  try {
+    const res = await fetch(import.meta.env.VITE_APPSYNC_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": import.meta.env.VITE_APPSYNC_API_KEY,
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    const result = await res.json();
+    return result?.data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 export default function FeeStructurePage() {
   const [fees, setFees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -8,24 +28,29 @@ export default function FeeStructurePage() {
   useEffect(() => {
     let isMounted = true;
 
-    fetch("/data/feeStructure.json")
-      .then((res) => res.json())
-      .then((json) => {
-        if (isMounted) {
-          const dataArray = Array.isArray(json)
-            ? json
-            : Array.isArray(json.feeStructure)
-            ? json.feeStructure
-            : [];
+    const loadFees = async () => {
+      try {
+        const res = await fetchGraphQL(`
+          query {
+            listFeeDocuments(tenantId: "biet-college") {
+              feeDocId
+              title
+              fileUrl
+            }
+          }
+        `);
 
-          setFees(dataArray);
+        if (isMounted) {
+          setFees(res?.listFeeDocuments || []);
           setLoading(false);
         }
-      })
-      .catch((err) => {
-        console.error("Failed to load fee structure:", err);
+      } catch (err) {
+        console.error("Failed to load fee documents:", err);
         if (isMounted) setLoading(false);
-      });
+      }
+    };
+
+    loadFees();
 
     return () => {
       isMounted = false;
@@ -56,7 +81,7 @@ export default function FeeStructurePage() {
 
       {fees.map((item, idx) => (
         <motion.div
-          key={item.id}
+          key={item.feeDocId} // ✅ FIXED KEY
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: idx * 0.1 }}
@@ -66,14 +91,26 @@ export default function FeeStructurePage() {
             📄 {item.title}
           </span>
 
-          <a
-            href={item.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800 transition"
-          >
-            View
-          </a>
+          <div className="flex gap-3">
+            {/* 👁 View */}
+            <a
+              href={item.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition"
+            >
+              View
+            </a>
+
+            {/* ⬇ Download */}
+            <a
+              href={item.fileUrl}
+              download
+              className="bg-[#002f76] text-white px-4 py-2 rounded hover:bg-blue-900 transition"
+            >
+              Download
+            </a>
+          </div>
         </motion.div>
       ))}
     </section>

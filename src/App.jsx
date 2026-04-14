@@ -14,18 +14,18 @@
   import GalleryPage from "./pages/GalleryPage";
   import ResearchPage from "./pages/ResearchPage";
   import PlacementsPage from "./pages/PlacementsPage";
-  import DepartmentsPage from "./pages/DepartmentsPage";
   import AcademicsPage from "./pages/AcademicsPage";
-  import ProgramsPage from "./pages/ProgramsPage";
+ 
   import FacultyPage from "./pages/FacultyPage";
-  import AcademicCalendar from "./pages/AcademicCalendar";
   import TimeTablePage from "./pages/TimeTablePage";
-  import SyllabusPage from "./pages/SyllabusPage";
-  import ResultAnalysis from "./pages/ResultAnalysisPage";
-  import AdmissionOverview from "./components/admissions/OverviewPage";
-  import ProspectusPage from "./components/admissions/ProspectusPage";
-  import FeeStructurePage from "./components/admissions/FeeStructurePage";
-  
+
+  {/* academics-specific pages */}
+  import DepartmentsPage from "./components/academics/DepartmentsPage";
+  import ProgramsPage from "./components/academics/ProgramsPage";
+  import RankPage from "./components/academics/RankPage";
+  import AcademicCalendar from "./components/academics/AcademicCalendar";
+  import SyllabusPage from "./components/academics/SyllabusPage";
+  {/* department‑specific pages */}
   import DepartmentHome from "./modules/department/pages/DepartmentHome";
   import DepartmentEvents from "./modules/department/pages/DepartmentEvents";
   import DepartmentPlacements from "./modules/department/pages/DepartmentPlacements";
@@ -39,19 +39,22 @@
   import DepartmentGallery from "./modules/department/pages/DepartmentGallery";
   import DepartmentNewsletter from "./modules/department/pages/DepartmentNewsletter";
   import DepartmentAccreditation from "./modules/department/pages/DepartmentAccreditation";
-  
+  {/*accreditation pages */}
   import AICTEPage from "./components/accreditations/AICTEPage";
   import NAACPage from "./components/accreditations/NAACPage";
   import NBAPage from "./components/accreditations/NBAPage";
   import AISHEPage from "./components/accreditations/AISHEPage";
-  
+  {/* admission‑specific pages */}
   import ScholarshipPage from "./components/admissions/ScholarshipPage";
   import EnquiryPage from "./components/admissions/EnquiryPage";
-
+  import AdmissionOverview from "./components/admissions/OverviewPage";
+  import ProspectusPage from "./components/admissions/ProspectusPage";
+  import FeeStructurePage from "./components/admissions/FeeStructurePage";
+  {/* about‑specific pages */}
   import AboutOverview from "./components/about/AboutOverviewPage";
   import VisionPage from "./components/about/VisionPage";
   import CommitteesPage from "./components/about/CommitteesPage";
-
+  {/* campus life‑specific pages */}
   import Facilities from "./components/campusLife/Facilities";
   import GymPage from "./components/campusLife/GymPage";
   import SACPage from "./components/campusLife/SacPage";
@@ -91,7 +94,7 @@
           <Route path="/academics/academic-calendar" element={<AcademicCalendar />} />
           <Route path="/academics/time-tables" element={<TimeTablePage />} />
           <Route path="/academics/syllabus" element={<SyllabusPage />} />
-          <Route path="/academics/result-analysis" element={<ResultAnalysis />} />
+          <Route path="/academics/rank" element={<RankPage />} />
 
           {/* admission‑specific pages */}
           <Route path="/admissions/overview" element={<AdmissionOverview />} />
