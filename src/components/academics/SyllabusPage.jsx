@@ -118,7 +118,7 @@ const SyllabusPage = () => {
         {/* 🔥 HEADER */}
         <section className="space-y-4">
           <div>
-            <h1 className="text-[2.5rem] font-black text-[#000d22]">
+            <h1 className="text-[2.5rem] font-black text-[#002f76]">
               Syllabus
             </h1>
             <p className="text-gray-500 font-medium">
@@ -132,7 +132,7 @@ const SyllabusPage = () => {
             placeholder="Search course or department..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full h-14 px-4 bg-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-[#000d22]"
+            className="w-full h-14 px-4 bg-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-[#002f76]"
           />
 
           {/* 🔥 FILTERS */}
@@ -167,7 +167,7 @@ const SyllabusPage = () => {
           {filteredSyllabus.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-xl p-5 shadow hover:shadow-lg transition border-l-4 border-[#000d22]"
+              className="bg-white rounded-xl p-5 shadow hover:shadow-lg transition border-l-4 border-[#002f76]"
             >
               <div className="mb-3">
                 <span className="text-xs font-bold bg-blue-100 px-2 py-1 rounded">
@@ -199,7 +199,7 @@ const SyllabusPage = () => {
 
               <button
                 onClick={() => setModalDoc(item.document)}
-                className="mt-5 w-full md:w-auto px-6 py-2 bg-[#000d22] text-white rounded-lg"
+                className="mt-5 w-full md:w-auto px-6 py-2 bg-[#002f76] text-white rounded-lg"
               >
                 View Syllabus
               </button>
