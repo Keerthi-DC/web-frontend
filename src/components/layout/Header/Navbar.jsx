@@ -36,7 +36,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-50">
       <TopBar />
 
-      <nav className="bg-white backdrop-blur-xl shadow-sm border-b">
+      <nav className=" bg-gray-50 flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-blue-700 cursor-pointer">
         <div className="w-full px-6 py-4 flex items-center">
 
           {/* LOGO */}
@@ -58,8 +58,8 @@ const Navbar = () => {
                       activeDropdown === item.label ? null : item.label
                     )
                   }
-                  className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-blue-700 cursor-pointer"
-                >
+                  className={`flex items-center gap-2 text-sm font-semibold cursor-pointer relative group transition duration-300 ${activeDropdown === item.label ? "text-blue-700" : "text-gray-600 hover:text-blue-700"}`}>
+
                   <span className="material-symbols-outlined text-[18px]">
                     {iconMap[item.label]}
                   </span>
@@ -68,14 +68,13 @@ const Navbar = () => {
 
                 {/* DROPDOWN */}
                 {item.dropdown && activeDropdown === item.label && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-60 bg-white rounded-2xl shadow-xl transition-all duration-200 overflow-hidden">
-
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-60 bg-white rounded-2xl shadow-xl transition-all duration-200 origin-top animate-in fade-in zoom-in-95">
                     {item.dropdown.map((sub) => (
                       <NavLink
                         key={sub.label}
                         to={sub.path}
                         onClick={() => setActiveDropdown(null)}
-                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100"
+                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                       >
                         <span className="material-symbols-outlined text-[16px] text-gray-400">
                           arrow_right
