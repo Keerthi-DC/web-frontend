@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import TopBar from "./TopBar";
-import logo from "../../../../assets/BIET_logo.png";
-
 const Navbar = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,30 +36,11 @@ const Navbar = () => {
     <header className="sticky top-0 z-50">
       <TopBar />
 
-      <nav className="bg-white/90 backdrop-blur-xl shadow-sm border-b">
+      <nav className="bg-white backdrop-blur-xl shadow-sm border-b">
         <div className="w-full px-6 py-4 flex items-center">
 
           {/* LOGO */}
-          <div className="flex items-center gap-4">
-            <Link to="/">
-              <div className="h-16 w-16 rounded-full overflow-hidden border border-gray-200 shadow-md flex items-center justify-center bg-white">
-                <img
-                  src={logo}
-                  alt="College Logo"
-                  className="h-full w-full object-contain"
-                />
-              </div>
-            </Link>
-
-            <div className="leading-tight">
-              <h1 className="text-lg font-extrabold text-[#001430]">
-                Bapuji Institute of
-              </h1>
-              <h1 className="text-sm font-extrabold text-[#001430]">
-                Engineering & Technology
-              </h1>
-            </div>
-          </div>
+          
 
           {/* DESKTOP MENU */}
           <div className="hidden md:flex flex-1 justify-evenly items-center">
@@ -89,7 +68,7 @@ const Navbar = () => {
 
                 {/* DROPDOWN */}
                 {item.dropdown && activeDropdown === item.label && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-64 bg-white rounded-2xl shadow-xl transition-all duration-200 overflow-hidden">
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-60 bg-white rounded-2xl shadow-xl transition-all duration-200 overflow-hidden">
 
                     {item.dropdown.map((sub) => (
                       <NavLink
