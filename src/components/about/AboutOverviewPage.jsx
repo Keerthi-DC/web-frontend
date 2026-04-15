@@ -57,7 +57,7 @@ export default function AboutOverviewPage() {
 
       {/* HERO */}
       <div
-        className="relative h-64 md:h-96 flex items-center justify-center text-center px-4"
+        className="relative h-350 md:h-96 flex items-center justify-center text-center px-4"
         style={{
           backgroundImage: `url(${hero?.image})`,
           backgroundSize: 'cover',

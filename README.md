@@ -26,9 +26,14 @@
 
   ---
 
-  ## 🗂️ Folder Layout
+## 🗂️ Folder Layout (Updated)
 
-  src/
+```
+src/
+... (rest unchanged for brevity)
+```
+
+
   ├─ assets/                      # Static images, fonts
   ├─ components/
   │   ├─ layout/                   # Header & Footer
@@ -139,5 +144,126 @@
   - Infinite scroll / pagination – for news & gallery pages.
   - Accessibility audit – aXe + Lighthouse.
   - TypeScript – add static types to existing components.
+
+## 🚧 Updated Architecture
+
+```
+src/
+├─ assets/                       # Static images, fonts
+├─ components/                    # Reusable React components
+│   ├─ about/                      # About‑the‑College pages
+│   │   ├─ CommitteesPage.jsx
+│   │   └─ VisionPage.jsx
+│   ├─ academics/                  # Academic‑level content
+│   │   ├─ AcademicCalendar.jsx
+│   │   └─ DepartmentsPage.jsx
+│   ├─ accreditations/            # Accreditation & compliance pages
+│   │   ├─ AICTEPage.jsx
+│   │   ├─ NBAPage.jsx
+│   │   ├─ AISHEPage.jsx
+│   │   └─ NAACPage.jsx
+│   ├─ admissions/                 # Admissions workflow components
+│   │   ├─ OverviewPage.jsx
+│   │   ├─ ProspectusPage.jsx
+│   │   ├─ FeeStructurePage.jsx
+│   │   └─ ScholarshipPage.jsx
+│   ├─ campusLife/                 # Campus‑life & facilities UI
+│   │   ├─ GymPage.jsx
+│   │   ├─ SacPage.jsx
+│   │   ├─ SportsPage.jsx
+│   │   ├─ TechnowavePage.jsx
+│   │   ├─ GreenCampusPage.jsx
+│   │   └─ Facilities.jsx
+│   ├─ common/                     # Generic UI building blocks (Card, Grid, etc.)
+│   │   ├─ Card.jsx
+│   │   ├─ SectionContainer.jsx
+│   │   ├─ GridLayout.jsx
+│   │   ├─ SectionTitle.jsx
+│   │   ├─ ReadMoreButton.jsx
+│   │   ├─ StatCard.jsx
+│   │   ├─ EventCard.jsx
+│   │   └─ ScrollToHash.jsx
+│   ├─ layout/                     # Layout scaffolding (Header, Footer, etc.)
+│   │   ├─ Header/
+│   │   │   ├─ DepartmentNavbar.jsx
+│   │   │   └─ TopBar.jsx
+│   │   └─ Footer.jsx
+│   ├─ home/                        # Page‑level sections (Hero, News, etc.)
+│   │   ├─ HeroSection.jsx
+│   │   ├─ QuickFacts.jsx
+│   │   ├─ AnnouncementBar.jsx
+│   │   ├─ InstituteIntroSection.jsx
+│   │   ├─ NewsSection.jsx
+│   │   ├─ EventSection.jsx
+│   │   ├─ ProgramsSection.jsx
+│   │   ├─ CampusLifeSection.jsx
+│   │   ├─ ResearchSection.jsx
+│   │   ├─ PlacementSection.jsx
+│   │   ├─ GallerySection.jsx
+│   │   ├─ AlumniSection.jsx
+│   │   ├─ CallToActionSection.jsx
+│   │   └─ DepartmentsSection.jsx
+│   ├─ app/                         # App‑wide utilities (chat, guide)
+│   │   ├─ ChatBot.jsx
+│   │   └─ BietGuide.jsx
+│   ├─ errors/                     # Error boundaries
+│   │   └─ ErrorBoundary.jsx
+│   └─ … (legacy or testing helpers)
+├─ hooks/                          # Custom React hooks
+│   ├─ useAudit.js
+│   ├─ useAppSync.js
+│   ├─ useDepartment.js
+│   ├─ useDepartmentMeta.js
+│   └─ …
+├─ graphql/                        # AppSync queries and mutations
+│   ├─ department/
+│   │   ├─ events.js
+│   │   ├─ faculty.js
+│   │   ├─ gallery.js
+│   │   ├─ alumni.js
+│   │   ├─ achievements.js
+│   │   ├─ research.js
+│   │   └─ news.js
+│   └─ index.js
+├─ modules/                        # Feature modules (e.g., department)
+│   └─ department/
+│       ├─ components/
+│       │   └─ home/
+│       │       ├─ GalleryPreview.jsx
+│       │       ├─ StudentCycle.jsx
+│       │       ├─ DepartmentHOD.jsx
+│       │       ├─ QuickLinksPreview.jsx
+│       │       ├─ AchievementsPreview.jsx
+│       │       ├─ DepartmentEventsPreview.jsx
+│       │       ├─ DepartmentHero.jsx
+│       │       ├─ DepartmentIntro.jsx
+│       │       ├─ PlacementStats.jsx
+│       │       └─ …
+│       │   └─ …
+│       └─ pages/
+│           ├─ ResultsPage.jsx
+│           ├─ DepartmentNewsletter.jsx
+│           ├─ DepartmentGallery.jsx
+│           ├─ DepartmentResearch.jsx
+│           ├─ DepartmentEvents.jsx
+│           └─ …
+├─ pages/                          # Route wrappers
+│   ├─ Home.jsx
+│   ├─ ResultsPage.jsx
+│   ├─ NotificationPage.jsx
+│   ├─ ResearchPage.jsx
+│   ├─ PlacementsPage.jsx
+│   ├─ GalleryPage.jsx
+│   └─ … (other page wrappers)
+├─ services/                        # Low‑level GraphQL helpers
+│   └─ graphql/                 # (currently empty—placeholder)
+├─ styles/                          # Global styles / Tailwind config
+├─ aws-config.js                    # AWS AppSync endpoint & auth config
+├─ App.jsx                          # React‑router & layout definitions
+├─ main.jsx                         # Application entry point
+├─ index.html                       # Root HTML file
+└─ vite.config.js                  # Vite build configuration
+```
+
 
   ---

@@ -229,7 +229,124 @@
           ]
         }
       ]
+    },
+    "ladies-rest-room": {
+  "title": "Ladies Rest Room",
+  "sections": [
+    {
+      "type": "image",
+      "images": [
+        "https://bietdvg.edu/static/assets/images/facilities/1_LadiesRoom.jpg"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Ladies Room-B001 is located in the Biotechnology Block. The facility provides a comfortable space for students with proper seating arrangements and resting area."
     }
+  ]
+},
+"guest-house": {
+  "title": "Silver-Line Guest House",
+  "sections": [
+    {
+      "type": "image",
+      "images": [
+        "https://bietdvg.edu/static/assets/images/facilities/guesthouse.jpg"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The Silver-Line Guest House provides comfortable accommodation for visitors, guests and faculty. It is well furnished with modern amenities and a peaceful environment."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Well furnished rooms",
+        "Attached bathrooms",
+        "Dining facility",
+        "Clean and hygienic environment",
+        "Suitable for guests and parents"
+      ]
+    }
+  ]
+},
+"nss": {
+  "title": "National Service Scheme - NSS",
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "To understand the community in which they work and develop a sense of social and civic responsibility among students."
+    },
+    {
+      "type": "heading",
+      "text": "Mission"
+    },
+    {
+      "type": "paragraph",
+      "text": "To identify the needs of the community and involve students in problem-solving activities while developing leadership and democratic attitudes."
+    },
+    {
+      "type": "heading",
+      "text": "Motto"
+    },
+    {
+      "type": "paragraph",
+      "text": "Not Me But You – reflects the essence of democratic living and selfless service."
+    }
+  ]
+},
+"red-cross": {
+  "title": "Youth Red Cross Wing",
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "The Indian Red Cross Society is a voluntary humanitarian organization providing relief during disasters and promoting health and care of vulnerable people."
+    },
+    {
+      "type": "heading",
+      "text": "Objectives"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Promote health and hygiene",
+        "Serve vulnerable communities",
+        "Encourage social responsibility",
+        "Develop leadership and service mindset"
+      ]
+    }
+  ]
+},
+"ncc": {
+  "title": "National Cadet Corps - NCC",
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "To develop disciplined and responsible citizens who contribute positively to society and the nation."
+    },
+    {
+      "type": "heading",
+      "text": "Mission"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Develop character and discipline",
+        "Promote leadership qualities",
+        "Encourage selfless service",
+        "Prepare youth for armed forces"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Motto"
+    },
+    {
+      "type": "paragraph",
+      "text": "Unity and Discipline"
+    }
+  ]
+}
 
   }
 }

@@ -20,7 +20,7 @@ const DepartmentFooter = () => {
     deptMap[shortName?.toLowerCase()] || shortName?.toUpperCase();
 
   return (
-    <footer className="bg-gray-900 text-white mt-20">
+    <footer className="bg-[#001c40] text-white mt-20">
       <div className="max-w-7xl mx-auto px-6 py-12">
 
         <div className="grid md:grid-cols-4 gap-10">
