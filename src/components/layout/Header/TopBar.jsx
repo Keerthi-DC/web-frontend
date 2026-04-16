@@ -25,10 +25,10 @@ const TopBar = () => {
 
         <div className="leading-tight">
           <h1 className="text-sm md:text-base font-bold text-[#001430]">
-            Bapuji Institute of
+            Bapuji Institute of Engineering And Technology
           </h1>
           <h1 className="text-xs md:text-sm font-bold text-[#001430]">
-            Engineering & Technology
+            ಬಾಪೂಜಿ ಇಂಜಿನಿಯರಿಂಗ್ ಮತ್ತು ತಾಂತ್ರಿಕ ಮಹಾವಿದ್ಯಾಲಯ
           </h1>
         </div>
       </div>

@@ -5,9 +5,10 @@ import { Search, X } from "lucide-react";
 const API_ENDPOINT = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
+/* ✅ FIXED QUERY */
 const LIST_DEPARTMENTS_QUERY = `
-  query ListDepartments {
-    listDepartments {
+  query ListDepartments($tenantId: ID!) {
+    listDepartments(tenantId: $tenantId) {
       items {
         departmentId
         name
@@ -25,9 +26,11 @@ const DepartmentsPage = () => {
   const [activeType, setActiveType] = useState("UG");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
+  /* ✅ FETCH DATA */
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
@@ -39,6 +42,9 @@ const DepartmentsPage = () => {
           },
           body: JSON.stringify({
             query: LIST_DEPARTMENTS_QUERY,
+            variables: {
+              tenantId: "biet-college",
+            },
           }),
         });
 
@@ -46,12 +52,15 @@ const DepartmentsPage = () => {
 
         if (result.errors) {
           console.error("GraphQL Errors:", result.errors);
+          setError(result.errors[0]?.message || "Something went wrong");
+          return;
         }
 
         const items = result?.data?.listDepartments?.items || [];
         setDepartments(items);
       } catch (err) {
         console.error("Fetch error:", err);
+        setError("Failed to load departments");
       } finally {
         setLoading(false);
       }
@@ -60,9 +69,13 @@ const DepartmentsPage = () => {
     fetchDepartments();
   }, []);
 
-  // ✅ FILTER LOGIC
+  /* ✅ SAFE FILTER */
   const filteredDepartments = departments.filter((dep) => {
-    const matchesType = dep.programTypes?.includes(activeType);
+    const types = dep.programTypes || [];
+
+    const matchesType = Array.isArray(types)
+      ? types.map((t) => t.toUpperCase()).includes(activeType)
+      : String(types).toUpperCase() === activeType;
 
     const matchesSearch = dep.name
       ?.toLowerCase()
@@ -71,7 +84,7 @@ const DepartmentsPage = () => {
     return matchesType && matchesSearch;
   });
 
-  // ✅ TAB
+  /* ✅ TAB */
   const Tab = ({ type, label }) => (
     <button
       onClick={() => setActiveType(type)}
@@ -86,7 +99,7 @@ const DepartmentsPage = () => {
     </button>
   );
 
-  // ✅ CARD
+  /* ✅ CARD */
   const Card = ({ dept }) => (
     <div
       onClick={() => navigate(`/departments/${dept.shortName}`)}
@@ -108,10 +121,6 @@ const DepartmentsPage = () => {
         )}
 
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/departments/${dept.shortName}`);
-          }}
           className="mt-2 px-4 py-2 text-sm bg-[#0B3C6D] text-white rounded-lg hover:opacity-90 transition"
         >
           Visit
@@ -120,26 +129,36 @@ const DepartmentsPage = () => {
     </div>
   );
 
+  /* ✅ LOADING */
   if (loading) {
     return (
-      <div className="text-center py-20 text-lg font-semibold">
-        Loading Departments...
+      <div className="flex justify-center items-center py-20">
+        <div className="animate-pulse text-lg font-semibold text-gray-600">
+          Loading Departments...
+        </div>
+      </div>
+    );
+  }
+
+  /* ✅ ERROR */
+  if (error) {
+    return (
+      <div className="text-center py-20 text-red-500 font-medium">
+        {error}
       </div>
     );
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
-
       {/* Title */}
       <h1 className="text-3xl font-bold text-center mb-8">
         Departments
       </h1>
 
-      {/* 🔍 SEARCH FIRST */}
+      {/* 🔍 SEARCH */}
       <div className="flex justify-center mb-6">
         <div className="relative w-full max-w-md">
-
           <Search
             size={18}
             className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -150,8 +169,8 @@ const DepartmentsPage = () => {
             placeholder="Search departments..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-11 pr-10 py-3 rounded-full border border-gray-300 
-            focus:outline-none focus:ring-2 focus:ring-[#0B3C6D] 
+            className="w-full pl-11 pr-10 py-3 rounded-full border border-gray-300
+            focus:outline-none focus:ring-2 focus:ring-[#0B3C6D]
             focus:border-[#0B3C6D] shadow-sm transition-all duration-300"
           />
 
@@ -165,7 +184,7 @@ const DepartmentsPage = () => {
         </div>
       </div>
 
-      {/* ✅ TABS BELOW SEARCH */}
+      {/* TABS */}
       <div className="flex justify-center gap-4 mb-12 flex-wrap">
         <Tab type="UG" label="Undergraduate" />
         <Tab type="PG" label="Postgraduate" />
@@ -180,11 +199,13 @@ const DepartmentsPage = () => {
           </div>
         ) : (
           filteredDepartments.map((dept) => (
-            <Card key={dept.departmentId} dept={dept} />
+            <Card
+              key={`${dept.departmentId}-${dept.shortName}`}
+              dept={dept}
+            />
           ))
         )}
       </div>
-
     </div>
   );
 };

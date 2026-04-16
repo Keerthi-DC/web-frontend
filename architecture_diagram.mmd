@@ -1,0 +1,357 @@
+graph TD
+classDef folderFill fill:#f8fafa,stroke:#2c3e50,stroke-width:1px;
+classDef fileFill fill:#e6fbf6,stroke:#2c3e50,stroke-width:1px;
+
+src["src":folderFill]
+app["src/App.jsx":fileFill]
+main["src/main.jsx":fileFill]
+index["src/index.html":fileFill]
+vite["src/vite.config.js":fileFill]
+aws["src/aws-config.js":fileFill]
+
+assets["src/assets":folderFill]
+
+components["src/components":folderFill]
+
+subgraph comps_about ["about"]
+about_committees["src/components/about/CommitteesPage.jsx":fileFill]
+about_vision["src/components/about/VisionPage.jsx":fileFill]
+end
+subgraph comps_academics ["academics"]
+academics_calendar["src/components/academics/AcademicCalendar.jsx":fileFill]
+academics_departments["src/components/academics/DepartmentsPage.jsx":fileFill]
+end
+subgraph comps_accreditations ["accreditations"]
+accreditations_aicte["src/components/accreditations/AICTEPage.jsx":fileFill]
+accreditations_nba["src/components/accreditations/NBAPage.jsx":fileFill]
+accreditations_aishe["src/components/accreditations/AISHEPage.jsx":fileFill]
+accreditations_naac["src/components/accreditations/NAACPage.jsx":fileFill]
+end
+subgraph comps_admissions ["admissions"]
+admissions_overview["src/components/admissions/OverviewPage.jsx":fileFill]
+admissions_prospectus["src/components/admissions/ProspectusPage.jsx":fileFill]
+admissions_fee["src/components/admissions/FeeStructurePage.jsx":fileFill]
+admissions_scholarship["src/components/admissions/ScholarshipPage.jsx":fileFill]
+end
+subgraph comps_campusLife ["campusLife"]
+campus_gym["src/components/campusLife/GymPage.jsx":fileFill]
+campus_sac["src/components/campusLife/SacPage.jsx":fileFill]
+campus_sports["src/components/campusLife/SportsPage.jsx":fileFill]
+campus_technowave["src/components/campusLife/TechnowavePage.jsx":fileFill]
+campus_green["src/components/campusLife/GreenCampusPage.jsx":fileFill]
+campus_facilities["src/components/campusLife/Facilities.jsx":fileFill]
+end
+subgraph comps_common ["common"]
+common_card["src/components/common/Card.jsx":fileFill]
+common_col["src/components/common/SectionContainer.jsx":fileFill]
+common_grid["src/components/common/GridLayout.jsx":fileFill]
+common_tit["src/components/common/SectionTitle.jsx":fileFill]
+common_read["src/components/common/ReadMoreButton.jsx":fileFill]
+common_stat["src/components/common/StatCard.jsx":fileFill]
+common_event["src/components/common/EventCard.jsx":fileFill]
+common_hash["src/components/common/ScrollToHash.jsx":fileFill]
+end
+subgraph comps_layout ["layout"]
+layout_header["src/components/layout/Header/DepartmentNavbar.jsx":fileFill]
+layout_topbar["src/components/layout/Header/TopBar.jsx":fileFill]
+layout_footer["src/components/layout/Footer.jsx":fileFill]
+layout_deptfoot["src/components/layout/DepartmentFooter.jsx":fileFill]
+end
+subgraph comps_home ["home"]
+home_hero["src/components/home/HeroSection.jsx":fileFill]
+home_quick["src/components/home/QuickFacts.jsx":fileFill]
+home_ann["src/components/home/AnnouncementBar.jsx":fileFill]
+home_intro["src/components/home/InstituteIntroSection.jsx":fileFill]
+home_news["src/components/home/NewsSection.jsx":fileFill]
+home_ev["src/components/home/EventSection.jsx":fileFill]
+home_prog["src/components/home/ProgramsSection.jsx":fileFill]
+home_campus["src/components/home/CampusLifeSection.jsx":fileFill]
+home_res["src/components/home/ResearchSection.jsx":fileFill]
+home_plac["src/components/home/PlacementSection.jsx":fileFill]
+home_gal["src/components/home/GallerySection.jsx":fileFill]
+home_alum["src/components/home/AlumniSection.jsx":fileFill]
+home_cta["src/components/home/CallToActionSection.jsx":fileFill]
+home_dept["src/components/home/DepartmentsSection.jsx":fileFill]
+end
+subgraph comps_app ["app"]
+app_chat["src/components/app/ChatBot.jsx":fileFill]
+app_biet["src/components/app/BietGuide.jsx":fileFill]
+end
+subgraph comps_errors ["errors"]
+errors_boundary["src/components/errors/ErrorBoundary.jsx":fileFill]
+end
+
+components --> comps_about --> about_committees
+components --> comps_about --> about_vision
+components --> comps_academics --> academics_calendar
+components --> comps_academics --> academics_departments
+components --> comps_accreditations --> accreditations_aicte
+components --> comps_accreditations --> accreditations_nba
+components --> comps_accreditations --> accreditations_aishe
+components --> comps_accreditations --> accreditations_naac
+components --> comps_admissions --> admissions_overview
+components --> comps_admissions --> admissions_prospectus
+components --> comps_admissions --> admissions_fee
+components --> comps_admissions --> admissions_scholarship
+components --> comps_campusLife --> campus_gym
+components --> comps_campusLife --> campus_sac
+components --> comps_campusLife --> campus_sports
+components --> comps_campusLife --> campus_technowave
+components --> comps_campusLife --> campus_green
+components --> comps_campusLife --> campus_facilities
+components --> comps_common --> common_card
+components --> comps_common --> common_col
+components --> comps_common --> common_grid
+components --> comps_common --> common_tit
+components --> comps_common --> common_read
+components --> comps_common --> common_stat
+components --> comps_common --> common_event
+components --> comps_common --> common_hash
+components --> comps_layout --> layout_header
+components --> comps_layout --> layout_topbar
+components --> comps_layout --> layout_footer
+components --> comps_layout --> layout_deptfoot
+components --> comps_home --> home_hero
+components --> comps_home --> home_quick
+components --> comps_home --> home_ann
+components --> comps_home --> home_intro
+components --> comps_home --> home_news
+components --> comps_home --> home_ev
+components --> comps_home --> home_prog
+components --> comps_home --> home_campus
+components --> comps_home --> home_res
+components --> comps_home --> home_plac
+components --> comps_home --> home_gal
+components --> comps_home --> home_alum
+components --> comps_home --> home_cta
+components --> comps_home --> home_dept
+components --> comps_app --> app_chat
+components --> comps_app --> app_biet
+components --> comps_errors --> errors_boundary
+
+hooks["src/hooks":folderFill]
+hook_audit["src/hooks/useAudit.js":fileFill]
+hook_appsync["src/hooks/useAppSync.js":fileFill]
+hook_dep["src/hooks/useDepartment.js":fileFill]
+hook_depmeta["src/hooks/useDepartmentMeta.js":fileFill]
+hook_deptutils["src/hooks/useDepartmentActivities.js":fileFill]
+hook_dept_enu["src/hooks/useDepartmentEvents.js":fileFill]
+hook_dept_pre["src/hooks/useDepartmentPreview.js":fileFill]
+hook_dept_rel["src/hooks/useDepartmentResults.js":fileFill]
+hook_dept_ctr["src/hooks/useDepartmentCommittees.js":fileFill]
+hook_dept_ac["src/hooks/useDepartmentAchievements.js":fileFill]
+hook_dept_al["src/hooks/useDepartmentAlumni.js":fileFill]
+hook_dept_gal["src/hooks/useDepartmentGallery.js":fileFill]
+hook_dept_related["src/hooks/useDepartmentTimetable.js":fileFill]
+hook_dept_taught["src/hooks/useDepartmentTeaching.js":fileFill]
+hook_dept_mat["src/hooks/useDepartmentMaterials.js":fileFill]
+hook_dept_edu["src/hooks/useDepartmentEducation.js":fileFill]
+hook_dept_news["src/hooks/useDepartmentNews.js":fileFill]
+hook_dept_eventslist["src/hooks/useDepartmentEventsList.js":fileFill]
+hook_dept_pub["src/hooks/useDepartmentPublic.js":fileFill]
+hook_dept_home["src/hooks/useDepartmentHome.js":fileFill]
+hook_dept_newsletter["src/hooks/useDepartmentNewsletter.js":fileFill]
+hook_dept_people["src/hooks/useDepartmentPeople.js":fileFill]
+hook_dept_plac["src/hooks/useDepartmentPlacements.js":fileFill]
+hook_dept_research["src/hooks/useDepartmentResearch.js":fileFill]
+hook_normal_enquiry["src/hooks/useEnquiry.js":fileFill]
+hook_fee["src/hooks/useFeeStructure.js":fileFill]
+hook_prospect["src/hooks/useProspectus.js":fileFill]
+hook_scholar["src/hooks/useScholarships.js":fileFill]
+hook_overview["src/hooks/useAdmissionsOverview.js":fileFill]
+hook_acad_ach["src/hooks/useAchievementsPreview.js":fileFill]
+hook_repo["src/hooks/useDepartmentRepository.js":fileFill]
+
+hooks --> hook_audit
+hooks --> hook_appsync
+hooks --> hook_dep
+hooks --> hook_depmeta
+hooks --> hook_deptutils
+hooks --> hook_dept_enu
+hooks --> hook_dept_pre
+hooks --> hook_dept_rel
+hooks --> hook_dept_ctr
+hooks --> hook_dept_ac
+hooks --> hook_dept_al
+hooks --> hook_dept_gal
+hooks --> hook_dept_related
+hooks --> hook_dept_taught
+hooks --> hook_dept_mat
+hooks --> hook_dept_edu
+hooks --> hook_dept_news
+hooks --> hook_dept_eventslist
+hooks --> hook_dept_pub
+hooks --> hook_dept_home
+hooks --> hook_dept_newsletter
+hooks --> hook_dept_people
+hooks --> hook_dept_plac
+hooks --> hook_dept_research
+hooks --> hook_normal_enquiry
+hooks --> hook_fee
+hooks --> hook_prospect
+hooks --> hook_scholar
+hooks --> hook_overview
+hooks --> hook_acad_ach
+hooks --> hook_repo
+
+graphql["src/graphql":folderFill]
+subgraph gql_dept ["department"]
+-gql_events["src/graphql/department/events.js":fileFill]
+-gql_faculty["src/graphql/department/faculty.js":fileFill]
+-gql_gallery["src/graphql/department/gallery.js":fileFill]
+-gql_alumni["src/graphql/department/alumni.js":fileFill]
+-gql_achievements["src/graphql/department/achievements.js":fileFill]
+-gql_research["src/graphql/department/research.js":fileFill]
+-gql_news["src/graphql/department/news.js":fileFill]
+end
+gql_index["src/graphql/index.js":fileFill]
+
+modules["src/modules":folderFill]
+
+module_dept["src/modules/department":folderFill]
+
+subgraph mod_dept_components ["components"]
+mod_dept_comp_home_GalleryPreview["src/modules/department/components/home/GalleryPreview.jsx":fileFill]
+mod_dept_comp_home_StudentCycle["src/modules/department/components/home/StudentCycle.jsx":fileFill]
+mod_dept_comp_home_DepartmentHOD["src/modules/department/components/home/DepartmentHOD.jsx":fileFill]
+mod_dept_comp_home_QuickLinksPreview["src/modules/department/components/home/QuickLinksPreview.jsx":fileFill]
+mod_dept_comp_home_AchievementsPreview["src/modules/department/components/home/AchievementsPreview.jsx":fileFill]
+mod_dept_comp_home_DepartmentEventsPreview["src/modules/department/components/home/DepartmentEventsPreview.jsx":fileFill]
+mod_dept_comp_home_DepartmentHero["src/modules/department/components/home/DepartmentHero.jsx":fileFill]
+mod_dept_comp_home_DepartmentIntro["src/modules/department/components/home/DepartmentIntro.jsx":fileFill]
+mod_dept_comp_home_PlacementStats["src/modules/department/components/home/PlacementStats.jsx":fileFill]
+end
+
+subgraph mod_dept_pages ["pages"]
+mod_dept_page_ResultsPage["src/modules/department/pages/ResultsPage.jsx":fileFill]
+mod_dept_page_DNewsletter["src/modules/department/pages/DepartmentNewsletter.jsx":fileFill]
+mod_dept_page_DGallery["src/modules/department/pages/DepartmentGallery.jsx":fileFill]
+mod_dept_page_DResearch["src/modules/department/pages/DepartmentResearch.jsx":fileFill]
+mod_dept_page_DEvents["src/modules/department/pages/DepartmentEvents.jsx":fileFill]
+mod_dept_page_DHome["src/modules/department/pages/DepartmentHome.jsx":fileFill]
+mod_dept_page_DAchievements["src/modules/department/pages/DepartmentAchievements.jsx":fileFill]
+mod_dept_page_DActivities["src/modules/department/pages/DepartmentActivities.jsx":fileFill]
+mod_dept_page_DAlumni["src/modules/department/pages/DepartmentAlumni.jsx":fileFill]
+mod_dept_page_DPeople["src/modules/department/pages/DepartmentPeople.jsx":fileFill]
+mod_dept_page_DPlacements["src/modules/department/pages/DepartmentPlacements.jsx":fileFill]
+mod_dept_page_DAcademics["src/modules/department/pages/DepartmentAcademics.jsx":fileFill]
+mod_dept_page_DAccreditation["src/modules/department/pages/DepartmentAccreditation.jsx":fileFill]
+end
+
+module_dept --> mod_dept_components --> mod_dept_comp_home_GalleryPreview
+module_dept --> mod_dept_components --> mod_dept_comp_home_StudentCycle
+module_dept --> mod_dept_components --> mod_dept_comp_home_DepartmentHOD
+module_dept --> mod_dept_components --> mod_dept_comp_home_QuickLinksPreview
+module_dept --> mod_dept_components --> mod_dept_comp_home_AchievementsPreview
+module_dept --> mod_dept_components --> mod_dept_comp_home_DepartmentEventsPreview
+module_dept --> mod_dept_components --> mod_dept_comp_home_DepartmentHero
+module_dept --> mod_dept_components --> mod_dept_comp_home_DepartmentIntro
+module_dept --> mod_dept_components --> mod_dept_comp_home_PlacementStats
+module_dept --> mod_dept_pages --> mod_dept_page_ResultsPage
+module_dept --> mod_dept_pages --> mod_dept_page_DNewsletter
+module_dept --> mod_dept_pages --> mod_dept_page_DGallery
+module_dept --> mod_dept_pages --> mod_dept_page_DResearch
+module_dept --> mod_dept_pages --> mod_dept_page_DEvents
+module_dept --> mod_dept_pages --> mod_dept_page_DHome
+module_dept --> mod_dept_pages --> mod_dept_page_DAchievements
+module_dept --> mod_dept_pages --> mod_dept_page_DActivities
+module_dept --> mod_dept_pages --> mod_dept_page_DAlumni
+module_dept --> mod_dept_pages --> mod_dept_page_DPeople
+module_dept --> mod_dept_pages --> mod_dept_page_DPlacements
+module_dept --> mod_dept_pages --> mod_dept_page_DAcademics
+module_dept --> mod_dept_pages --> mod_dept_page_DAccreditation
+
+pages["src/pages":folderFill]
+
+subgraph pages_home ["Home Page"]
+page_Home["src/pages/Home.jsx":fileFill]
+end
+subgraph pages_results ["Results"]
+page_ResultsPage["src/pages/ResultsPage.jsx":fileFill]
+end
+subgraph pages_notif ["Notification"]
+page_Note["src/pages/NotificationPage.jsx":fileFill]
+end
+subgraph pages_research ["Research"]
+page_Rsearch["src/pages/ResearchPage.jsx":fileFill]
+end
+subgraph pages_placements ["Placements"]
+page_Pla["src/pages/PlacementsPage.jsx":fileFill]
+end
+subgraph pages_gallery ["Gallery"]
+page_Gal["src/pages/GalleryPage.jsx":fileFill]
+end
+subgraph pages_alumni ["Alumni"]
+page_Alum["src/pages/AlumniPage.jsx":fileFill]
+end
+subgraph pages_faculty ["Faculty"]
+page_Fac["src/pages/FacultyPage.jsx":fileFill]
+end
+subgraph pages_dept_events ["Dept Events"]
+page_DEvents["src/pages/DepartmentEvents.jsx":fileFill]
+end
+subgraph pages_dept_ach ["Dept Achievements"]
+page_DAch["src/pages/DepartmentAchievements.jsx":fileFill]
+end
+subgraph pages_dept_accr ["Dept Accreditation"]
+page_DAcc["src/pages/DepartmentAccreditation.jsx":fileFill]
+end
+subgraph pages_dept_people ["Dept People"]
+page_DPeople["src/pages/DepartmentPeople.jsx":fileFill]
+end
+subgraph pages_dept_activities ["Dept Activities"]
+page_DAct["src/pages/DepartmentActivities.jsx":fileFill]
+end
+subgraph pages_dept_alumni ["Dept Alumni"]
+page_DAl["src/pages/DepartmentAlumni.jsx":fileFill]
+end
+subgraph pages_dept_home ["Dept Home"]
+page_DHome["src/pages/DepartmentHome.jsx":fileFill]
+end
+subgraph pages_dept_gallery ["Dept Gallery"]
+page_DGallery["src/pages/DepartmentGallery.jsx":fileFill]
+end
+subgraph pages_dept_research ["Dept Research"]
+page_DRes["src/pages/DepartmentResearch.jsx":fileFill]
+end
+subgraph pages_dept_plac ["Dept Placements"]
+page_DPlac["src/pages/DepartmentPlacements.jsx":fileFill]
+end
+subgraph pages_dept_aca ["Dept Academics"]
+page_DAc["src/pages/DepartmentAcademics.jsx":fileFill]
+end
+subgraph pages_innovteaching ["InnovativeTeaching"]
+page_InModel["src/pages/InnovativeTeachingPage.jsx":fileFill]
+end
+
+pages --> page_Home
+pages --> page_ResultsPage
+pages --> page_Note
+pages --> page_Rsearch
+pages --> page_Pla
+pages --> page_Gal
+pages --> page_Alum
+pages --> page_Fac
+pages --> page_DEvents
+pages --> page_DAch
+pages --> page_DAcc
+pages --> page_DPeople
+pages --> page_DAct
+pages --> page_DAl
+pages --> page_DHome
+pages --> page_DGallery
+pages --> page_DRes
+pages --> page_DPlac
+pages --> page_DAc
+pages --> page_InModel
+
+services["src/services":folderFill]
+services_graphql["src/services/graphql":folderFill]
+# currently empty
+
+styles["src/styles":folderFill]
+# placeholder
+
+assets --> src/assets
+
+"architecture_diagram.mmd" file created with full folder and file list.

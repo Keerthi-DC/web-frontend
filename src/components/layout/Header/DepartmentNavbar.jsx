@@ -51,7 +51,7 @@ const DepartmentNavbar = () => {
           body: JSON.stringify({
             query: `
               query ListDepartments {
-                listDepartments {
+                listDepartments(tenantId: "biet-college"){
                   items {
                     departmentId
                     name
