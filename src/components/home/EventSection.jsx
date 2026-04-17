@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import useEvents from "../../features/news&events/hooks/useEvents";
 
 const EventSection = () => {
-  const [events, setEvents] = useState([]);
+  const { events, loading, error } = useEvents();
 
-  useEffect(() => {
-    fetch("/data/events.json")
-      .then((res) => res.json())
-      .then((data) => setEvents(data))
-      .catch((e) => console.error(e));
-  }, []);
-
+  if (loading) return null;
+  if (error) console.error(error);
   if (!events.length) return null;
 
   const displayed = events.slice(0, 3);

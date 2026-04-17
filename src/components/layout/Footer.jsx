@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import logo from "../../../assets/BIET_logo.png";
 const Footer = () => {
   return (
     <footer className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-[#001c40] text-white pt-16 pb-8">
@@ -11,7 +11,9 @@ const Footer = () => {
 
           {/* LOGO + ADDRESS */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">Your Logo</h3>
+            <div className="h-12 w-12 md:h-14 md:w-14 rounded-full overflow-hidden border shadow bg-white flex items-center justify-center">
+                        <img src={logo} alt="Logo" className="object-contain h-full w-full" />
+                      </div>
 
             <p className="text-sm text-gray-300 leading-relaxed">
               325, Shamanur Rd, BIET,<br />

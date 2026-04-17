@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useNews from "../../features/news&events/hooks/useNews";
 
 const NewsSection = () => {
-  const [news, setNews] = useState([]);
+  const { news, loading, error } = useNews();
 
-  useEffect(() => {
-    fetch("/data/news.json")
-      .then((res) => res.json())
-      .then((data) => setNews(data))
-      .catch((e) => console.error(e));
-  }, []);
-
+  if (loading) return null;
+  if (error) console.error(error);
   if (!news.length) return null;
 
   const featured = news[0];

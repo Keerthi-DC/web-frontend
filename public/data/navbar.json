@@ -14,12 +14,10 @@
       "label": "Academics",
       "path": "",
       "dropdown": [
-        { "label": "Programs", "path": "/academics/programs" },
         { "label": "Departments", "path": "/academics/departments" },
-        { "label": "Faculty", "path": "/academics/faculty" },
         { "label": "Academic Calendar", "path": "/academics/academic-calendar" },
-        
-        { "label": "Syllabus", "path": "/academics/syllabus" },
+        { "label": "Rules & Regulations", "path": "/academics/rules-regulations" },
+        { "label": "Scheme &Syllabus", "path": "/academics/syllabus" },
         { "label": "Rank", "path": "/academics/rank" }
       ]
     },
@@ -29,7 +27,6 @@
       "dropdown": [
         { "label": "Overview", "path": "/admissions/overview" },
         { "label": "Prospectus", "path": "/admissions/prospectus" },
-        
         { "label": "Fee Structure", "path": "/admissions/fee-structure" },
         { "label": "Scholarships", "path": "/admissions/scholarships" },
         { "label": "Enquiry", "path": "/admissions/enquiry" }
