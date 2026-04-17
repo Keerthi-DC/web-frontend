@@ -3,7 +3,7 @@ import useSyllabus from "../hooks/useSyllabus";
 
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
+import Card from "../../../components/ui/Card";
 
 const SyllabusPage = () => {
   const {

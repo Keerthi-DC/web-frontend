@@ -5,7 +5,7 @@ import useDepartments from "../hooks/useDepartments";
 
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
+import Card from "../../../components/ui/Card";
 
 const DepartmentsPage = () => {
   const {
@@ -76,24 +76,52 @@ const DepartmentsPage = () => {
 
       {/* GRID */}
       <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8">
-        {filteredDepartments.map((dept) => (
-          <Card
-            key={dept.departmentId}
-            onClick={() => navigate(`/departments/${dept.shortName}`)}
-            image={dept.imageUrl}
-            title={dept.name}
-            subtitle={dept.hod}
-            tags={
-              Array.isArray(dept.programTypes)
-                ? dept.programTypes
-                : [dept.programTypes]
-            }
-          >
-            <button className="mt-2 px-4 py-2 text-sm bg-[#0B3C6D] text-white rounded-lg">
-              Visit
-            </button>
-          </Card>
-        ))}
+        {filteredDepartments.map((dept) => {
+          const tags = Array.isArray(dept.programTypes)
+            ? dept.programTypes
+            : [dept.programTypes];
+
+          return (
+            <Card
+              key={dept.departmentId}
+              className="group !p-0 cursor-pointer overflow-hidden hover:-translate-y-2 transition-all duration-300"
+            >
+              <div onClick={() => navigate(`/departments/${dept.shortName}`)}>
+                {/* IMAGE */}
+                <div className="relative overflow-hidden">
+                  <img
+                    src={dept.imageUrl}
+                    alt={dept.name}
+                    className="w-full h-52 object-cover transform group-hover:scale-110 transition duration-500"
+                  />
+
+                  {/* TAGS */}
+                  {tags && (
+                    <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
+                      {tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs px-3 py-1 rounded-full bg-[#0B3C6D] text-white shadow-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* CONTENT */}
+                <div className="p-5 text-center">
+                  <h3 className="text-lg font-semibold mb-2">{dept.name}</h3>
+                  <p className="text-sm text-gray-500 mb-3">{dept.hod}</p>
+                  <button className="mt-2 px-4 py-2 text-sm bg-[#0B3C6D] text-white rounded-lg">
+                    Visit
+                  </button>
+                </div>
+              </div>
+            </Card>
+          );
+        })}
       </div>
     </PageContainer>
   );
