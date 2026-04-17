@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql"; // adjust path
+import { useQuery } from "@apollo/client/react";
 import { GET_GREEN_CAMPUS } from "../graphql/queries";
 
 const mockData = {
@@ -9,39 +8,15 @@ const mockData = {
 };
 
 const useGreenCampus = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const query = GET_GREEN_CAMPUS;
-
-  const fetchGreenCampus = async () => {
-    try {
-      const res = await graphqlRequest(query);
-
-      if (res?.data?.getGreenCampus) {
-        setData(res.data.getGreenCampus);
-      } else {
-        // Pages should provide mockData; hook returns null when absent
-        setData(mockData);
-      }
-    } catch (err) {
-      setError(err);
-      setData(mockData);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchGreenCampus();
-  }, []);
+  const { data: apolloData, loading, error, refetch } = useQuery(GET_GREEN_CAMPUS, { fetchPolicy: "cache-first" });
+  
+  const data = apolloData?.getGreenCampus || mockData;
 
   return {
     data,
     loading,
     error,
-    refetch: fetchGreenCampus,
+    refetch,
     isEmpty: !data,
   };
 };

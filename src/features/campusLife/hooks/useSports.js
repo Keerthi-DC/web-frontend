@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql"; // adjust path
+import { useQuery } from "@apollo/client/react";
 import { GET_SPORTS } from "../graphql/queries";
 
 const mockData = {
@@ -11,39 +10,15 @@ const mockData = {
 };
 
 const useSports = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: apolloData, loading, error, refetch } = useQuery(GET_SPORTS, { fetchPolicy: "cache-first" });
 
-  const query = GET_SPORTS;
-
-  const fetchSports = async () => {
-    try {
-      const res = await graphqlRequest(query);
-
-      if (res?.data?.getSports) {
-        setData(res.data.getSports);
-      } else {
-        // No hook-level fallback; pages should provide mockData
-        setData(mockData);
-      }
-    } catch (err) {
-      setError(err);
-      setData(mockData);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchSports();
-  }, []);
+  const data = apolloData?.getSports || mockData;
 
   return {
     data,
     loading,
     error,
-    refetch: fetchSports,
+    refetch,
     isEmpty: !data,
   };
 };

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql"; // adjust path
+import { useQuery } from "@apollo/client/react";
 import { GET_TECHNOWAVE } from "../graphql/queries";
 
 const mockData = {
@@ -10,40 +9,15 @@ const mockData = {
 };
 
 const useTechnowave = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: apolloData, loading, error, refetch } = useQuery(GET_TECHNOWAVE, { fetchPolicy: "cache-first" });
 
-  const query = GET_TECHNOWAVE;
-
-  const fetchTechnowave = async () => {
-    try {
-      const res = await graphqlRequest(query);
-
-      if (res?.data?.getTechnowave) {
-        setData(res.data.getTechnowave);
-      } else {
-        // No fallback fetch here — pages will provide mockData when JSONs are removed
-        setData(mockData);
-      }
-    } catch (err) {
-      setError(err);
-      // Pages should render their own mockData if GraphQL fails
-      setData(mockData);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTechnowave();
-  }, []);
+  const data = apolloData?.getTechnowave || mockData;
 
   return {
     data,
     loading,
     error,
-    refetch: fetchTechnowave,
+    refetch,
     isEmpty: !data,
   };
 };

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql"; // adjust path
+import { useQuery } from "@apollo/client/react";
 import { LIST_NEWS } from "../graphql/queries";
+
 const mockNews = [
   {
     id: 1,
@@ -40,36 +40,11 @@ const mockNews = [
 ];
 
 const useNews = () => {
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: apolloData, loading, error, refetch } = useQuery(LIST_NEWS, { fetchPolicy: "cache-first" });
 
-  const query = LIST_NEWS;
+  const news = apolloData?.listNews || mockNews;
 
-  const fetchNews = async () => {
-    try {
-      const res = await graphqlRequest(query);
-
-      if (res?.data?.listNews) {
-        setNews(res.data.listNews);
-      } else {
-        // ✅ fallback
-        setNews(mockNews);
-      }
-    } catch (err) {
-      // ✅ fallback + error tracking
-      setError(err);
-      setNews(mockNews);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchNews();
-  }, []);
-
-  return { news, loading, error, refetch: fetchNews };
+  return { news, loading, error, refetch };
 };
 
 export default useNews;

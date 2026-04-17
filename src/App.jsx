@@ -1,105 +1,78 @@
-  import BietGuide from "./components/BietGuide";
-// import ChatBot from "./components/ChatBot";
-  import "./aws-config";
-  import { Routes, Route, useLocation } from "react-router-dom";
-  import Navbar from "./components/layout/Header/Navbar";
-  import DepartmentNavbar from "./components/layout/Header/DepartmentNavbar";
-  import Footer from "./components/layout/Footer";
-  import DepartmentFooter from "./components/layout/DepartmentFooter";
-  
-  import Home from "./pages/Home";
-  import NewsPage from "./features/news&events/pages/NewsPage";
-  import EventsPage from "./features/news&events/pages/EventsPage";
-  import NotificationsPage from "./features/news&events/pages/Notification";
-  import GalleryPage from "./pages/GalleryPage";
-  import ResearchPage from "./pages/ResearchPage";
-  import PlacementsPage from "./pages/PlacementsPage";
- 
-  import FacultyPage from "./pages/FacultyPage";
+import BietGuide from "./components/BietGuide";
+import "./aws-config";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Navbar from "./components/layout/Header/Navbar";
+import DepartmentNavbar from "./components/layout/Header/DepartmentNavbar";
+import Footer from "./components/layout/Footer";
+import DepartmentFooter from "./components/layout/DepartmentFooter";
+import ErrorBoundary from "./components/layout/ErrorBoundary";
 
-  {/* about‑specific pages */}
-  // import AboutOverview from "./components/about/AboutOverviewPage";
-  // import VisionPage from "./components/about/VisionPage";
-  // import CommitteesPage from "./components/about/CommitteesPage";
-  import AboutOverviewPage from "./features/about/pages/AboutOverviewPage";
-  import FacilitiesPage from "./features/about/pages/Facilities";
-  import VisionPage from "./features/about/pages/VisionPage";
-  import CommitteesPage from "./features/about/pages/CommitteesPage";
+import Home from "./features/home/pages/Home";
+import NewsPage from "./features/news&events/pages/NewsPage";
+import EventsPage from "./features/news&events/pages/EventsPage";
+import NotificationsPage from "./features/news&events/pages/Notification";
+import GalleryPage from "./features/gallery/pages/GalleryPage";
+import ResearchPage from "./features/research/pages/ResearchPage";
+import PlacementsPage from "./features/placements/pages/PlacementsPage";
 
-  {/* academics-specific pages */}
-  // import DepartmentsPage from "./components/academics/DepartmentsPage";
-  // import ProgramsPage from "./components/academics/ProgramsPage";
-  // import RankPage from "./components/academics/RankPage";
-  // import AcademicCalendar from "./components/academics/AcademicCalendar";
-  // import SyllabusPage from "./components/academics/SyllabusPage";
-  import AcademicCalendar from "./features/academics/pages/AcademicCalender";
-  import DepartmentsPage from "./features/academics/pages/DepartmentsPage";
-  import SyllabusPage from "./features/academics/pages/Schema&Syllabus";
-  import RankPage from "./features/academics/pages/RankPage";
+import FacultyPage from "./features/faculty/pages/FacultyPage";
 
-  {/*accreditation pages */}
-  // import AICTEPage from "./components/accreditations/AICTEPage";
-  // import NAACPage from "./components/accreditations/NAACPage";
-  // import NBAPage from "./components/accreditations/NBAPage";
-  // import AISHEPage from "./components/accreditations/AISHEPage";
-  import AICTEPage from "./features/accreditations/pages/AICTEPage";
-  import AISHEPage from "./features/accreditations/pages/AISHEPage";
-  import NAACPage from "./features/accreditations/pages/NAACPage";
-  import NBAPage from "./features/accreditations/pages/NBAPage";
+import AboutOverviewPage from "./features/about/pages/AboutOverviewPage";
+import FacilitiesPage from "./features/about/pages/Facilities";
+import VisionPage from "./features/about/pages/VisionPage";
+import CommitteesPage from "./features/about/pages/CommitteesPage";
 
-  {/* admission‑specific pages */}
-  // import ScholarshipPage from "./components/admissions/ScholarshipPage";
-  // import EnquiryPage from "./components/admissions/EnquiryPage";
-  // import AdmissionOverview from "./components/admissions/OverviewPage";
-  // import ProspectusPage from "./components/admissions/ProspectusPage";
-  // import FeeStructurePage from "./components/admissions/FeeStructurePage";
-  import AdmissionOverview from "./features/admissions/pages/OverviewPage";
-  import EnquiryPage from "./features/admissions/pages/EnquiryPage";
-  import FeeStructurePage from "./features/admissions/pages/FeeStructurePage";
-  import ProspectusPage from "./features/admissions/pages/ProspectusPage";
-  import ScholarshipPage from "./features/admissions/pages/ScholarshipPage";
+import AcademicCalendar from "./features/academics/pages/AcademicCalender";
+import DepartmentsPage from "./features/academics/pages/DepartmentsPage";
+import SyllabusPage from "./features/academics/pages/Schema&Syllabus";
+import RankPage from "./features/academics/pages/RankPage";
 
-  {/* campus life‑specific pages */}
-  //import Facilities from "./components/campusLife/Facilities";
-  // import GymPage from "./components/campusLife/GymPage";
-  // import SACPage from "./components/campusLife/SacPage";
-  // import SportsPage from "./components/campusLife/SportsPage";
-  // import TechnowavePage from "./components/campusLife/TechnowavePage";
-  // import GreenCampusPage from "./components/campusLife/GreenCampusPage";
+import AICTEPage from "./features/accreditations/pages/AICTEPage";
+import AISHEPage from "./features/accreditations/pages/AISHEPage";
+import NAACPage from "./features/accreditations/pages/NAACPage";
+import NBAPage from "./features/accreditations/pages/NBAPage";
 
-  import Facilities from "./features/campusLife/pages/Facilities";
-  import GymPage from "./features/campusLife/pages/GymPage";
-  import SACPage from "./features/campusLife/pages/SacPage";
-  import SportsPage from "./features/campusLife/pages/SportsPage";
-  import TechnowavePage from "./features/campusLife/pages/TechnowavePage";
-  import GreenCampusPage from "./features/campusLife/pages/GreenCampusPage";
+import AdmissionOverview from "./features/admissions/pages/OverviewPage";
+import EnquiryPage from "./features/admissions/pages/EnquiryPage";
+import FeeStructurePage from "./features/admissions/pages/FeeStructurePage";
+import ProspectusPage from "./features/admissions/pages/ProspectusPage";
+import ScholarshipPage from "./features/admissions/pages/ScholarshipPage";
 
-  {/* department‑specific pages */}
-  import DepartmentHome from "./modules/department/pages/DepartmentHome";
-  import DepartmentEvents from "./modules/department/pages/DepartmentEvents";
-  import DepartmentPlacements from "./modules/department/pages/DepartmentPlacements";
-  import DepartmentAchievements from "./modules/department/pages/DepartmentAchievements";
-  import DepartmentPeople from "./modules/department/pages/DepartmentPeople";
-  import DepartmentResearch from "./modules/department/pages/DepartmentResearch";
-  import DepartmentAcademics from "./modules/department/pages/DepartmentAcademics";
-  import ScrollToHash from "./components/common/ScrollToHash";
-  import DepartmentActivities from "./modules/department/pages/DepartmentActivities";
-  import DepartmentAlumni from "./modules/department/pages/DepartmentAlumni";
-  import DepartmentGallery from "./modules/department/pages/DepartmentGallery";
-  import DepartmentNewsletter from "./modules/department/pages/DepartmentNewsletter";
-  import DepartmentAccreditation from "./modules/department/pages/DepartmentAccreditation";
+import Facilities from "./features/campusLife/pages/Facilities";
+import GymPage from "./features/campusLife/pages/GymPage";
+import SACPage from "./features/campusLife/pages/SacPage";
+import SportsPage from "./features/campusLife/pages/SportsPage";
+import TechnowavePage from "./features/campusLife/pages/TechnowavePage";
+import GreenCampusPage from "./features/campusLife/pages/GreenCampusPage";
 
-  const App = () => {
-    const location = useLocation();
-    const isDepartmentPage = location.pathname.startsWith("/departments/");
+import DepartmentHome from "./features/department/pages/DepartmentHome";
+import DepartmentEvents from "./features/department/pages/DepartmentEvents";
+import DepartmentPlacements from "./features/department/pages/DepartmentPlacements";
+import DepartmentAchievements from "./features/department/pages/DepartmentAchievements";
+import DepartmentPeople from "./features/department/pages/DepartmentPeople";
+import DepartmentResearch from "./features/department/pages/DepartmentResearch";
+import DepartmentAcademics from "./features/department/pages/DepartmentAcademics";
+import ScrollToHash from "./components/ScrollToHash";
+import DepartmentActivities from "./features/department/pages/DepartmentActivities";
+import DepartmentAlumni from "./features/department/pages/DepartmentAlumni";
+import DepartmentGallery from "./features/department/pages/DepartmentGallery";
+import DepartmentNewsletter from "./features/department/pages/DepartmentNewsletter";
+import DepartmentAccreditation from "./features/department/pages/DepartmentAccreditation";
 
-    return (
-      <div className="w-full">
-        <ScrollToHash />
-        {isDepartmentPage ?<DepartmentNavbar /> : <Navbar />}
-        <BietGuide />
+const App = () => {
+  const location = useLocation();
+  const isDepartmentPage = location.pathname.startsWith("/departments/");
+
+  return (
+    <div className="w-full">
+      <ScrollToHash />
+      <Toaster position="top-right" />
+      {isDepartmentPage ? <DepartmentNavbar /> : <Navbar />}
+      <BietGuide />
+      
+      <ErrorBoundary>
         <Routes>
-         
           {/* general pages */}
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<NewsPage />} />
@@ -109,21 +82,18 @@
           <Route path="/placements" element={<PlacementsPage />} />
 
           {/* about‑specific pages */}
-          {/* <Route path="/about/overview" element={<AboutOverview />} />
-          <Route path="/about/vision" element={<VisionPage />} />
-          <Route path="/about/committees" element={<CommitteesPage />} /> */}
           <Route path="/about/overview" element={<AboutOverviewPage />} />
           <Route path="/about/facilities" element={<FacilitiesPage />} />
           <Route path="/about/vision" element={<VisionPage />} />
           <Route path="/about/committees" element={<CommitteesPage />} />
 
-          {/*academics-specific pages*/}
+          {/* academics-specific pages */}
           <Route path="/academics/departments" element={<DepartmentsPage />} />
           <Route path="/academics/academic-calendar" element={<AcademicCalendar />} />
           <Route path="/academics/syllabus" element={<SyllabusPage />} />
           <Route path="/academics/rank" element={<RankPage />} />
 
-          {/*accreditation pages */}
+          {/* accreditation pages */}
           <Route path="/accreditations/naac" element={<NAACPage />} />
           <Route path="/accreditations/nba" element={<NBAPage />} />
           <Route path="/accreditations/aicte" element={<AICTEPage />} />
@@ -156,11 +126,13 @@
           <Route path="/departments/:shortName/alumni" element={<DepartmentAlumni />} />
           <Route path="/departments/:shortName/gallery" element={<DepartmentGallery />} />
           <Route path="/departments/:shortName/newsletter" element={<DepartmentNewsletter />} />
-          <Route path="/departments/:shortName/accreditation"element={<DepartmentAccreditation />}/>
+          <Route path="/departments/:shortName/accreditation" element={<DepartmentAccreditation />} />
         </Routes>
-       {isDepartmentPage ? <DepartmentFooter /> : <Footer />}
-     </div >
-    );
-  };
+      </ErrorBoundary>
 
-  export default App;
+      {isDepartmentPage ? <DepartmentFooter /> : <Footer />}
+    </div>
+  );
+};
+
+export default App;

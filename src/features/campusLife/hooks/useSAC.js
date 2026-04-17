@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql"; // adjust path
+import { useQuery } from "@apollo/client/react";
 import { GET_SAC } from "../graphql/queries";
 
 const mockData = {
@@ -12,39 +11,15 @@ const mockData = {
 };
 
 const useSAC = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: apolloData, loading, error, refetch } = useQuery(GET_SAC, { fetchPolicy: "cache-first" });
 
-  const query = GET_SAC;
-
-  const fetchSAC = async () => {
-    try {
-      const res = await graphqlRequest(query);
-
-      if (res?.data?.getSAC) {
-        setData(res.data.getSAC);
-      } else {
-        // No hook-level fallback; pages should provide mockData
-        setData(mockData);
-      }
-    } catch (err) {
-      setError(err);
-      setData(mockData);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchSAC();
-  }, []);
+  const data = apolloData?.getSAC || mockData;
 
   return {
     data,
     loading,
     error,
-    refetch: fetchSAC,
+    refetch,
     isEmpty: !data,
   };
 };

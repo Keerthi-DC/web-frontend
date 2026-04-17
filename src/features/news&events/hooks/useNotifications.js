@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql"; // adjust path
+import { useQuery } from "@apollo/client/react";
 import { LIST_NOTIFICATIONS } from "../graphql/queries";
+
 const mockData = [
   {
     id: 1,
@@ -37,38 +37,15 @@ const mockData = [
 ];
 
 const useNotifications = () => {
-  const [notifications, setNotifications] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: apolloData, loading, error, refetch } = useQuery(LIST_NOTIFICATIONS, { fetchPolicy: "cache-first" });
 
-  const query = LIST_NOTIFICATIONS;
-
-  const fetchNotifications = async () => {
-    try {
-      const res = await graphqlRequest(query);
-
-      if (res?.data?.listNotifications) {
-        setNotifications(res.data.listNotifications);
-      } else {
-        setNotifications(mockData);
-      }
-    } catch (err) {
-      setError(err);
-      setNotifications(mockData);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
+  const notifications = apolloData?.listNotifications || mockData;
 
   return {
     notifications,
     loading,
     error,
-    refetch: fetchNotifications,
+    refetch,
     isEmpty: notifications.length === 0,
   };
 };

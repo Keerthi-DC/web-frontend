@@ -1,0 +1,196 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
+import { Award, FileText, Layers } from "lucide-react";
+
+const ResearchPreview = () => {
+  const navigate = useNavigate();
+  const { shortName } = useParams();
+  const { getId, isReady } = useDepartmentMeta();
+
+  const [data, setData] = useState({
+    patents: [],
+    grants: []
+  });
+
+  const [animatedCounts, setAnimatedCounts] = useState({
+    patents: 0,
+    grants: 0
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!shortName || !isReady) return;
+
+    const API_URL = import.meta.env.VITE_APPSYNC_URL;
+    const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
+
+    const deptId = getId(shortName);
+    if (!deptId) return;
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        const queries = [
+          {
+            key: "patents",
+            query: `
+              query ($deptId: ID!, $tenantId: ID!) {
+                listPatents(deptId: $deptId, tenantId: $tenantId) {
+                  items { text }
+                }
+              }
+            `
+          },
+          {
+            key: "grants",
+            query: `
+              query ($deptId: ID!, $tenantId: ID!) {
+                listResearchGrants(deptId: $deptId, tenantId: $tenantId) {
+                  items { text }
+                }
+              }
+            `
+          }
+        ];
+
+        const responses = await Promise.all(
+          queries.map(q =>
+            fetch(API_URL, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-api-key": API_KEY
+              },
+              body: JSON.stringify({
+                query: q.query,
+                variables: {
+                  deptId,
+                  tenantId: "biet-college"
+                }
+              })
+            }).then(res => res.json())
+          )
+        );
+
+        const result = {
+          patents: [],
+          grants: []
+        };
+
+        responses.forEach((json, index) => {
+          const key = Object.keys(json.data || {})[0];
+          result[queries[index].key] = json.data?.[key]?.items || [];
+        });
+
+        setData(result);
+
+        animateCount("patents", result.patents.length);
+        animateCount("grants", result.grants.length);
+
+      } catch (err) {
+        console.error("Fetch Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [shortName, isReady]);
+
+  const animateCount = (key, target) => {
+    let start = 0;
+    const duration = 800;
+    const increment = target / (duration / 16);
+
+    const counter = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        start = target;
+        clearInterval(counter);
+      }
+
+      setAnimatedCounts(prev => ({
+        ...prev,
+        [key]: Math.floor(start)
+      }));
+    }, 16);
+  };
+
+  const patentCount = data.patents.length;
+  const grantCount = data.grants.length;
+
+  return (
+    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-6">
+
+        {/* Heading */}
+        <div className="text-3xl font-bold mb-12 flex items-center gap-3">
+          <div className="w-1 h-6 bg-blue-600" />
+          <h2>Research Highlights</h2>
+        </div>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {loading ? (
+            // 🔥 Skeleton Loader
+            [...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="h-[160px] rounded-2xl bg-gray-200 animate-pulse"
+              />
+            ))
+          ) : (
+            <>
+              {/* Filed Patents */}
+              <div className="bg-blue-50 rounded-2xl p-6 flex flex-col justify-center items-center h-[160px] hover:shadow-md transition">
+                <Award className="text-blue-600 mb-2" size={28} />
+                <p className="text-3xl font-bold text-blue-700">
+                  {animatedCounts.patents}
+                </p>
+                <p className="text-sm text-gray-600">Filed Patents</p>
+              </div>
+
+              {/* Total Patents */}
+              <div className="bg-indigo-50 rounded-2xl p-6 flex flex-col justify-center items-center h-[160px] hover:shadow-md transition">
+                <Layers className="text-indigo-600 mb-2" size={28} />
+                <p className="text-3xl font-bold text-indigo-700">
+                  {patentCount}
+                </p>
+                <p className="text-sm text-gray-600">Total Patents</p>
+              </div>
+
+              {/* Grants */}
+              <div className="bg-green-50 rounded-2xl p-6 flex flex-col justify-center items-center h-[160px] hover:shadow-md transition">
+                <FileText className="text-green-600 mb-2" size={28} />
+                <p className="text-3xl font-bold text-green-700">
+                  {animatedCounts.grants}
+                </p>
+                <p className="text-sm text-gray-600">Grants</p>
+              </div>
+            </>
+          )}
+
+        </div>
+
+        {/* Button */}
+        <div className="flex justify-center mt-12">
+          <button
+            onClick={() =>
+              navigate(`/departments/${shortName}/research`)
+            }
+            className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition"
+          >
+            Explore Research →
+          </button>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default ResearchPreview;

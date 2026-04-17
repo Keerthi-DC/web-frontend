@@ -1,8 +1,0 @@
-{
-  "title": "Student Academic Council",
-  "description": "Develops leadership and communication skills.",
-  "members": [
-    { "name": "Prof. Y Yuvashankarappa", "role": "Director" },
-    { "name": "Dr. H B Aravind", "role": "Principal" }
-  ]
-}
