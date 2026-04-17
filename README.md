@@ -1,143 +1,92 @@
- 1. README.md (root)
+# 📚 Bapuji Institute of Engineering & Technology – College Website
 
-  # 📚 Bapuji Institute of Engineering & Technology – College Website
+A modern, highly optimized enterprise website built with **React**, **Vite**, **Tailwind CSS**, and **AWS AppSync (GraphQL)**.
 
-  A modern, responsive site built with **React**, **Vite**, and **Tailwind CSS**.
-  Content is driven entirely from JSON files for instant updates without code changes.
+> **Live Demo** – https://baite.org  *(replace with your URL)*
 
-  > **Live Demo** – https://baite.org  *(replace with your URL)*
+---
 
-  ---
+## 🚀 Features
 
-  ## 🚀 Features
+| ✔ | Feature |
+|---|---------|
+| 1 | **Feature-Sliced Design (FSD)** architecture for infinite scalability |
+| 2 | **AWS AppSync GraphQL backend** with Apollo Client caching |
+| 3 | **Route-Level Lazy Loading** (`React.lazy()`) for lightning fast First Contentful Paint |
+| 4 | **Global Error Boundaries** for bulletproof fault tolerance |
+| 5 | **React Hook Form + Zod** for strict schema validation and error mapping |
+| 6 | Form payload sanitization via `dompurify` (XSS prevention) |
+| 7 | Reusable UI Component library (`src/components/ui/`) |
+| 8 | Fully responsive layout with Tailwind CSS |
+| 9 | Zero prop-drilling – self-hydrating component architecture |
+| 10| Clean navigation via React Router v6 |
 
-  | ✔ | Feature |
-  |---|---------|
-  | 1 | Responsive layout (desktop ≈ tablet ≈ mobile) |
-  | 2 | Component‑based architecture (layout, common, home sections) |
-  | 3 | Data‑driven UI – all pages read JSON from `/public/data/`. |
-  | 4 | Clean navigation via React Router v6 |
-  | 5 | Accessible (semantic tags, ARIA, `alt` props) |
-  | 6 | Image lazy‑loading & minimal JavaScript bundle |
-  | 7 | SEO baked in (meta tags & OpenGraph) |
-  | 8 | Hot‑Module‑Replacement (Vite dev server) |
-  | 9 | ESLint + Prettier + Husky pre‑commit hooks |
-  |10 | Optional page‑level routing for full listings |
+---
 
-  ---
+## 🗂️ Folder Layout
 
-  ## 🗂️ Folder Layout
+```text
+src/
+├─ assets/                      # Static images, fonts
+├─ components/
+│   ├─ layout/                  # Header, Footer, ErrorBoundary
+│   └─ ui/                      # Reusable UI (Cards, FormInputs, etc.)
+├─ features/                    # Feature-Sliced domain modules
+│   ├─ academics/               
+│   ├─ admissions/              
+│   ├─ campusLife/              
+│   ├─ department/              
+│   ├─ news&events/             
+│   └─ ... (each contains pages/, hooks/, components/, graphql/)
+├─ services/                    # Apollo Client & API logic
+│   └─ apolloClient.js          
+├─ App.jsx                      # Router & Lazy Loading
+├─ main.jsx                     # React Root
+└─ aws-config.js                # AWS Amplify / AppSync config
+```
 
-  src/
-  ├─ assets/                      # Static images, fonts
-  ├─ components/
-  │   ├─ layout/                   # Header & Footer
-  │   │   ├─ Header/
-  │   │   │   ├─ Navbar.jsx
-  │   │   │   └─ TopBar.jsx
-  │   │   └─ Footer.jsx
-  │   ├─ common/                  # Reusable UI (Card, Grid, etc.)
-  │   └─ home/                     # Page‑level sections (NewsSection, …)
-  ├─ pages/                        # Route entry points
-  ├─ services/                     # (future API helpers)
-  ├─ App.jsx                      # Router & layout
-  ├─ main.jsx
-  └─ index.html
+---
 
-  public/
-  └─ data/                        # JSON files for all UI content
-     ├─ news.json
-     ├─ events.json
-     ├─ gallery.json
-     ├─ campusLife.json
-     ├─ research.json
-     ├─ placements.json
-     ├─ placementHighlights.json
-     ├─ alumni.json
-     └─ footer.json
+## 🔧 Technologies
 
-  ---
+| Category         | Tool / Library |
+|-------------------|----------------|
+| **Framework**     | React 18 |
+| **Bundler**       | Vite |
+| **Styling**      | Tailwind CSS |
+| **Data Fetching**| `@apollo/client` (GraphQL) |
+| **State**        | Apollo Cache |
+| **Forms**        | `react-hook-form` + `zod` |
+| **Routing**      | React Router v6 |
 
-  ## 🔧 Technologies
+---
 
-  | Category         | Tool / Library |
-  |-------------------|----------------|
-  | **Framework**     | React (hooks) |
-  | **Bundler**       | Vite |
-  | **Styling**      | Tailwind CSS (JIT) |
-  | **State**        | Local component state → JSON |
-  | **Routing**      | React Router v6 |
-  | **Testing**      | Vitest + React Testing Library (optional) |
-  | **Deployment**    | GitHub Actions → Netlify / Vercel / S3  |
+## 📦 Installation
 
-  ---
+```bash
+git clone https://github.com/Keerthi-DC/web-frontend.git
+cd web-frontend
+npm install           # or yarn install
+```
 
-  ## 📦 Installation
+---
+▶️ Running
 
-  ```bash
-  git clone https://github.com/your-org/college-website.git
-  cd college-website
-  npm install           # or yarn install
+```bash
+npm run dev          # Development server with hot‑reload
+npm run build        # Production build (dist/)
+npm run preview      # Serve production build locally
+```
 
-  ---
-  ▶️ Running
+---
+🚩 Deployment
 
-  npm run dev          # Development server with hot‑reload
-  npm run build        # Production build (dist/)
-  npm run preview      # Serve production build locally
-  npm run lint         # Check code style
-  npm run format       # Prettify all files
+1. `npm run build` – creates `dist/` folder.
+2. Deploy the `dist/` folder to any static host (Netlify, Vercel, AWS S3, GitHub Pages).
 
-  ---
-  📁 JSON Data Structure
+---
+🎯 Future Improvements
 
-  All dynamic data lives in public/data/.
-  Every component fetches its JSON file with:
-
-  fetch("/data/sections.json")
-    .then(r => r.json())
-    .then(setData)
-    .catch(console.error);
-
-  ┌──────────────────────────┬───────────────────────────────────────────────────────────────────────────────────┬─────────────────────────┐
-  │           File           │                                  Typical Schema                                   │         Sample          │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ news.json                │ [ { id, title, description, image, date } ]                                       │ "title":"Latest update" │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ events.json              │ [ { id, title, image, eventDate, description } ]                                  │                         │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ gallery.json             │ [ { id, image, title, category, description } ]                                   │                         │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ campusLife.json          │ [ { id, name, image, title, description, facilities, activities, achievements } ] │                         │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ research.json            │ [ { id, title, image, description, researchAreas, achievements } ]                │                         │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ placements.json          │ [ { id, company, logo, description } ]                                            │                         │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ placementHighlights.json │ [ { id, name, company, package, image } ]                                         │                         │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ alumni.json              │ [ { id, name, image, company, position, batch, message } ]                        │                         │
-  ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────┼─────────────────────────┤
-  │ footer.json              │ { logo, address, sections[], bottomLinks[], copyright }                           │                         │
-  └──────────────────────────┴───────────────────────────────────────────────────────────────────────────────────┴─────────────────────────┘
-
-  These files are plain static JSON; no server logic is required.
-
-  ---
-  🚩 Deployment
-
-  1. npm run build – creates dist/ folder.
-  2. Deploy the dist/ folder to any static host (Netlify, Vercel, AWS S3, GitHub Pages).
-  3. CI pipeline (currently GitHub Actions) automatically runs npm run build on every push to main.
-
-  ---
-  🎯 Future Improvements
-
-  - SSR – move to Next.js for better SEO.
-  - Headless CMS – switch from static JSON to a CMS (Contentful, Strapi).
-  - Dark mode toggle – Tailwind dark‑mode utility.
-  - Infinite scroll / pagination – for news & gallery pages.
-  - Accessibility audit – aXe + Lighthouse.
-  - TypeScript – add static types to existing components.
-
-  ---
+- Add TypeScript (`.tsx`) for strict type safety.
+- Server-Side Rendering (SSR) via Next.js or Remix for SEO.
+- Add comprehensive Unit Tests (Vitest + React Testing Library).
