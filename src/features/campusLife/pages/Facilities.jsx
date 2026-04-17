@@ -1,10 +1,10 @@
 import React from "react";
 import useFacilities from "../hooks/useFacilities";
 
-import PageContainer from "../components/ui/PageContainer";
-import Sidebar from "../components/ui/Sidebar";
-import SectionTitle from "../components/ui/SectionTitle";
-import SectionRenderer from "../components/ui/SectionRenderer";
+import PageContainer from "../../../components/ui/PageContainer";
+import Sidebar from "../../../components/ui/Sidebar";
+import SectionTitle from "../../../components/ui/SectionTitle";
+import SectionRenderer from "../../../components/ui/SectionRenderer";
 
 const Facilities = () => {
   const { data, activeId, setActiveId, loading, error } = useFacilities();

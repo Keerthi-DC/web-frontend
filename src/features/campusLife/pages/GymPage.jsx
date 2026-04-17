@@ -1,7 +1,7 @@
 import React from "react";
 import useGym from "../hooks/useGym";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 export default function GymPage() {
   const { data, loading } = useGym();

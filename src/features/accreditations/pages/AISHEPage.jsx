@@ -1,10 +1,10 @@
 import React from "react";
 import useAISHE from "../hooks/useAISHE";
 
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
-import ViewButton from "../components/ui/ViewButton";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
+import Card from "../../../components/ui/Card";
+import ViewButton from "../../../components/ui/ViewButton";
 
 const AISHEPage = () => {
   const { loading, error, data } = useAISHE();

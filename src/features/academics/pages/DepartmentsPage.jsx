@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Search, X } from "lucide-react";
 import useDepartments from "../hooks/useDepartments";
 
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../components/ui/Card";
 
 const DepartmentsPage = () => {

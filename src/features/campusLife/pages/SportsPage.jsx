@@ -1,7 +1,7 @@
 import React from "react";
 import useSports from "../hooks/useSports";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 export default function SportsPage() {
   const { data, loading } = useSports();

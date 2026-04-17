@@ -1,7 +1,7 @@
 import React from "react";
 import useSAC from "../hooks/useSAC";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 export default function SACPage() {
   const { data, loading } = useSAC();

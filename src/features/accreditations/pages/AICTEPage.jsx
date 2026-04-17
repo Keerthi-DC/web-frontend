@@ -1,10 +1,10 @@
 import React from "react";
 import useAICTE from "../hooks/useAICTE";
 
-import PageContainer from "../components/ui/PageContainer";
-import Sidebar from "../components/ui/Sidebar";
-import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
+import PageContainer from "../../../components/ui/PageContainer";
+import Sidebar from "../../../components/ui/Sidebar";
+import SectionTitle from "../../../components/ui/SectionTitle";
+import Card from "../../../components/ui/Card";
 
 const AICTEPage = () => {
   const {

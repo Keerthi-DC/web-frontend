@@ -1,10 +1,10 @@
-const Sidebar = ({ items, activeId, setActiveId, iconMap = {} }) => {
+const Sidebar = ({ items, activeId, setActiveId, iconMap = {}, title = "Committees" }) => {
   return (
     <aside className="w-64 bg-white/50 backdrop-blur-xl border-r border-white/20 shadow-xl">
 
       {/* TITLE */}
       <div className="p-4 text-lg font-bold text-[#0f2a44] border-b border-white/20">
-        Committees
+        {title}
       </div>
 
       {/* ITEMS */}

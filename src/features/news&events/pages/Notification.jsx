@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import useAudit from '../../../hooks/useAudit';
 import useNotifications from '../hooks/useNotifications';
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 const Notification = () => {
   const { notifications: events, loading, error } = useNotifications(); // make sure this returns a function!

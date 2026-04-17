@@ -1,8 +1,8 @@
 import React from "react";
 import { useAboutOverview } from "../hooks/useAboutOverview";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
+import Card from "../../../components/ui/Card";
 import { FaCheckCircle } from "react-icons/fa";
 
 export default function AboutOverviewPage() {

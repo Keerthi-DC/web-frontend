@@ -1,7 +1,7 @@
 import React from "react";
 import useGreenCampus from "../hooks/useGreenCampus";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 export default function GreenCampusPage() {
   const { data, loading, error } = useGreenCampus();

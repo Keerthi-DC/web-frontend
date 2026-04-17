@@ -1,6 +1,6 @@
 import React from "react";
 import useNBA from "../hooks/useNBA";
-import ViewButton from "../components/ui/ViewButton";
+import ViewButton from "../../../components/ui/ViewButton";
 
 const NBAPage = () => {
   const { loading, error, data, activeTab, setActiveTab } = useNBA();

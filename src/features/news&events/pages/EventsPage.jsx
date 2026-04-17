@@ -1,7 +1,7 @@
 import React from "react";
 import useEvents from "../hooks/useEvents";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 const EventsPage = () => {
   const { events, loading, error } = useEvents();

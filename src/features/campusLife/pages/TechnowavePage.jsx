@@ -1,7 +1,7 @@
 import React from "react";
 import useTechnowave from "../hooks/useTechnowave";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 export default function TechnowavePage() {
   const { data, loading, error } = useTechnowave();

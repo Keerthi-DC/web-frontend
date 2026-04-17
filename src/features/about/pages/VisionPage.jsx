@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
+import Card from "../../../components/ui/Card";
 import useVision from "../hooks/useVision";
 
 export default function VisionPage() {

@@ -1,9 +1,9 @@
 import React from "react";
 import { useFacilities } from "../hooks/useFacilities";
-import PageContainer from "../components/ui/PageContainer";
-import Sidebar from "../components/ui/Sidebar";
-import SectionRenderer from "../components/ui/SectionRenderer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import Sidebar from "../../../components/ui/Sidebar";
+import SectionRenderer from "../../../components/ui/SectionRenderer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 const iconMap = {
   "boys-hostel": "home",

@@ -1,7 +1,7 @@
 import React from "react";
 import useNews from "../hooks/useNews";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 const News = () => {
   const { news, loading, error } = useNews();

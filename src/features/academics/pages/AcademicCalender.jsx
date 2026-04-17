@@ -2,8 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import useAcademicCalendar from "../hooks/useAcademicCalendar";
 
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 
 const AcademicCalendar = () => {
   const {

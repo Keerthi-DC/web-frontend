@@ -1,11 +1,11 @@
 import React from "react";
 import useNAAC from "../hooks/useNAAC";
 
-import PageContainer from "../components/ui/PageContainer";
-import Sidebar from "../components/ui/Sidebar";
-import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
-import ViewButton from "../components/ui/ViewButton";
+import PageContainer from "../../../components/ui/PageContainer";
+import Sidebar from "../../../components/ui/Sidebar";
+import SectionTitle from "../../../components/ui/SectionTitle";
+import Card from "../../../components/ui/Card";
+import ViewButton from "../../../components/ui/ViewButton";
 
 const NAACPage = () => {
   const { loading, error, sections, activeId, setActiveId, activeSection } = useNAAC();

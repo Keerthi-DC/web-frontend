@@ -1,8 +1,8 @@
 import React from "react";
 import useRanks from "../hooks/useRank";
 
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../components/ui/Card";
 
 const RankPage = () => {

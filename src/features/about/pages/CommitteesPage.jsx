@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import useCommittees from "../hooks/useCommittees";
-import PageContainer from "../components/ui/PageContainer";
-import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
-import Sidebar from "../components/ui/Sidebar";
+import PageContainer from "../../../components/ui/PageContainer";
+import SectionTitle from "../../../components/ui/SectionTitle";
+import Card from "../../../components/ui/Card";
+import Sidebar from "../../../components/ui/Sidebar";
 
 const iconMap = {
   "vs-committee": "groups",
