@@ -1,5 +1,7 @@
+import { gql } from '@apollo/client';
+
 // Centralized GraphQL queries for campusLife
-export const GET_FACILITIES = `
+export const GET_FACILITIES = gql`
   query GetFacilities {
     getFacilities {
       sidebar { id title }
@@ -8,7 +10,7 @@ export const GET_FACILITIES = `
   }
 `;
 
-export const GET_GYM = `
+export const GET_GYM = gql`
   query GetGym {
     getGym {
       title
@@ -17,7 +19,7 @@ export const GET_GYM = `
   }
 `;
 
-export const GET_TECHNOWAVE = `
+export const GET_TECHNOWAVE = gql`
   query GetTechnowave {
     getTechnowave {
       title
@@ -26,7 +28,7 @@ export const GET_TECHNOWAVE = `
   }
 `;
 
-export const GET_SPORTS = `
+export const GET_SPORTS = gql`
   query GetSports {
     getSports {
       title
@@ -35,7 +37,7 @@ export const GET_SPORTS = `
   }
 `;
 
-export const GET_SAC = `
+export const GET_SAC = gql`
   query GetSAC {
     getSAC {
       title
@@ -45,7 +47,7 @@ export const GET_SAC = `
   }
 `;
 
-export const GET_GREEN_CAMPUS = `
+export const GET_GREEN_CAMPUS = gql`
   query GetGreenCampus {
     getGreenCampus {
       title

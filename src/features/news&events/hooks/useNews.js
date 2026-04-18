@@ -40,11 +40,7 @@ const mockNews = [
 ];
 
 const useNews = () => {
-  const { data: apolloData, loading, error, refetch } = useQuery(LIST_NEWS, { fetchPolicy: "cache-first" });
-
-  const news = apolloData?.listNews || mockNews;
-
-  return { news, loading, error, refetch };
+  return { news: mockNews, loading: false, error: null, refetch: () => {} };
 };
 
 export default useNews;

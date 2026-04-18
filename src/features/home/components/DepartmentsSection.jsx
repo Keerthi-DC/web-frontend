@@ -6,7 +6,7 @@ const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
 const LIST_DEPARTMENTS_QUERY = `
   query ListDepartments {
-    listDepartments {
+    listDepartments(tenantId: "biet-college") {
       items {
         departmentId
         name

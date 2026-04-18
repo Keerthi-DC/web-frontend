@@ -1,5 +1,6 @@
-export const LIST_ACHIEVEMENTS =
-`
+import { gql } from '@apollo/client';
+
+export const LIST_ACHIEVEMENTS = gql`
   query ListAchievements(
     $deptId: ID!
     $tenantId: ID!

@@ -1,5 +1,7 @@
+import { gql } from '@apollo/client';
+
 // Centralized GraphQL queries for admissions feature
-export const GET_ADMISSIONS_OVERVIEW = `
+export const GET_ADMISSIONS_OVERVIEW = gql`
   query GetAdmissionsOverview($tenantId: ID!) {
     getAdmissionsOverview (tenantId: $tenantId) {
       headline
@@ -13,7 +15,7 @@ export const GET_ADMISSIONS_OVERVIEW = `
   }
 `;
 
-export const LIST_ADMISSIONS_PROGRAMS = `
+export const LIST_ADMISSIONS_PROGRAMS = gql`
   query ListAdmissionsPrograms($tenantId: ID!) {
     listAdmissionsPrograms(tenantId: $tenantId) {
       programId
@@ -25,7 +27,7 @@ export const LIST_ADMISSIONS_PROGRAMS = `
   }
 `;
 
-export const LIST_ELIGIBILITY_ENTRIES = `
+export const LIST_ELIGIBILITY_ENTRIES = gql`
   query ListEligibilityEntries($tenantId: ID!) {
     listEligibilityEntries(tenantId: $tenantId) {
       entryId
@@ -36,7 +38,7 @@ export const LIST_ELIGIBILITY_ENTRIES = `
   }
 `;
 
-export const LIST_ADMISSION_STEPS = `
+export const LIST_ADMISSION_STEPS = gql`
   query ListAdmissionSteps($tenantId: ID!) {
     listAdmissionSteps(tenantId: $tenantId) {
       stepId
@@ -47,7 +49,7 @@ export const LIST_ADMISSION_STEPS = `
   }
 `;
 
-export const LIST_IMPORTANT_DATES = `
+export const LIST_IMPORTANT_DATES = gql`
   query ListImportantDates($tenantId: ID!) {
     listImportantDates(tenantId: $tenantId) {
       dateId
@@ -57,7 +59,7 @@ export const LIST_IMPORTANT_DATES = `
   }
 `;
 
-export const GET_PROSPECTUS = `
+export const GET_PROSPECTUS = gql`
   query GetProspectus($tenantId: ID!) {
     getProspectus(tenantId: $tenantId) {
       title
@@ -69,7 +71,7 @@ export const GET_PROSPECTUS = `
   }
 `;
 
-export const LIST_FEE_DOCUMENTS = `
+export const LIST_FEE_DOCUMENTS = gql`
   query ListFeeDocuments($tenantId: ID!) {
     listFeeDocuments(tenantId: $tenantId) {
       feeDocId
@@ -79,7 +81,7 @@ export const LIST_FEE_DOCUMENTS = `
   }
 `;
 
-export const LIST_SCHOLARSHIPS = `
+export const LIST_SCHOLARSHIPS = gql`
   query ListScholarships($tenantId: ID!) {
     listScholarships(tenantId: $tenantId) {
       scholarshipId
@@ -93,7 +95,7 @@ export const LIST_SCHOLARSHIPS = `
   }
 `;
 
-export const GET_WHY_ENQUIRE = `
+export const GET_WHY_ENQUIRE = gql`
   query GetWhyEnquire($tenantId: ID!) {
     getWhyEnquire(tenantId: $tenantId) {
       title
@@ -102,7 +104,7 @@ export const GET_WHY_ENQUIRE = `
   }
 `;
 
-export const LIST_ENQUIRY_CATEGORIES = `
+export const LIST_ENQUIRY_CATEGORIES = gql`
   query ListEnquiryCategories($tenantId: ID!) {
     listEnquiryCategories(tenantId: $tenantId) {
       categoryId
@@ -112,7 +114,7 @@ export const LIST_ENQUIRY_CATEGORIES = `
   }
 `;
 
-export const SUBMIT_ENQUIRY_MUTATION = `
+export const SUBMIT_ENQUIRY_MUTATION = gql`
   mutation SubmitEnquiry($input: EnquirySubmitInput!) {
     submitAdmissionsEnquiry(input: $input)
   }

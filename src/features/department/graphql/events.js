@@ -1,4 +1,6 @@
-export const LIST_EVENTS = `
+import { gql } from '@apollo/client';
+
+export const LIST_EVENTS = gql`
   query ListEvents(
     $department: String
     $status: String

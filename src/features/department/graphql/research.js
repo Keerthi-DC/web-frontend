@@ -1,5 +1,6 @@
-export const LIST_RESEARCH =
-`
+import { gql } from '@apollo/client';
+
+export const LIST_RESEARCH = gql`
   query ListResearch(
     $deptId: ID!
     $tenantId: ID!

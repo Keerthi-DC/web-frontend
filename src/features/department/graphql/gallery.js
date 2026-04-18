@@ -1,5 +1,6 @@
-export const LIST_GALLERY =
-`
+import { gql } from '@apollo/client';
+
+export const LIST_GALLERY = gql`
   query ListGallery(
     $deptId: ID!
     $tenantId: ID!

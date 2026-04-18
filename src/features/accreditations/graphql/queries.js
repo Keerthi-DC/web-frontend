@@ -1,4 +1,6 @@
-export const LIST_ACCREDITATION_RECORDS = `
+import { gql } from '@apollo/client';
+
+export const LIST_ACCREDITATION_RECORDS = gql`
   query ListAccreditationRecords(
     $type: String!
     $section: String

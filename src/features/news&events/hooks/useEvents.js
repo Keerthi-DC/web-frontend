@@ -125,11 +125,7 @@ const mockData = [
 ];
 
 const useEvents = () => {
-  const { data: apolloData, loading, error, refetch } = useQuery(LIST_EVENTS, { fetchPolicy: "cache-first" });
-
-  const events = apolloData?.listEvents || mockData;
-
-  return { events, loading, error, refetch };
+  return { events: mockData, loading: false, error: null, refetch: () => {} };
 };
 
 export default useEvents;

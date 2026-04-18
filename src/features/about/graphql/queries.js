@@ -1,4 +1,6 @@
-export const GET_OVERVIEW = `
+import { gql } from '@apollo/client';
+
+export const GET_OVERVIEW = gql`
   query GetOverview {
     getOverview {
       hero {
@@ -40,7 +42,7 @@ export const GET_OVERVIEW = `
   }
 `;
 
-export const GET_COMMITTEES = `
+export const GET_COMMITTEES = gql`
   query GetCommittees {
     getCommittees {
       title
@@ -58,7 +60,7 @@ export const GET_COMMITTEES = `
   }
 `;
 
-export const GET_FACILITIES = `
+export const GET_FACILITIES = gql`
   query GetFacilities {
     getFacilities {
       sidebar {
@@ -70,7 +72,7 @@ export const GET_FACILITIES = `
   }
 `;
 
-export const GET_VISION = `
+export const GET_VISION = gql`
   query GetVision {
     getVision {
       intro { title description }

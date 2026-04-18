@@ -1,4 +1,6 @@
-export const LIST_NEWS = `
+import { gql } from '@apollo/client';
+
+export const LIST_NEWS = gql`
   query ListNews {
     listNews {
       id
@@ -10,7 +12,7 @@ export const LIST_NEWS = `
   }
 `;
 
-export const LIST_EVENTS = `
+export const LIST_EVENTS = gql`
   query ListEvents {
     listEvents {
       id
@@ -25,7 +27,7 @@ export const LIST_EVENTS = `
   }
 `;
 
-export const LIST_NOTIFICATIONS = `
+export const LIST_NOTIFICATIONS = gql`
   query ListNotifications {
     listNotifications {
       id

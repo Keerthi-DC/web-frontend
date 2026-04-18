@@ -1,4 +1,6 @@
-export const LIST_FACULTY = `
+import { gql } from '@apollo/client';
+
+export const LIST_FACULTY = gql`
   query ListFaculty($deptId: String!) {
     listFaculty(department: $deptId, tenantId: "biet-college") {
       items {

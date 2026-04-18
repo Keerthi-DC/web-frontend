@@ -1,6 +1,8 @@
+import { gql } from '@apollo/client';
+
 // features/academics/graphql/query.js
 
-export const LIST_DEPARTMENTS = `
+export const LIST_DEPARTMENTS = gql`
   query ListDepartments($tenantId: ID!) {
     listDepartments(tenantId: $tenantId) {
       items {
@@ -15,7 +17,7 @@ export const LIST_DEPARTMENTS = `
   }
 `;
 
-export const LIST_ACADEMIC_CALENDAR = `
+export const LIST_ACADEMIC_CALENDAR = gql`
   query ListAcademicCalendar {
     listAcademicCalendar {
       id
@@ -29,7 +31,7 @@ export const LIST_ACADEMIC_CALENDAR = `
   }
 `;
 
-export const LIST_RESULT_ANALYSIS = `
+export const LIST_RESULT_ANALYSIS = gql`
   query ListResultAnalysis {
     listResultAnalysis {
       id
@@ -41,7 +43,7 @@ export const LIST_RESULT_ANALYSIS = `
   }
 `;
 
-export const LIST_SYLLABUS = `
+export const LIST_SYLLABUS = gql`
   query ListSyllabus {
     listSyllabus {
       id
