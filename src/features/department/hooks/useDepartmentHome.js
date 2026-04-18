@@ -30,6 +30,28 @@ const DEPARTMENT_HOME_QUERY = gql`
         designation
       }
     }
+    listPlacementOverviews(deptId: $deptId, tenantId: $tenantId) {
+      items {
+        placementOverviewId
+        academicYear
+        highestPackage
+        companiesVisited
+        studentsInCampus
+        studentsOffCampus
+      }
+    }
+    listPatents(deptId: $deptId, tenantId: $tenantId) {
+      items { text }
+    }
+    listResearchGrants(deptId: $deptId, tenantId: $tenantId) {
+      items { text }
+    }
+    studentAchievements: listAchievements(deptId: $deptId, type: "student", tenantId: $tenantId) {
+      items { text type }
+    }
+    staffAchievements: listAchievements(deptId: $deptId, type: "staff", tenantId: $tenantId) {
+      items { text type }
+    }
   }
 `;
 
@@ -68,7 +90,23 @@ const useDepartmentHome = (deptId) => {
     },
   ];
 
-  return { hod, intro, faculty, loading, error: error?.message || null };
+  const placements = data?.listPlacementOverviews?.items || [];
+  
+  const research = {
+    patents: data?.listPatents?.items || [],
+    grants: data?.listResearchGrants?.items || []
+  };
+
+  const achievements = [
+    ...(data?.studentAchievements?.items || []),
+    ...(data?.staffAchievements?.items || [])
+  ].map(item => ({
+    text: item.text,
+    name: item.type === "student" ? "Student" : "Faculty",
+    photo: "/assets/default-user.png",
+  }));
+
+  return { hod, intro, faculty, placements, research, achievements, loading, error: error?.message || null };
 };
 
 export default useDepartmentHome;

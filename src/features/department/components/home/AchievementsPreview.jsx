@@ -149,7 +149,7 @@ const AchievementsPreview = () => {
             </h3>
           </div>
 
-          
+
 
           {/* Right */}
           <button onClick={next} className="absolute -right-10 text-white text-3xl">

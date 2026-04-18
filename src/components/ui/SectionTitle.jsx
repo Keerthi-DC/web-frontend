@@ -1,8 +1,11 @@
-const SectionTitle = ({ children }) => {
+const SectionTitle = ({ children, className = "" }) => {
   return (
-    <h2 className="text-2xl font-semibold text-[#0f2a44] mb-6 text-center">
-      {children}
-    </h2>
+    <div className={`flex flex-col items-center justify-center mb-8 ${className}`}>
+      <h2 className="text-3xl font-bold text-[#001430] text-center tracking-tight">
+        {children}
+      </h2>
+      <div className="w-24 h-1.5 mt-3 bg-gradient-to-r from-transparent via-yellow-500 to-transparent rounded-full opacity-80" />
+    </div>
   );
 };
 

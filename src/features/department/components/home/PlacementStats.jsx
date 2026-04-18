@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
-import usePlacements from "../../hooks/useDepartmentPlacements";
+import useDepartmentHome from "../../hooks/useDepartmentHome";
 
 const PlacementStats = () => {
   const { shortName } = useParams();
@@ -9,9 +9,11 @@ const PlacementStats = () => {
   const navigate = useNavigate();
 
   const deptId = isReady ? getId(shortName) : null;
-  const { placements, loading } = usePlacements(deptId);
+  const { placements, loading } = useDepartmentHome(deptId);
 
-  const latest = placements?.length > 0 ? placements[0] : null;
+  const latest = placements?.length > 0 
+    ? [...placements].sort((a, b) => (b.academicYear || "").localeCompare(a.academicYear || ""))[0] 
+    : null;
 
   if (loading || !isReady) {
     return (

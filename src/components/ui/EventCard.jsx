@@ -12,21 +12,24 @@ const EventCard = ({ event }) => {
   return (
     <div
       key={event.id}
-      className="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+      className="group bg-white rounded-xl shadow-sm hover:shadow-xl border border-gray-100 overflow-hidden transform transition-all duration-300 hover:-translate-y-1 relative"
     >
-      <div className="overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#001430] to-yellow-500 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="overflow-hidden relative">
         <img
           src={event.image}
           alt={event.title}
-          className="h-56 w-full object-cover transition-transform duration-500 hover:scale-110"
+          className="h-56 w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#001430]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-      <div className="p-4">
-        <h3 className="text-xl font-bold mb-1">{event.title}</h3>
-        <p className="text-sm text-gray-500 mb-2">
+      <div className="p-5">
+        <h3 className="text-xl font-bold mb-2 text-[#001430] group-hover:text-[#001430] transition-colors duration-300 line-clamp-1">{event.title}</h3>
+        <p className="text-sm text-yellow-600 font-semibold mb-3 flex items-center gap-1.5">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           {event.time} | {event.venue}
         </p>
-        <p className="text-gray-700">{event.detail}</p>
+        <p className="text-gray-600 line-clamp-3 text-sm leading-relaxed">{event.detail}</p>
       </div>
     </div>
   );
