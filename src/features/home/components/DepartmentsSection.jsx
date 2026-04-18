@@ -1,57 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_ENDPOINT = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-const LIST_DEPARTMENTS_QUERY = `
-  query ListDepartments {
-    listDepartments(tenantId: "biet-college") {
-      items {
-        departmentId
-        name
-        shortName
-      }
-    }
-  }
-`;
+import { useHomeDepartments } from "../hooks/useHomeDepartments";
 
 const DepartmentsSection = () => {
-  const [departments, setDepartments] = useState([]);
+  const { departments, loading, error } = useHomeDepartments();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      try {
-        const res = await fetch(API_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
-          },
-          body: JSON.stringify({
-            query: LIST_DEPARTMENTS_QUERY,
-          }),
-        });
-
-        const result = await res.json();
-
-        if (result.errors) {
-          console.error("GraphQL Errors:", result.errors);
-        }
-
-        const items = result?.data?.listDepartments?.items || [];
-
-        setDepartments(items);
-      } catch (err) {
-        console.error("Fetch error:", err);
-      }
-    };
-
-    fetchDepartments();
-  }, []);
-
-  if (!departments.length) return null;
+  if (loading || !departments.length) return null;
 
   return (
     <section className="py-24 px-12 md:px-24 bg-[#001c40] text-white rounded-[3rem]">

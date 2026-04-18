@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const PERIODS = [1, 2, 3, 4, 5, 6, 7];
@@ -247,7 +248,7 @@ export default function TimetablePage() {
         </div>
       )}
 
-      {loading && <div className="text-center py-10">Loading...</div>}
+      {loading && <BietLoader />}
 
       {!slots.length && selectedSectionId && !loading && (
         <div className="text-center py-10 text-red-500">

@@ -7,6 +7,8 @@ import {
   FaHandshake,
 } from 'react-icons/fa';
 import useScholarships from '../hooks/useScholarships';
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 export default function ScholarshipPage() {
   const { data: fetched, loading } = useScholarships();
@@ -46,9 +48,7 @@ export default function ScholarshipPage() {
     return icons[type] ?? <FaBook className="text-4xl text-gray-600" />;
   };
 
-  if (loading) {
-    return <p className="text-center py-10">Loading...</p>;
-  }
+  if (loading) return <BietLoader />;
 
   return (
     <section className="bg-gray-50 min-h-screen">

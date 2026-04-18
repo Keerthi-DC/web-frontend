@@ -5,6 +5,8 @@ import PageContainer from "../../../components/ui/PageContainer";
 import Sidebar from "../../../components/ui/Sidebar";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const AICTEPage = () => {
   const {
@@ -16,7 +18,7 @@ const AICTEPage = () => {
     activeSection,
   } = useAICTE();
 
-  if (loading) return <PageContainer>Loading...</PageContainer>;
+  if (loading) return <BietLoader />;
   if (error) return <PageContainer>Failed to load</PageContainer>;
   if (!sections.length) return <PageContainer>No data</PageContainer>;
 

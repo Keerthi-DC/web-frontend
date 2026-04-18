@@ -4,6 +4,8 @@ import useAcademicCalendar from "../hooks/useAcademicCalendar";
 
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const AcademicCalendar = () => {
   const {
@@ -17,13 +19,7 @@ const AcademicCalendar = () => {
     historicalEntries,
   } = useAcademicCalendar(); // ✅ CORRECT USAGE
 
-  if (loading) {
-    return (
-      <PageContainer>
-        <SectionTitle>Loading...</SectionTitle>
-      </PageContainer>
-    );
-  }
+  if (loading) return <BietLoader />;
 
   return (
     <PageContainer>

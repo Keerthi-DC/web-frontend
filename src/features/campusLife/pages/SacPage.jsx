@@ -2,11 +2,12 @@ import React from "react";
 import useSAC from "../hooks/useSAC";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
 
 export default function SACPage() {
   const { data, loading } = useSAC();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <BietLoader />;
   if (!data) return <PageContainer><p>No data</p></PageContainer>;
 
   return (

@@ -2,13 +2,13 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import EventCard from "../../../components/ui/EventCard";
 import useDepartmentEventsList from "../hooks/useDepartmentEventsList";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const DepartmentEvents = () => {
   const { shortName } = useParams();
   const { sortedEvents, loading, error } = useDepartmentEventsList(shortName);
 
-  if (loading)
-    return <div className="p-8 text-center">Loading…</div>;
+  if (loading) return <BietLoader />;
 
   if (error)
     return (

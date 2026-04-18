@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import DOMPurify from "dompurify";
 import useEnquiry from "../hooks/useEnquiry";
+import BietLoader from "../../../components/ui/BietLoader";
 
 // ✅ STRICT VALIDATION SCHEMA
 const enquirySchema = z
@@ -89,7 +90,7 @@ export default function EnquiryPage() {
     }
   };
 
-  if (loading) return <div className="p-10 text-center">Loading...</div>;
+  if (loading) return <BietLoader />;
   if (error) return <div className="p-10 text-center text-red-500">Failed to load enquiry data</div>;
 
   const { whyEnquire, enquiryTypes } = data || {};

@@ -2,11 +2,13 @@ import React from "react";
 import useNews from "../hooks/useNews";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const News = () => {
   const { news, loading, error } = useNews();
 
-  if (loading) return null;
+  if (loading) return <BietLoader />;
   if (error) console.error(error);
   if (!news.length) return null;
 

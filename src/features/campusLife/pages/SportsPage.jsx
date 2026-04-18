@@ -2,11 +2,12 @@ import React from "react";
 import useSports from "../hooks/useSports";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
 
 export default function SportsPage() {
   const { data, loading } = useSports();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <BietLoader />;
   if (!data) return <PageContainer><p>No sports data</p></PageContainer>;
 
   return (

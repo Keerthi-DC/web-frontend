@@ -6,11 +6,13 @@ import Sidebar from "../../../components/ui/Sidebar";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
 import ViewButton from "../../../components/ui/ViewButton";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const NAACPage = () => {
   const { loading, error, sections, activeId, setActiveId, activeSection } = useNAAC();
 
-  if (loading) return <PageContainer>Loading...</PageContainer>;
+  if (loading) return <BietLoader />;
   if (error) return <PageContainer>Error loading</PageContainer>;
   if (!sections.length) return <PageContainer>No data</PageContainer>;
 

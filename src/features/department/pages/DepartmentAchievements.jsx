@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
@@ -86,11 +87,7 @@ const DepartmentAchievements = () => {
   }, [location.hash]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-gray-500 text-lg">
-        Loading achievements...
-      </div>
-    );
+    return <BietLoader />;
   }
 
   return (

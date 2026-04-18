@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 export default function TeachingPage() {
   const { shortName } = useParams();
@@ -67,8 +68,7 @@ export default function TeachingPage() {
     fetchTeaching();
   }, [shortName, isReady]);
 
-  if (loading)
-    return <div className="text-center py-20">Loading teaching…</div>;
+  if (loading) return <BietLoader />;
 
   if (error)
     return (

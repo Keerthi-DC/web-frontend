@@ -4,13 +4,13 @@ import useRanks from "../hooks/useRank";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const RankPage = () => {
   const { data, loading } = useRanks();
 
-  if (loading) {
-    return <PageContainer><SectionTitle>Loading...</SectionTitle></PageContainer>;
-  }
+  if (loading) return <BietLoader />;
 
   return (
     <PageContainer>

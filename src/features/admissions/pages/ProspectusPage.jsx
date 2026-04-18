@@ -1,14 +1,12 @@
 import React from "react";
 import useProspectus from "../hooks/useProspectus";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 export default function ProspectusPage() {
   const { data, loading, error } = useProspectus();
 
-  if (loading) {
-    return (
-      <div className="py-20 text-center text-gray-500">Loading...</div>
-    );
-  }
+  if (loading) return <BietLoader />;
 
   if (error) {
     return (

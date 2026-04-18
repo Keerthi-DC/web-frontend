@@ -2,13 +2,13 @@ import React from "react";
 import useTechnowave from "../hooks/useTechnowave";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 export default function TechnowavePage() {
   const { data, loading, error } = useTechnowave();
 
-  if (loading) {
-    return <section className="p-6 text-center">Loading...</section>;
-  }
+  if (loading) return <BietLoader />;
 
   // hook returns fallback if error
   const display = data;

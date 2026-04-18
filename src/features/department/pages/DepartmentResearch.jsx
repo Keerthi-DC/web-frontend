@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
 import researchBg from "/assets/research-background.gif";
 import { Award, FileText, X } from "lucide-react";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const TABS = [
   "profiles",
@@ -165,7 +166,7 @@ const DepartmentResearch = () => {
     fetchData();
   }, [shortName, isReady]);
 
-  if (loading) return <p className="text-center py-20">Loading...</p>;
+  if (loading) return <BietLoader />;
 
   return (
     <div className="bg-gray-50 min-h-screen">

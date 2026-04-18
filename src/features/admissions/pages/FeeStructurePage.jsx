@@ -1,17 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import useFeeDocuments from "../hooks/useFeeDocuments";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 export default function FeeStructurePage() {
   const { data: fees, loading, error } = useFeeDocuments();
 
-  if (loading) {
-    return (
-      <section className="max-w-4xl mx-auto py-10 px-4 text-center">
-        <p className="text-gray-600">Loading…</p>
-      </section>
-    );
-  }
+  if (loading) return <BietLoader />;
 
   if (error) {
     return (

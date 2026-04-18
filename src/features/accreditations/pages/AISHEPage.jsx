@@ -5,20 +5,14 @@ import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
 import ViewButton from "../../../components/ui/ViewButton";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const AISHEPage = () => {
   const { loading, error, data } = useAISHE();
 
   // ✅ Loading
-  if (loading) {
-    return (
-      <PageContainer>
-        <div className="h-[60vh] flex items-center justify-center">
-          Loading AISHE data...
-        </div>
-      </PageContainer>
-    );
-  }
+  if (loading) return <BietLoader />;
 
   // ❌ Error
   if (error) {

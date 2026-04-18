@@ -1,11 +1,12 @@
 import React from "react";
 import useNBA from "../hooks/useNBA";
 import ViewButton from "../../../components/ui/ViewButton";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const NBAPage = () => {
   const { loading, error, data, activeTab, setActiveTab } = useNBA();
 
-  if (loading) return <div className="h-screen flex justify-center items-center">Loading NBA...</div>;
+  if (loading) return <BietLoader />;
   if (error) return <div className="text-center py-20 text-red-600">{String(error)}</div>;
 
   return (

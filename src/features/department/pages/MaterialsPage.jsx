@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 export default function MaterialsPage() {
   const { shortName } = useParams();
@@ -100,8 +101,7 @@ export default function MaterialsPage() {
     setFilteredMaterials(temp);
   }, [search, semester, materials]);
 
-  if (loading)
-    return <div className="text-center py-20">Loading materials…</div>;
+  if (loading) return <BietLoader />;
 
   if (error)
     return (

@@ -2,13 +2,13 @@ import React from "react";
 import useGreenCampus from "../hooks/useGreenCampus";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 export default function GreenCampusPage() {
   const { data, loading, error } = useGreenCampus();
 
-  if (loading) {
-    return <section className="p-6 text-center">Loading...</section>;
-  }
+  if (loading) return <BietLoader />;
 
   if (!data) {
     return (

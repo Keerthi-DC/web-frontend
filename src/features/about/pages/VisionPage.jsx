@@ -4,12 +4,14 @@ import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
 import useVision from "../hooks/useVision";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 export default function VisionPage() {
   const { data, loading, error } = useVision();
   const [activeTab, setActiveTab] = useState("vision");
 
-  if (loading) return <PageContainer><SectionTitle>Loading…</SectionTitle></PageContainer>;
+  if (loading) return <BietLoader />;
   if (error) return <PageContainer><p>{error}</p></PageContainer>;
   if (!data) return null;
 

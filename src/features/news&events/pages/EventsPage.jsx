@@ -2,11 +2,13 @@ import React from "react";
 import useEvents from "../hooks/useEvents";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const EventsPage = () => {
   const { events, loading, error } = useEvents();
 
-  if (loading) return null;
+  if (loading) return <BietLoader />;
   if (error) console.error(error);
   if (!events.length) return null;
 

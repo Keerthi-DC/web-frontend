@@ -5,11 +5,13 @@ import PageContainer from "../../../components/ui/PageContainer";
 import Sidebar from "../../../components/ui/Sidebar";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import SectionRenderer from "../../../components/ui/SectionRenderer";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const Facilities = () => {
   const { data, activeId, setActiveId, loading, error } = useFacilities();
 
-  if (loading) return <PageContainer>Loading...</PageContainer>;
+  if (loading) return <BietLoader />;
 
   if (error) {
     return (

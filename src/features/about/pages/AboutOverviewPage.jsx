@@ -4,11 +4,13 @@ import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
 import { FaCheckCircle } from "react-icons/fa";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 export default function AboutOverviewPage() {
   const { data, loading, error } = useAboutOverview();
 
-  if (loading) return <PageContainer><SectionTitle>Loading…</SectionTitle></PageContainer>;
+  if (loading) return <BietLoader />;
   if (error) return <PageContainer><p>{error}</p></PageContainer>;
   if (!data) return null;
 

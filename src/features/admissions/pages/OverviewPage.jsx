@@ -1,10 +1,11 @@
 import React from "react";
 import useOverview from "../hooks/useOverview";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const AdmissionsOverview = () => {
   const { data, loading, error } = useOverview();
 
-  if (loading) return <div className="p-10">Loading...</div>;
+  if (loading) return <BietLoader />;
   if (error) return <div className="p-10 text-red-600">Error loading admissions overview</div>;
   if (!data) return <div className="p-10">No data</div>;
 

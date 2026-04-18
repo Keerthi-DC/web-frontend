@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const DepartmentNewsletter = () => {
   const { shortName } = useParams();
@@ -35,8 +36,7 @@ const DepartmentNewsletter = () => {
     fetchData();
   }, [shortName, isReady]);
 
-  if (loading)
-    return <div className="text-center py-20">Loading newsletter…</div>;
+  if (loading) return <BietLoader />;
 
   if (!data)
     return <div className="text-center py-20">No data found.</div>;

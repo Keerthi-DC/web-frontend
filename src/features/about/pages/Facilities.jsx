@@ -4,6 +4,8 @@ import PageContainer from "../../../components/ui/PageContainer";
 import Sidebar from "../../../components/ui/Sidebar";
 import SectionRenderer from "../../../components/ui/SectionRenderer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const iconMap = {
   "boys-hostel": "home",
@@ -23,7 +25,7 @@ const iconMap = {
 export default function FacilitiesPage() {
   const { data, activeId, setActiveId, loading, error } = useFacilities();
 
-  if (loading) return <PageContainer><SectionTitle>Loading…</SectionTitle></PageContainer>;
+  if (loading) return <BietLoader />;
   if (error) return <PageContainer><p>{error}</p></PageContainer>;
   if (!data) return null;
 

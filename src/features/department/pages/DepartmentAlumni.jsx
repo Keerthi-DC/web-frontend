@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
@@ -73,7 +74,7 @@ const DepartmentAlumni = () => {
   }, [shortName, isReady]);
 
   if (loading) {
-    return <p className="text-center mt-20">Loading Alumni...</p>;
+    return <BietLoader />;
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 import { Search, X } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
@@ -250,7 +251,7 @@ const DepartmentPeople = () => {
 
       {/* 🔥 CONTENT */}
       {loading ? (
-        <p className="text-center text-gray-500">Loading...</p>
+        <BietLoader />
       ) : activeTab === "faculty" ? (
         filterPeople(faculty).length === 0 ? (
           <p className="text-center text-gray-500">

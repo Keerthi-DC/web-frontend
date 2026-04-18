@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 export default function CoursesPage() {
   const { shortName } = useParams();
@@ -136,8 +137,7 @@ export default function CoursesPage() {
     setFilteredCourses(temp);
   }, [search, programType, batch, type, semester, program, courses]);
 
-  if (loading)
-    return <div className="text-center py-20">Loading courses…</div>;
+  if (loading) return <BietLoader />;
 
   if (error)
     return (

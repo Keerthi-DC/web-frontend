@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const DepartmentActivities = () => {
   const { shortName } = useParams();
@@ -10,6 +11,7 @@ const DepartmentActivities = () => {
 
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("department");
 
   const query = `
@@ -49,6 +51,7 @@ const DepartmentActivities = () => {
 
     const fetchData = async () => {
       try {
+        setLoading(true);
         setError(null);
 
         const deptId = getId(shortName);
@@ -99,14 +102,15 @@ const DepartmentActivities = () => {
       } catch (err) {
         console.error(err);
         setError("Something went wrong");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [shortName, isReady]);
 
-  if (!data && !error)
-    return <p className="text-center mt-10">Loading activities...</p>;
+  if (loading) return <BietLoader />;
 
   if (error)
     return <p className="text-center text-red-500 mt-10">{error}</p>;

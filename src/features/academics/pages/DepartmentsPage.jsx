@@ -6,6 +6,8 @@ import useDepartments from "../hooks/useDepartments";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const DepartmentsPage = () => {
   const {
@@ -33,13 +35,7 @@ const DepartmentsPage = () => {
     </button>
   );
 
-  if (loading) {
-    return (
-      <PageContainer>
-        <SectionTitle>Loading Departments...</SectionTitle>
-      </PageContainer>
-    );
-  }
+  if (loading) return <BietLoader />;
 
   return (
     <PageContainer>

@@ -2,11 +2,12 @@ import React from "react";
 import useGym from "../hooks/useGym";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
+import BietLoader from "../../../components/ui/BietLoader";
 
 export default function GymPage() {
   const { data, loading } = useGym();
 
-  if (loading) return <p className="p-6">Loading...</p>;
+  if (loading) return <BietLoader />;
   if (!data) return <PageContainer><p className="p-6">No gym data</p></PageContainer>;
 
   return (

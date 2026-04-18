@@ -4,6 +4,8 @@ import useSyllabus from "../hooks/useSyllabus";
 import PageContainer from "../../../components/ui/PageContainer";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Card from "../../../components/ui/Card";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const SyllabusPage = () => {
   const {
@@ -13,9 +15,7 @@ const SyllabusPage = () => {
     loading,
   } = useSyllabus();
 
-  if (loading) {
-    return <PageContainer><SectionTitle>Loading...</SectionTitle></PageContainer>;
-  }
+  if (loading) return <BietLoader />;
 
   return (
     <PageContainer>

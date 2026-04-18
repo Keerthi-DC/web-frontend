@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
 const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
@@ -71,11 +72,7 @@ const PlacementStats = () => {
   }, [shortName, isReady]);
 
   if (loading) {
-    return (
-      <div className="py-32 text-center text-gray-500 animate-pulse">
-        Loading placements...
-      </div>
-    );
+    return <BietLoader />;
   }
 
   if (placements.length === 0) {
