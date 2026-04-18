@@ -1,11 +1,15 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useAppSync } from "../../../../hooks/useAppSync";
 import { LIST_EVENTS } from "../../graphql/events";
 import "./DepartmentEventsPreview.css";
 
-const DepartmentEventsPreview = ({ deptId = "cse" }) => {
+const DepartmentEventsPreview = ({ deptId }) => {
+  const { shortName } = useParams();
+  const effectiveDeptId = deptId || shortName || "cse";
+
   const { data, loading, error } = useAppSync(LIST_EVENTS, {
-    department: deptId,
+    department: effectiveDeptId,
     status: "upcoming",
     approvalStatus: "approved",
     limit: 10,
@@ -77,7 +81,7 @@ const DepartmentEventsPreview = ({ deptId = "cse" }) => {
       {/* BUTTON */}
       <div className="p-3 border-t bg-white">
               <a
-                href={`/departments/${data?.id || "cse"}/events`}
+                href={`/departments/${shortName || "cse"}/events`}
                 className="w-full inline-flex justify-center items-center px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700"
               >
                 View All Events →

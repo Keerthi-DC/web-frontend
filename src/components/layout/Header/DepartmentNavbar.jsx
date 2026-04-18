@@ -10,6 +10,7 @@ const DepartmentNavbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [departmentName, setDepartmentName] = useState("");
   const [badgeLogo, setBadgeLogo] = useState("/dept-badge.png");
+  const [scrolled, setScrolled] = useState(false);
 
   const location = useLocation();
   const shortName = location.pathname.split("/")[2] || "";
@@ -35,6 +36,19 @@ const DepartmentNavbar = () => {
       .then((res) => res.json())
       .then((data) => setMenu(data.menu))
       .catch((err) => console.error(err));
+  }, []);
+
+  // Handle Scroll for Glassmorphism effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -108,98 +122,117 @@ const DepartmentNavbar = () => {
   }, [shortName]);
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="sticky top-0 z-[100]">
 
-      {/* 🔷 TOP */}
-      <div className="bg-white/90 backdrop-blur-xl border-b">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      {/* 🔷 TOP BAR - Hides on scroll */}
+      <div className={`bg-[#001430] relative overflow-hidden transition-all duration-500 ease-in-out border-b border-yellow-500/30 ${scrolled ? "h-0 opacity-0" : "opacity-100"}`}>
+        {/* Decorative ambient glow */}
+        <div className="absolute top-[-50px] right-[-50px] w-[300px] h-[300px] bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
 
           {/* LEFT */}
           <div className="flex items-center gap-4">
-            <img src="/assets/BIET_logo.png" className="h-14" />
-            <div>
-              <h2 className="font-bold text-black">
+            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full overflow-hidden border-2 border-yellow-500/50 shadow-[0_0_15px_rgba(202,138,4,0.3)] bg-white flex items-center justify-center">
+              <img src="/assets/BIET_logo.png" className="h-full w-full object-contain p-1" />
+            </div>
+            <div className="flex flex-col justify-center">
+              <h2 className="text-lg md:text-xl font-extrabold text-white tracking-wide drop-shadow-md">
                 {departmentName || "Loading..."}
               </h2>
-              <p className="text-sm text-gray-500 hidden md:block">
+              <p className="text-xs md:text-sm font-semibold text-yellow-500 tracking-wider hidden md:block">
                 Bapuji Institute of Engineering & Technology
               </p>
             </div>
           </div>
 
           {/* RIGHT */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center bg-white border rounded-full px-4 py-2 shadow-sm">
-              <span className="material-symbols-outlined text-gray-400 mr-2">
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center bg-white/10 border border-white/20 rounded-full px-4 py-2 shadow-inner backdrop-blur-sm focus-within:border-yellow-500/50 transition-colors">
+              <span className="material-symbols-outlined text-gray-300 mr-2">
                 search
               </span>
-              <input className="outline-none text-sm" placeholder="Search" />
+              <input className="bg-transparent outline-none text-sm text-white placeholder-gray-300 w-48" placeholder="Search department..." />
             </div>
 
-            <img src={badgeLogo} className="h-14" />
+            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center shadow-lg">
+              <img src={badgeLogo} className="h-full w-full object-contain p-1" />
+            </div>
           </div>
-
-          {/* MOBILE BUTTON */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            <span className="material-symbols-outlined">
-              {mobileOpen ? "close" : "menu"}
-            </span>
-          </button>
         </div>
       </div>
 
-      {/* 🔥 NAVBAR */}
-      <nav className="bg-white/90 backdrop-blur-xl border-b shadow-sm">
-        <div
-          className={`max-w-7xl mx-auto px-6 py-3 flex flex-col md:flex-row md:justify-center md:gap-10 ${
-            mobileOpen ? "block" : "hidden md:flex"
-          }`}
-        >
-          {menu.map((item, i) => {
-            const fullPath = `/departments/${shortName}${item.path || ""}`;
+      {/* 🔥 NAVBAR - Becomes glassmorphic on scroll */}
+      <nav className={`transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/50" : "bg-white shadow-sm"} relative`}>
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          
+          {/* MOBILE BUTTON */}
+          <div className="md:hidden py-3">
+             <button
+              className="p-2 text-[#001430] hover:text-yellow-600 transition-colors"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              <span className="material-symbols-outlined text-2xl">
+                {mobileOpen ? "close" : "menu"}
+              </span>
+            </button>
+          </div>
 
-            return (
-              <div key={i} className="relative group">
+          <div className={`hidden md:flex absolute left-6 transition-all duration-500 items-center ${scrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}>
+            <img src={badgeLogo || "/assets/BIET_logo.png"} alt="Logo" className="h-10 w-10 object-contain drop-shadow-md bg-white rounded-full p-1" />
+          </div>
 
-                <NavLink
-                  to={fullPath}
-                  className="flex items-center gap-2 px-2 py-1 text-sm font-semibold 
-                  text-black transition-all duration-200 
-                  hover:scale-105 hover:opacity-70"
-                >
-                  <span className="material-symbols-outlined text-[18px]">
-                    {iconMap[item.label]}
-                  </span>
+          <div
+            className={`flex-col md:flex-row md:justify-center md:gap-8 lg:gap-10 py-3 w-full ${
+              mobileOpen ? "flex" : "hidden md:flex"
+            }`}
+          >
+            {menu.map((item, i) => {
+              const fullPath = `/departments/${shortName}${item.path || ""}`;
 
-                  {item.label}
-                </NavLink>
+              return (
+                <div key={i} className="relative group">
 
-                {/* DROPDOWN */}
-                {item.dropdown && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-64 bg-white rounded-2xl shadow-xl 
-                  opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                  transition-all duration-200 z-50">
+                  <NavLink
+                    to={fullPath}
+                    className={({ isActive }) => `flex items-center gap-1.5 px-2 py-2 text-sm font-bold transition-all duration-300 cursor-pointer ${isActive ? "text-[#001430]" : "text-gray-600 hover:text-[#001430]"}`}
+                  >
+                    <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:scale-110 group-hover:text-yellow-600">
+                      {iconMap[item.label]}
+                    </span>
 
-                    {item.dropdown.map((sub, j) => (
-                      <NavLink
-                        key={j}
-                        to={`/departments/${shortName}${sub.path}`}
-                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        <span className="material-symbols-outlined text-gray-400 text-[16px]">
-                          arrow_right
-                        </span>
-                        {sub.label}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                    {item.label}
+
+                    {/* Animated underline */}
+                    <span className="absolute left-0 -bottom-1 h-0.5 bg-gradient-to-r from-[#001430] to-yellow-500 w-0 group-hover:w-full transition-all duration-300"></span>
+                  </NavLink>
+
+                  {/* DROPDOWN */}
+                  {item.dropdown && (
+                    <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 
+                    opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+                    transition-all duration-300 animate-in fade-in slide-in-from-top-2 z-50 overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#001430] to-yellow-500" />
+                      <div className="py-2">
+                        {item.dropdown.map((sub, j) => (
+                          <NavLink
+                            key={j}
+                            to={`/departments/${shortName}${sub.path}`}
+                            className="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#001430] transition-colors relative group/link"
+                          >
+                            <span className="material-symbols-outlined text-yellow-500 text-[18px] transform transition-transform group-hover/link:translate-x-1">
+                              arrow_right
+                            </span>
+                            <span className="transform transition-transform group-hover/link:translate-x-1">{sub.label}</span>
+                          </NavLink>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </nav>
     </header>

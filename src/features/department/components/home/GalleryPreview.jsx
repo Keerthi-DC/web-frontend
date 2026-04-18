@@ -1,8 +1,9 @@
 // src/modules/department/components/home/GalleryPreview.jsx
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const GalleryPreview = ({ data }) => {
   const navigate = useNavigate();
+  const { shortName } = useParams();
   if (!data || !Array.isArray(data) || data.length === 0) return null;
   return (
     <section className="py-12 bg-gray-50" role="region" aria-label="Gallery">
@@ -20,7 +21,7 @@ const GalleryPreview = ({ data }) => {
         <div className="flex justify-center mt-12">
 
           <button
-            onClick={() => navigate(`/departments/cse/gallery`)}
+            onClick={() => navigate(`/departments/${shortName || "cse"}/gallery`)}
              className="bg-yellow-400 text-black px-6 py-3 rounded font-semibold hero-btn"
           >
             Read More →

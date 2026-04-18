@@ -1,7 +1,10 @@
-import { useQuery } from "@apollo/client/react";
-import { gql } from "@apollo/client/core";
+import { useState, useEffect } from "react";
+import { graphqlRequest } from "../../../services/graphql";
 
-const DEPARTMENT_HOME_QUERY = gql`
+const globalCache = {};
+const globalPromises = {};
+
+const DEPARTMENT_HOME_QUERY = `
   query GetDepartmentHome($deptId: ID!, $tenantId: ID!) {
     getHodProfile(deptId: $deptId, tenantId: $tenantId) {
       name
@@ -43,9 +46,6 @@ const DEPARTMENT_HOME_QUERY = gql`
     listPatents(deptId: $deptId, tenantId: $tenantId) {
       items { text }
     }
-    listResearchGrants(deptId: $deptId, tenantId: $tenantId) {
-      items { text }
-    }
     studentAchievements: listAchievements(deptId: $deptId, type: "student", tenantId: $tenantId) {
       items { text type }
     }
@@ -56,11 +56,45 @@ const DEPARTMENT_HOME_QUERY = gql`
 `;
 
 const useDepartmentHome = (deptId) => {
-  const { data, loading, error } = useQuery(DEPARTMENT_HOME_QUERY, {
-    variables: { deptId, tenantId: "biet-college" },
-    skip: !deptId,
-    fetchPolicy: "cache-first",
-  });
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!deptId) return;
+
+    const fetchData = async () => {
+      // 1. Check if we already have the data
+      if (globalCache[deptId]) {
+        setData(globalCache[deptId]);
+        setLoading(false);
+        return;
+      }
+
+      // 2. If a request is already in flight, wait for it
+      if (!globalPromises[deptId]) {
+        globalPromises[deptId] = graphqlRequest(DEPARTMENT_HOME_QUERY, {
+          deptId,
+          tenantId: "biet-college",
+        });
+      }
+
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await globalPromises[deptId];
+        globalCache[deptId] = res?.data || {};
+        setData(res?.data || {});
+      } catch (err) {
+        console.error("Error fetching Department Home data:", err);
+        setError(err.message || "Failed to load data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [deptId]);
 
   const hod = data?.getHodProfile || {
     name: "Default HOD",
@@ -94,7 +128,7 @@ const useDepartmentHome = (deptId) => {
   
   const research = {
     patents: data?.listPatents?.items || [],
-    grants: data?.listResearchGrants?.items || []
+    grants: [] // Removed data?.listResearchGrants?.items to avoid permission error
   };
 
   const achievements = [
@@ -106,7 +140,7 @@ const useDepartmentHome = (deptId) => {
     photo: "/assets/default-user.png",
   }));
 
-  return { hod, intro, faculty, placements, research, achievements, loading, error: error?.message || null };
+  return { hod, intro, faculty, placements, research, achievements, loading: loading && !!deptId, error };
 };
 
 export default useDepartmentHome;

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 const DepartmentGallery = () => {
-  const { deptId } = useParams();
+  const { shortName } = useParams();
   const [data, setData] = useState(null);
   useEffect(() => {
-    fetch(`/data/departments/cse.json`)
+    fetch(`/data/departments/${shortName || "cse"}.json`)
       .then(res => res.json())
-      .then(json => setData(json));
-  }, [deptId]);
+      .then(json => setData(json))
+      .catch(err => console.error("Error fetching gallery JSON:", err));
+  }, [shortName]);
   if (!data) return null;
   const gallery = data.gallery || [];
   return (
