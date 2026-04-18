@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../../assets/BIET_logo.png";
+const logo = "/assets/BIET_logo.png";
 
 const TopBar = () => {
   const links = [

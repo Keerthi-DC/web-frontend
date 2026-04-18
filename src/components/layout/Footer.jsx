@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/BIET_logo.png";
+const logo = "/assets/BIET_logo.png";
 const Footer = () => {
   return (
     <footer className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-[#001c40] text-white pt-16 pb-8">
