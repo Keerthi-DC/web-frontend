@@ -1,12 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useHomeDepartments } from "../hooks/useHomeDepartments";
+import BietLoader from "../../../components/ui/BietLoader";
 
 const DepartmentsSection = () => {
-  const { departments, loading, error } = useHomeDepartments();
+  const { departments, loading } = useHomeDepartments();
   const navigate = useNavigate();
 
-  if (loading || !departments.length) return null;
+  if (loading) return <BietLoader />;
+  if (!departments.length) return null;
 
   return (
     <section className="py-24 px-12 md:px-24 bg-[#001c40] text-white rounded-[3rem]">

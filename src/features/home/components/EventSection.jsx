@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useEvents from "../../news&events/hooks/useEvents";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const EventSection = () => {
   const { events, loading, error } = useEvents();
 
-  if (loading) return null;
+  if (loading) return <BietLoader />;
   if (error) console.error(error);
   if (!events.length) return null;
 

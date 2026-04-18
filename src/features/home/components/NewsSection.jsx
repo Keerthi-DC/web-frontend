@@ -1,10 +1,12 @@
 import React from "react";
 import useNews from "../../news&events/hooks/useNews";
+import BietLoader from "../../../components/ui/BietLoader";
+
 
 const NewsSection = () => {
   const { news, loading, error } = useNews();
 
-  if (loading) return null;
+  if (loading) return <BietLoader />;
   if (error) console.error(error);
   if (!news.length) return null;
 

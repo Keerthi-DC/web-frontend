@@ -6,6 +6,8 @@ import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
 import useDepartmentHome from "../../hooks/useDepartmentHome";
 
 import "./DepartmentHero.css";
+import BietLoader from "../../../../components/ui/BietLoader";
+
 
 const DepartmentHero = () => {
   const { shortName } = useParams();
@@ -13,16 +15,11 @@ const DepartmentHero = () => {
   const deptId = isReady ? getId(shortName) : null;
   const { intro, loading } = useDepartmentHome(deptId);
 
-  const [headingVisible, setHeadingVisible] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setHeadingVisible(true), 1200);
-    return () => clearTimeout(timer);
-  }, []);
 
   const data = intro?.hero || {};
 
-  if (loading) return null;
+  if (loading) return <BietLoader />;
 
   return (
     <section className="relative h-[65vh] w-full overflow-hidden">

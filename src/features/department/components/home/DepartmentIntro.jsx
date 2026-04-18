@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
 import useDepartmentHome from "../../hooks/useDepartmentHome";
+import BietLoader from "../../../../components/ui/BietLoader";
 
 const DepartmentIntro = () => {
   const { shortName } = useParams();
@@ -13,7 +14,8 @@ const DepartmentIntro = () => {
   const [tab, setTab] = useState("vision");
   const [swotTab, setSwotTab] = useState("strengths");
 
-  if (loading || !data) return null;
+  if (loading) return <BietLoader />;
+  if (!data) return null;
 
   // About split
   const words = data.about?.intro?.split(" ") || [];
@@ -62,10 +64,6 @@ const DepartmentIntro = () => {
           {/* HEADER */}
           <div className="mb-6">
             <h2 className="text-[24px] font-semibold text-gray-900 flex items-center gap-3">
-
-              {/* ICON */}
-              
-
               Departmental {swotTab.charAt(0).toUpperCase() + swotTab.slice(1)}
             </h2>
           </div>
@@ -74,15 +72,12 @@ const DepartmentIntro = () => {
           <div className="space-y-6">
             {currentData.map((item, index) => (
               <div key={index} className="flex items-start gap-4">
-
-
                 {/* TEXT */}
                 <div>
                   <h3 className="text-[15px] font-medium text-gray-700">
                     * {item.split(".")[0]}
                   </h3>
                 </div>
-
               </div>
             ))}
           </div>

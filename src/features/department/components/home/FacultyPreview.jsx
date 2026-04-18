@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
+import BietLoader from "../../../../components/ui/BietLoader";
 import useDepartmentHome from "../../hooks/useDepartmentHome";
 import FacultyCard from "../ui/FacultyCard";
 
@@ -32,8 +33,8 @@ const FacultyPreview = () => {
 
     return () => clearInterval(interval);
   }, []);
-
-  if (loading || !Array.isArray(data) || data.length === 0) return null;
+  if (loading) return <BietLoader />;
+  if (!Array.isArray(data) || data.length === 0) return null;
 
   return (
     <section className="py-16 bg-white">
