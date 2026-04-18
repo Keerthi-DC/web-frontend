@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_URL, API_KEY } from '../services/api';
+import { print } from "graphql";
 
 export const useAppSync = (query, variables = {}) => {
   const [data, setData] = useState(null);
@@ -20,7 +21,10 @@ export const useAppSync = (query, variables = {}) => {
             'Content-Type': 'application/json',
             'x-api-key': API_KEY,
           },
-          body: JSON.stringify({ query, variables }),
+          body: JSON.stringify({ 
+            query: typeof query === "string" ? query : print(query), 
+            variables 
+          }),
           signal,
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);

@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client/react";
-import { GET_GREEN_CAMPUS } from "../graphql/queries";
+
 
 const mockData = {
   title: "Green Campus",
@@ -8,16 +7,12 @@ const mockData = {
 };
 
 const useGreenCampus = () => {
-  const { data: apolloData, loading, error, refetch } = useQuery(GET_GREEN_CAMPUS, { fetchPolicy: "cache-first" });
-  
-  const data = apolloData?.getGreenCampus || mockData;
-
   return {
-    data,
-    loading,
-    error,
-    refetch,
-    isEmpty: !data,
+    data: mockData,
+    loading: false,
+    error: null,
+    refetch: () => {},
+    isEmpty: !mockData,
   };
 };
 

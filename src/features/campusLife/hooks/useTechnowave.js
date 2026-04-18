@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client/react";
-import { GET_TECHNOWAVE } from "../graphql/queries";
+
 
 const mockData = {
   title: "Technowave",
@@ -9,16 +8,12 @@ const mockData = {
 };
 
 const useTechnowave = () => {
-  const { data: apolloData, loading, error, refetch } = useQuery(GET_TECHNOWAVE, { fetchPolicy: "cache-first" });
-
-  const data = apolloData?.getTechnowave || mockData;
-
   return {
-    data,
-    loading,
-    error,
-    refetch,
-    isEmpty: !data,
+    data: mockData,
+    loading: false,
+    error: null,
+    refetch: () => {},
+    isEmpty: !mockData,
   };
 };
 

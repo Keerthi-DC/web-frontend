@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client/react";
-import { GET_SPORTS } from "../graphql/queries";
+
 
 const mockData = {
   title: "Sports",
@@ -10,16 +9,12 @@ const mockData = {
 };
 
 const useSports = () => {
-  const { data: apolloData, loading, error, refetch } = useQuery(GET_SPORTS, { fetchPolicy: "cache-first" });
-
-  const data = apolloData?.getSports || mockData;
-
   return {
-    data,
-    loading,
-    error,
-    refetch,
-    isEmpty: !data,
+    data: mockData,
+    loading: false,
+    error: null,
+    refetch: () => {},
+    isEmpty: !mockData,
   };
 };
 

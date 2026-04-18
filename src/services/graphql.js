@@ -3,6 +3,7 @@ const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
 
 // ✅ global tenantId
 const TENANT_ID = import.meta.env.VITE_TENANT_ID || "biet-college";
+import { print } from "graphql";
 
 export const graphqlRequest = async (query, variables = {}) => {
   try {
@@ -13,7 +14,7 @@ export const graphqlRequest = async (query, variables = {}) => {
         "x-api-key": API_KEY,
       },
       body: JSON.stringify({
-        query,
+        query: typeof query === "string" ? query : print(query),
         variables: {
           tenantId: TENANT_ID, // 🔥 automatically added
           ...variables,        // allow override if needed

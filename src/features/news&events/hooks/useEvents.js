@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client/react";
-import { LIST_EVENTS } from "../graphql/queries";
+
 
 const mockData = [
   {
