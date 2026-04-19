@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import { theme } from "../../../components/ui/theme";
 import EventCard from "../../../components/ui/EventCard";
 import useDepartmentEventsList from "../hooks/useDepartmentEventsList";
 import BietLoader from "../../../components/ui/BietLoader";
@@ -55,7 +56,7 @@ const DepartmentEvents = () => {
       <div className="mt-3 pt-2 border-t text-center">
         <Link
           to="/events"
-          className="inline-flex items-center px-3 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700"
+          className={theme.buttons.primary}
         >
           View All Events
         </Link>

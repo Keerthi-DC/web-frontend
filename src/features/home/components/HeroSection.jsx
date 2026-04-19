@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { theme } from "../../../components/ui/theme";
 
 const HeroSection = ({ imageOverride }) => {
   const [hero, setHero] = useState(null);
@@ -16,7 +18,12 @@ const HeroSection = ({ imageOverride }) => {
     <section className="relative h-[820px] w-full overflow-hidden flex items-center">
 
       {/* Background */}
-      <div className="absolute inset-0 z-0">
+      <motion.div 
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 10, ease: "easeOut" }}
+        className="absolute inset-0 z-0"
+      >
         <img
           src={imageOverride || hero.image}
           alt="hero"
@@ -24,41 +31,47 @@ const HeroSection = ({ imageOverride }) => {
         />
 
         {/* GRADIENT OVERLAY (IMPORTANT) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#001c40] via-[#001c40]/60 to-transparent"></div>
-      </div>
+        <div className={`absolute inset-0 ${theme.colors.gradientOverlay}`}></div>
+      </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 px-12 md:px-24 max-w-4xl text-white">
+      <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-4xl text-white mt-16 md:mt-0">
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+        >
+          {/* Badge */}
+          <span className={`inline-block px-3 py-1 md:px-4 md:py-1 mb-4 md:mb-6 ${theme.colors.accentBg} ${theme.colors.primaryText} font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] rounded-full`}>
+            Enrolling for 2027
+          </span>
 
-        {/* Badge */}
-        <span className="inline-block px-4 py-1 mb-6 bg-yellow-300 text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full">
-          Enrolling for 2027
-        </span>
+          {/* Title */}
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight mb-6 md:mb-8 drop-shadow-2xl">
+            {hero.title}
+          </h1>
 
-        {/* Title */}
-        <h1 className="text-6xl md:text-8xl font-extrabold leading-tight mb-8">
-          {hero.title}
-        </h1>
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
 
-        {/* Buttons */}
-        <div className="flex items-center gap-6">
+            {/* Primary */}
+            <a
+              href={hero.buttons[0]?.link}
+              className={`${theme.buttons.primary} w-full sm:w-auto text-center`}
+            >
+              {hero.buttons[0]?.text}
+            </a>
 
-          {/* Primary */}
-          <a
-            href={hero.buttons[0]?.link}
-            className="px-10 py-4 bg-yellow-400 text-black font-bold uppercase tracking-widest rounded-lg hover:shadow-xl transition-all"
-          >
-            {hero.buttons[0]?.text}
-          </a>
-
-          {/* Glass button */}
-          <a
-            href={hero.buttons[1]?.link}
-            className="px-10 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold uppercase tracking-widest rounded-lg hover:bg-white/20 transition-all"
-          >
-            {hero.buttons[1]?.text}
-          </a>
-        </div>
+            {/* Glass button */}
+            <a
+              href={hero.buttons[1]?.link}
+              className={`${theme.buttons.glass} w-full sm:w-auto text-center`}
+            >
+              {hero.buttons[1]?.text}
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

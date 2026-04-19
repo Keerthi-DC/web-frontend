@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -19,7 +20,7 @@ const GallerySection = () => {
     <section className="py-24 px-12 md:px-24 bg-[#f8f9fa]">
 
       {/* HEADER */}
-      <h2 className="text-4xl font-bold text-[#001c40] mb-16 text-center">
+      <h2 className={`text-4xl font-bold ${theme.colors.primaryText} mb-16 text-center`}>
         Gallery
       </h2>
 
@@ -49,7 +50,7 @@ const GallerySection = () => {
       <div className="mt-16 text-center">
         <Link
           to="/gallery"
-          className="bg-yellow-400 text-black px-8 py-3 rounded-lg font-bold uppercase tracking-widest hover:scale-105 transition-all"
+          className={`${theme.colors.accentBg} text-black px-8 py-3 rounded-lg font-bold uppercase tracking-widest hover:scale-105 transition-all`}
         >
           View Gallery →
         </Link>

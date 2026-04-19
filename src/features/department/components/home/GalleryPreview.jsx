@@ -1,3 +1,4 @@
+import { theme } from "../../../../components/ui/theme";
 // src/modules/department/components/home/GalleryPreview.jsx
 import React from 'react';
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,7 +23,7 @@ const GalleryPreview = ({ data }) => {
 
           <button
             onClick={() => navigate(`/departments/${shortName || "cse"}/gallery`)}
-             className="bg-yellow-400 text-black px-6 py-3 rounded font-semibold hero-btn"
+             className={`${theme.colors.accentBg} text-black px-6 py-3 rounded font-semibold hero-btn`}
           >
             Read More →
           </button>

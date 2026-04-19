@@ -1,6 +1,8 @@
+import { theme } from "../../../components/ui/theme";
 import React from "react";
 import useNews from "../../news&events/hooks/useNews";
 import BietLoader from "../../../components/ui/BietLoader";
+import ScrollReveal from "../../../components/ui/ScrollReveal";
 
 
 const NewsSection = () => {
@@ -17,28 +19,28 @@ const NewsSection = () => {
     <section className="py-24 px-12 md:px-24 bg-white">
 
       {/* HEADER */}
-      <div className="flex justify-between items-end mb-16">
+      <ScrollReveal direction="up" className="flex justify-between items-end mb-16">
         <div>
-          <h2 className="text-4xl font-bold text-[#001c40] mb-4">
+          <h2 className={`text-4xl font-bold ${theme.colors.primaryText} mb-4`}>
             News Updates
           </h2>
-          <div className="w-20 h-1 bg-yellow-400"></div>
+          <div className={`w-20 h-1 ${theme.colors.accentBg}`}></div>
         </div>
 
         <a
           href="/news"
-          className="text-yellow-500 text-sm font-bold uppercase tracking-widest flex items-center gap-2 hover:gap-4 transition-all"
+          className={theme.buttons.outline}
         >
           View All →
         </a>
-      </div>
+      </ScrollReveal>
 
       {/* GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
         {/* FEATURED */}
-        <div className="lg:col-span-2">
-          <div className="relative rounded-3xl overflow-hidden group h-[500px]">
+        <ScrollReveal direction="left" delay={0.2} className="lg:col-span-2">
+          <div className="relative rounded-[2rem] overflow-hidden group h-[500px]">
 
             <img
               src={featured.image}
@@ -49,7 +51,7 @@ const NewsSection = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
             <div className="absolute bottom-0 p-10 text-white">
-              <span className="bg-yellow-400 text-black px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded mb-4 inline-block">
+              <span className={`${theme.colors.accentBg} text-black px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded mb-4 inline-block`}>
                 Breaking
               </span>
 
@@ -66,12 +68,13 @@ const NewsSection = () => {
               </button>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* SIDE NEWS */}
-        <div className="space-y-8">
+        <ScrollReveal direction="right" delay={0.3} staggerChildren staggerDelay={0.15} className="space-y-8">
           {others.map((n, index) => (
-            <div key={index} className="flex gap-6 group cursor-pointer">
+            <ScrollReveal key={index} direction="up" delay={0}>
+              <div className="flex gap-6 group cursor-pointer">
               <img
                 src={n.image}
                 alt={n.title}
@@ -79,17 +82,18 @@ const NewsSection = () => {
               />
 
               <div>
-                <p className="text-yellow-500 text-[10px] font-bold uppercase mb-1">
+                <p className={`${theme.colors.accentText} text-[10px] font-bold uppercase mb-1`}>
                   {n.date}
                 </p>
 
-                <h4 className="font-bold text-[#001c40] leading-snug group-hover:text-yellow-500 transition-colors">
+                <h4 className={`font-bold ${theme.colors.primaryText} leading-snug group-${theme.colors.accentHoverText} transition-colors`}>
                   {n.title}
                 </h4>
               </div>
             </div>
+            </ScrollReveal>
           ))}
-        </div>
+        </ScrollReveal>
 
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState, useRef } from "react";
 
 const Counter = ({ value, start }) => {
@@ -55,7 +56,7 @@ const QuickFacts = () => {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#001c40] py-16 px-12 md:px-24"
+      className={`${theme.colors.primaryBg} py-16 px-12 md:px-24`}
     >
       <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
 
@@ -63,7 +64,7 @@ const QuickFacts = () => {
           <div key={index} className="text-center md:text-left">
 
             {/* NUMBER */}
-            <p className="text-yellow-400 text-4xl font-extrabold mb-2">
+            <p className={`${theme.colors.accentText} text-4xl font-extrabold mb-2`}>
               <Counter value={fact.value} start={visible} />
             </p>
 

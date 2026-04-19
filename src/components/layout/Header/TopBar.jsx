@@ -16,12 +16,12 @@ const TopBar = () => {
   return (
     <div className={`${theme.colors.primaryBg} relative overflow-hidden text-gray-200 text-xs md:text-sm px-4 md:px-8 py-2 flex flex-col md:flex-row md:items-center md:justify-between gap-3 ${theme.shadows.md} z-50 border-b ${theme.borders.accentSubtle}`}>
       {/* Decorative ambient glow */}
-      <div className="absolute top-[-50px] right-[-50px] w-[200px] h-[200px] bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className={`absolute top-[-50px] right-[-50px] w-[200px] h-[200px] ${theme.colors.accentBg}/10 rounded-full blur-3xl pointer-events-none`}></div>
 
       {/* LEFT */}
       <div className="flex items-center gap-4 relative z-10">
         <Link to="/" className="group">
-          <div className={`h-12 w-12 md:h-16 md:w-16 ${theme.radius.full} overflow-hidden border-2 ${theme.borders.accentMedium} ${theme.shadows.glowAccent} bg-white flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3 group-hover:border-yellow-400`}>
+          <div className={`h-12 w-12 md:h-16 md:w-16 ${theme.radius.full} overflow-hidden border-2 ${theme.borders.accentMedium} ${theme.shadows.glowAccent} bg-white flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3 group-hover:${theme.borders.accentMedium}`}>
             <img src={logo} alt="Logo" className="object-contain h-full w-full p-1 transition-transform duration-500 group-hover:scale-110" />
           </div>
         </Link>

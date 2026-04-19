@@ -1,5 +1,6 @@
- import React, { useEffect, useState, useMemo } from 'react';
+  import React, { useEffect, useState, useMemo } from 'react';
   import { motion, AnimatePresence } from 'framer-motion';
+  import { theme } from '../../../components/ui/theme';
 
   /**
    * ResultAnalysisPage
@@ -59,10 +60,10 @@
         <div className="flex gap-4 mb-6">
           <button
             type="button"
-            className={`px-4 py-2 rounded ${
+            className={`px-4 py-2 rounded-xl transition-all font-semibold ${
               activeTab === 'even' ?
-                'bg-indigo-600 text-white' :
-                'bg-gray-200 text-gray-800'
+                `${theme.colors.accentBg} text-black` :
+                'bg-gray-200 text-gray-800 hover:bg-gray-300'
             }`}
             onClick={() => setActiveTab('even')}
           >
@@ -70,10 +71,10 @@
           </button>
           <button
             type="button"
-            className={`px-4 py-2 rounded ${
+            className={`px-4 py-2 rounded-xl transition-all font-semibold ${
               activeTab === 'odd' ?
-                'bg-indigo-600 text-white' :
-                'bg-gray-200 text-gray-800'
+                `${theme.colors.accentBg} text-black` :
+                'bg-gray-200 text-gray-800 hover:bg-gray-300'
             }`}
             onClick={() => setActiveTab('odd')}
           >
@@ -118,7 +119,7 @@
                 <div className="flex gap-2">
                   <button
                     type="button"
-                    className="flex-1 px-3 py-1 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+                    className={`flex-1 px-3 py-2 text-sm font-bold uppercase tracking-widest ${theme.colors.accentBg} text-[#0A1128] rounded-xl hover:scale-105 transition-all`}
                     onClick={() => setPreview(item.image)}
                   >
                     View
@@ -127,8 +128,7 @@
                     href={item.pdf ?? item.image}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700 transition
-  text-center"
+                    className="flex-1 px-3 py-2 text-sm font-bold uppercase tracking-widest bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition text-center"
                   >
                     Download
                   </a>

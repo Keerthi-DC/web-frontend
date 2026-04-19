@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 
 const AnnouncementBar = () => {
@@ -12,7 +13,7 @@ const AnnouncementBar = () => {
   if (!messages.length) return null;
 
   return (
-    <div className="w-full bg-[#001c40] text-white py-3 overflow-hidden relative">
+    <div className={`w-full ${theme.colors.primaryBg} text-white py-3 overflow-hidden relative`}>
 
       {/* Gradient fade (left & right) */}
       <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-[#001c40] to-transparent z-10"></div>

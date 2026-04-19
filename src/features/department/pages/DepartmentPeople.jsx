@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -219,7 +220,7 @@ const DepartmentPeople = () => {
           onClick={() => setActiveTab("faculty")}
           className={`px-6 py-2 rounded-full ${
             activeTab === "faculty"
-              ? "bg-[#0b3c5d] text-white"
+              ? "${theme.colors.primaryBg} text-white"
               : "bg-gray-200"
           }`}
         >
@@ -230,7 +231,7 @@ const DepartmentPeople = () => {
           onClick={() => setActiveTab("technical")}
           className={`px-6 py-2 rounded-full ${
             activeTab === "technical"
-              ? "bg-[#0b3c5d] text-white"
+              ? "${theme.colors.primaryBg} text-white"
               : "bg-gray-200"
           }`}
         >
@@ -241,7 +242,7 @@ const DepartmentPeople = () => {
           onClick={() => setActiveTab("supporting")}
           className={`px-6 py-2 rounded-full ${
             activeTab === "supporting"
-              ? "bg-[#0b3c5d] text-white"
+              ? "${theme.colors.primaryBg} text-white"
               : "bg-gray-200"
           }`}
         >

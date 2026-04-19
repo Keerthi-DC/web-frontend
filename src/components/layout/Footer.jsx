@@ -1,10 +1,11 @@
+import { theme } from "../ui/theme";
 import React from "react";
 import { Link } from "react-router-dom";
 const logo = "/assets/BIET_logo.png";
 const Footer = () => {
   return (
-    <footer className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-[#001c40] text-white pt-16 pb-8">
-      <div className="px-12 md:px-24">
+    <footer className={`relative left-1/2 right-1/2 -mx-[50vw] w-screen ${theme.colors.primaryBg} text-white pt-16 pb-8`}>
+      <div className="px-6 md:px-12 lg:px-24">
 
         {/* ================= MAIN GRID ================= */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
@@ -41,7 +42,7 @@ const Footer = () => {
             }
           ].map((section, idx) => (
             <div key={idx}>
-              <h4 className="text-[11px] font-bold uppercase tracking-widest text-yellow-400 mb-4">
+              <h4 className={`text-[11px] font-bold uppercase tracking-widest ${theme.colors.accentText} mb-4`}>
                 {section.title}
               </h4>
 
@@ -70,8 +71,8 @@ const Footer = () => {
           </p>
 
           <div className="flex gap-6 text-xs uppercase tracking-wider">
-            <Link to="#" className="hover:text-yellow-400">Terms of use</Link>
-            <Link to="#" className="hover:text-yellow-400">Privacy Policy</Link>
+            <Link to="#" className={`${theme.colors.accentHoverText}`}>Terms of use</Link>
+            <Link to="#" className={`${theme.colors.accentHoverText}`}>Privacy Policy</Link>
           </div>
 
         </div>

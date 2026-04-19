@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 
 const ProgramsSection = () => {
@@ -19,7 +20,7 @@ const ProgramsSection = () => {
 
       {/* HEADER */}
       <div className="text-center mb-20">
-        <h2 className="text-5xl font-bold text-[#001c40] mb-4">
+        <h2 className={`text-5xl font-bold ${theme.colors.primaryText} mb-4`}>
           Programs Offered
         </h2>
 
@@ -37,7 +38,7 @@ const ProgramsSection = () => {
             className="bg-white p-8 rounded-2xl text-center shadow-sm hover:shadow-md transition-all"
           >
             {/* PROGRAM NAME */}
-            <h4 className="text-2xl font-black text-[#001c40] mb-1">
+            <h4 className={`text-2xl font-black ${theme.colors.primaryText} mb-1`}>
               {p.name}
             </h4>
 

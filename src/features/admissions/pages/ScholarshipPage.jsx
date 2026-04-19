@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { theme } from "../../../components/ui/theme";
+import React, { useEffect, useState } from 'react';
 import {
   FaGraduationCap,
   FaAward,
@@ -41,7 +42,7 @@ export default function ScholarshipPage() {
   const categoryIcon = (type) => {
     const icons = {
       STATE: <FaUniversity className="text-4xl text-blue-600" />,
-      GOVERNMENT_OF_INDIA: <FaAward className="text-4xl text-yellow-600" />,
+      GOVERNMENT_OF_INDIA: <FaAward className={`text-4xl ${theme.colors.accentText}`} />,
       INSTITUTIONAL: <FaGraduationCap className="text-4xl text-green-600" />,
       OTHERS: <FaHandshake className="text-4xl text-purple-600" />,
     };

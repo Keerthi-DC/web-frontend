@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React from "react";
 import FormInput from "../../../components/ui/FormInput";
 import FormSelect from "../../../components/ui/FormSelect";
@@ -197,7 +198,7 @@ export default function EnquiryPage() {
               className={`w-full py-4 text-white rounded-xl font-semibold transition-all ${
                 submitting
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-800 hover:bg-blue-900 shadow-md hover:shadow-lg"
+                  : `bg-blue-800 hover:${theme.colors.primaryBg} shadow-md hover:shadow-lg`
               }`}
             >
               {submitting ? "Submitting..." : "Submit Enquiry"}

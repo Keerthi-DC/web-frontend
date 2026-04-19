@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
 import useDepartmentHome from "../../hooks/useDepartmentHome";
 import BietLoader from "../../../../components/ui/BietLoader";
+import ScrollReveal from "../../../../components/ui/ScrollReveal";
+import { theme } from "../../../../components/ui/theme";
 
 const DepartmentIntro = () => {
   const { shortName } = useParams();
@@ -42,7 +44,7 @@ const DepartmentIntro = () => {
       <div className="max-w-3xl">
 
         {/* INNER TABS */}
-        <div className="flex gap-3 mb-8">
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-8">
           {["strengths", "weaknesses", "opportunities", "threats"].map((t) => (
             <button
               key={t}
@@ -92,7 +94,7 @@ const DepartmentIntro = () => {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* ABOUT SECTION */}
-        <div className="bg-white rounded-xl shadow-sm p-6 md:p-8 grid md:grid-cols-2 gap-8 items-center">
+        <ScrollReveal direction="up" className="bg-white rounded-xl shadow-sm p-6 md:p-8 grid md:grid-cols-2 gap-8 items-center">
 
           <div className="w-full h-[420px]">
             <img
@@ -118,19 +120,19 @@ const DepartmentIntro = () => {
 
             <button
               onClick={() => setExpanded(!expanded)}
-              className="w-[200px] mt-4 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-semibold transition"
+              className={theme.buttons.primary}
             >
               {expanded ? "Show less" : "Read more →"}
             </button>
 
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* MAIN TABS SECTION */}
-        <div className="mt-16 bg-white rounded-xl shadow-sm p-10">
+        <ScrollReveal direction="up" delay={0.2} className="mt-16 bg-white rounded-xl shadow-sm p-6 md:p-10">
 
           {/* TOP TABS */}
-          <div className="flex gap-6 mb-10">
+          <div className="flex flex-wrap gap-4 md:gap-6 mb-8 md:mb-10 border-b border-gray-100 pb-2">
             {["vision", "mission", "swot", "peo", "pso"].map((t) => (
               <button
                 key={t}
@@ -157,7 +159,7 @@ const DepartmentIntro = () => {
 
           </div>
 
-        </div>
+        </ScrollReveal>
 
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +22,7 @@ const CampusLifeSection = () => {
     <section className="py-24 px-12 md:px-24 bg-white">
 
       {/* HEADER */}
-      <h2 className="text-4xl font-bold text-[#001c40] mb-16 text-center">
+      <h2 className={`text-4xl font-bold ${theme.colors.primaryText} mb-16 text-center`}>
         Campus Life
       </h2>
 

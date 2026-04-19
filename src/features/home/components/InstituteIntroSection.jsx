@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 
 const InstituteIntroSection = () => {
@@ -23,7 +24,7 @@ const InstituteIntroSection = () => {
 
         {/* LEFT TEXT */}
         <div className="md:w-1/2">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#001c40] leading-tight mb-8">
+          <h2 className={`text-4xl md:text-5xl font-bold ${theme.colors.primaryText} leading-tight mb-8`}>
             {data.title}
           </h2>
 
@@ -31,7 +32,7 @@ const InstituteIntroSection = () => {
             {data.details?.[0]}
           </p>
 
-          <button className="px-8 py-3 border-2 border-[#001c40] text-[#001c40] text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-[#001c40] hover:text-white transition-all">
+          <button className={`px-8 py-3 border-2 border-[#001c40] ${theme.colors.primaryText} text-xs font-bold uppercase tracking-widest ${theme.radius.lg} hover:${theme.colors.primaryBg} hover:text-white transition-all`}>
             {data.buttonText || "Our Legacy"}
           </button>
         </div>
@@ -63,12 +64,12 @@ const InstituteIntroSection = () => {
             className="bg-[#f3f4f5] p-10 rounded-2xl hover:-translate-y-2 transition-all group"
           >
             {/* ICON */}
-            <span className="material-symbols-outlined text-4xl text-yellow-400 mb-6 block group-hover:scale-110 transition-transform">
+            <span className={`material-symbols-outlined text-4xl ${theme.colors.accentText} mb-6 block group-hover:scale-110 transition-transform`}>
               {item.icon || iconMap[index]}
             </span>
 
             {/* TITLE */}
-            <h3 className="text-xl font-bold text-[#001c40] mb-4">
+            <h3 className={`text-xl font-bold ${theme.colors.primaryText} mb-4`}>
               {item.title}
             </h3>
 

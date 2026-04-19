@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import TopBar from "./TopBar";
 import { theme } from "../../ui/theme";
 
@@ -48,12 +48,13 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-[100]">
-      <div className={`transition-all duration-500 ease-in-out ${scrolled ? "h-0 overflow-hidden opacity-0" : "opacity-100"}`}>
+    <>
+      <div className="z-[100] relative">
         <TopBar />
       </div>
 
-      <nav className={`transition-all duration-300 ${scrolled ? theme.glass.navbar : "bg-white shadow-sm"} flex items-center gap-2 text-sm font-semibold text-gray-500 ${theme.colors.primaryHoverText} cursor-pointer`}>
+      <header className="sticky top-0 z-[100]">
+        <nav className={`transition-all duration-300 ${scrolled ? theme.glass.navbar : "bg-white shadow-sm"} flex items-center gap-2 text-sm font-semibold text-gray-500 ${theme.colors.primaryHoverText} cursor-pointer`}>
         <div className="w-full px-6 py-4 flex items-center justify-between md:justify-center relative">
           
           {/* LOGO - visible on mobile or when scrolled */}
@@ -79,7 +80,7 @@ const Navbar = () => {
                 <div
                   className={`flex items-center gap-1.5 text-sm font-bold cursor-pointer relative transition-colors duration-300 ${activeDropdown === item.label ? theme.colors.primaryText : `text-gray-600 ${theme.colors.primaryHoverText}`}`}>
                   
-                  <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:scale-110 group-hover:text-yellow-600">
+                  <span className={`material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:scale-110 group-${theme.colors.accentHoverText}`}>
                     {iconMap[item.label]}
                   </span>
                   {item.label}
@@ -90,22 +91,24 @@ const Navbar = () => {
 
                 {/* DROPDOWN */}
                 {item.dropdown && activeDropdown === item.label && (
-                  <div className={`absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-64 ${theme.glass.dropdown} ${theme.radius["2xl"]} transition-all duration-300 animate-in fade-in slide-in-from-top-2 overflow-hidden z-50`}>
-                    <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryToAccent}`} />
-                    <div className="py-2">
-                      {item.dropdown.map((sub) => (
-                        <NavLink
-                          key={sub.label}
-                          to={sub.path}
-                          onClick={() => setActiveDropdown(null)}
-                          className={`flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 ${theme.colors.primaryHoverText} transition-colors relative group/link`}
-                        >
-                          <span className={`material-symbols-outlined text-[18px] ${theme.colors.accentText} transform transition-transform group-hover/link:translate-x-1`}>
-                            arrow_right
-                          </span>
-                          <span className="transform transition-transform group-hover/link:translate-x-1">{sub.label}</span>
-                        </NavLink>
-                      ))}
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full pt-[10px] w-64 z-50">
+                    <div className={`${theme.glass.dropdown} ${theme.radius["2xl"]} transition-all duration-300 animate-in fade-in slide-in-from-top-2 overflow-hidden shadow-2xl`}>
+                      <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryToAccent}`} />
+                      <div className="py-2 relative bg-white/60 backdrop-blur-3xl">
+                        {item.dropdown.map((sub) => (
+                          <NavLink
+                            key={sub.label}
+                            to={sub.path}
+                            onClick={() => setActiveDropdown(null)}
+                            className={`flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-[#D4AF37]/10 ${theme.colors.primaryHoverText} transition-all duration-300 relative group/link`}
+                          >
+                            <span className={`material-symbols-outlined text-[18px] text-[#0A1128]/40 group-hover/link:text-[#D4AF37] transform transition-all duration-300 group-hover/link:translate-x-1`}>
+                              arrow_right
+                            </span>
+                            <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">{sub.label}</span>
+                          </NavLink>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -131,7 +134,7 @@ const Navbar = () => {
               <div key={item.label} className="border-b border-gray-50 last:border-0 pb-2">
                 {/* MOBILE PARENT */}
                 <div className={`flex items-center gap-3 py-3 ${theme.colors.primaryText} font-bold`}>
-                  <span className="material-symbols-outlined text-[20px] text-yellow-600">
+                  <span className={`material-symbols-outlined text-[20px] ${theme.colors.accentText}`}>
                     {iconMap[item.label]}
                   </span>
                   {item.label}
@@ -160,7 +163,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-    </header>
+      </header>
+    </>
   );
 };
 

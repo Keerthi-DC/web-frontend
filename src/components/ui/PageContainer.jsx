@@ -1,8 +1,14 @@
 import { theme } from "./theme";
+import { motion } from "framer-motion";
 
 const PageContainer = ({ children, className = "" }) => {
   return (
-    <section className={`relative p-4 md:p-8 m-4 bg-gray-50/80 min-h-screen ${theme.radius["2xl"]} ${theme.shadows.sm} border ${theme.borders.light} overflow-hidden ${className}`}>
+    <motion.section 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative p-4 md:p-8 mx-2 my-4 md:m-8 lg:m-12 bg-white min-h-screen ${theme.radius["2xl"]} ${theme.shadows.md} border ${theme.borders.light} overflow-hidden ${className}`}
+    >
       {/* Decorative top accent line */}
       <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryViaAccent}`} />
       
@@ -18,7 +24,7 @@ const PageContainer = ({ children, className = "" }) => {
       <div className="relative z-10">
         {children}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

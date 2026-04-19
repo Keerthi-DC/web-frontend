@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, X } from "lucide-react";
@@ -27,7 +28,7 @@ const DepartmentsPage = () => {
       className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300
         ${
           activeType === type
-            ? "bg-[#0B3C6D] text-white shadow-md"
+            ? "${theme.colors.primaryBg} text-white shadow-md"
             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
         }`}
     >
@@ -97,7 +98,7 @@ const DepartmentsPage = () => {
                       {tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-xs px-3 py-1 rounded-full bg-[#0B3C6D] text-white shadow-sm"
+                          className={`text-xs px-3 py-1 rounded-full ${theme.colors.primaryBg} text-white shadow-sm`}
                         >
                           {tag}
                         </span>
@@ -110,7 +111,7 @@ const DepartmentsPage = () => {
                 <div className="p-5 text-center">
                   <h3 className="text-lg font-semibold mb-2">{dept.name}</h3>
                   <p className="text-sm text-gray-500 mb-3">{dept.hod}</p>
-                  <button className="mt-2 px-4 py-2 text-sm bg-[#0B3C6D] text-white rounded-lg">
+                  <button className={`mt-2 px-4 py-2 text-sm ${theme.colors.primaryBg} text-white ${theme.radius.lg}`}>
                     Visit
                   </button>
                 </div>

@@ -1,3 +1,4 @@
+import { theme } from "./theme";
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -42,7 +43,7 @@ const BietLoader = ({ fullScreen = false }) => {
         transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         className="mt-6 flex flex-col items-center"
       >
-        <span className="text-[#001c40] font-bold tracking-[0.2em] text-sm uppercase">
+        <span className={`${theme.colors.primaryText} font-bold tracking-[0.2em] text-sm uppercase`}>
           BIET Davangere
         </span>
         <span className="text-gray-400 text-xs tracking-wider mt-1">

@@ -1,3 +1,4 @@
+import { theme } from "../../../../components/ui/theme";
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
@@ -48,7 +49,7 @@ const FacultyPreview = () => {
 
           <button
             onClick={() => navigate(`/departments/${shortName}/people`)}
-            className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-semibold shadow-md transition"
+            className={`${theme.colors.accentBg} hover:${theme.colors.accentBg} text-black px-6 py-3 rounded-lg font-semibold shadow-md transition`}
           >
             Read More →
           </button>

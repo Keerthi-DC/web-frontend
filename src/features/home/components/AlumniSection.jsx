@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +24,7 @@ const AlumniSection = () => {
 
         {/* LEFT TEXT */}
         <div className="md:w-1/3">
-          <h2 className="text-4xl font-bold text-[#001c40] mb-6">
+          <h2 className={`text-4xl font-bold ${theme.colors.primaryText} mb-6`}>
             Alumni Excellence
           </h2>
 
@@ -33,7 +34,7 @@ const AlumniSection = () => {
 
           <button
             onClick={() => navigate("/alumni")}
-            className="flex items-center gap-3 text-[#001c40] font-bold hover:text-yellow-500 transition-colors group"
+            className={`flex items-center gap-3 ${theme.colors.primaryText} font-bold ${theme.colors.accentHoverText} transition-colors group`}
           >
             Join the Network →
           </button>

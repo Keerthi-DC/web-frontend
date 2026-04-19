@@ -14,22 +14,53 @@ import GallerySection from "../components/GallerySection";
 import AlumniSection from "../components/AlumniSection";
 import CallToActionSection from "../components/CallToActionSection";
 import Footer from "../../../components/layout/Footer";
+import ScrollReveal from "../../../components/ui/ScrollReveal";
 
 const Home = () => (
-  <div className="flex flex-col min-h-screen p-4 m-4 gap-4">
+  <div className="flex flex-col min-h-screen pb-12 gap-12 overflow-hidden">
     <HeroSection />
-    <AnnouncementBar />
-    <QuickFacts />
-    <InstituteIntroSection />
+    
+    <ScrollReveal direction="up" viewportAmount={0.2}>
+      <AnnouncementBar />
+    </ScrollReveal>
+
+    <ScrollReveal direction="up" delay={0.1} viewportAmount={0.2}>
+      <QuickFacts />
+    </ScrollReveal>
+
+    <ScrollReveal direction="fade" viewportAmount={0.2}>
+      <InstituteIntroSection />
+    </ScrollReveal>
+
     <NewsSection />
     <EventSection />
-    <ProgramsSection />
+
+    <ScrollReveal direction="left" viewportAmount={0.1}>
+      <ProgramsSection />
+    </ScrollReveal>
+
     <DepartmentsSection />
-    <CampusLifeSection />
-    <ResearchSection />
-    <PlacementSection />
-    <GallerySection />
-    <AlumniSection />
+
+    <ScrollReveal direction="right" viewportAmount={0.1}>
+      <CampusLifeSection />
+    </ScrollReveal>
+
+    <ScrollReveal direction="up" viewportAmount={0.1}>
+      <ResearchSection />
+    </ScrollReveal>
+
+    <ScrollReveal direction="scaleUp" viewportAmount={0.1}>
+      <PlacementSection />
+    </ScrollReveal>
+
+    <ScrollReveal direction="fade" viewportAmount={0.1}>
+      <GallerySection />
+    </ScrollReveal>
+
+    <ScrollReveal direction="up" viewportAmount={0.1}>
+      <AlumniSection />
+    </ScrollReveal>
+
     <CallToActionSection />
   </div>
 );

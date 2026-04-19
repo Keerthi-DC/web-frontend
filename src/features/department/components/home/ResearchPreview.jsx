@@ -1,3 +1,4 @@
+import { theme } from "../../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
@@ -120,7 +121,6 @@ const ResearchPreview = () => {
   };
 
   const patentCount = data.patents.length;
-  const grantCount = data.grants.length;
 
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
@@ -182,7 +182,7 @@ const ResearchPreview = () => {
             onClick={() =>
               navigate(`/departments/${shortName}/research`)
             }
-            className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition"
+            className={theme.buttons.primary}
           >
             Explore Research →
           </button>

@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -119,7 +120,7 @@ const DepartmentAlumni = () => {
                   <td className="p-4 text-center">
                     <button
                       onClick={() => setSelected(a)}
-                      className="bg-[#0b3c5d] text-white px-4 py-2 rounded"
+                      className={`${theme.colors.primaryBg} text-white px-4 py-2 rounded`}
                     >
                       View
                     </button>

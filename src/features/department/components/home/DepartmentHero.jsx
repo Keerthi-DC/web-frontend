@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import DepartmentEventsPreview from "./DepartmentEventsPreview";
@@ -22,7 +22,7 @@ const DepartmentHero = () => {
   if (loading) return <BietLoader />;
 
   return (
-    <section className="relative h-[65vh] w-full overflow-hidden">
+    <section className="relative min-h-[65vh] lg:h-[65vh] w-full overflow-hidden flex items-center">
 
       {/* ✅ SAFE BACKGROUND */}
       <img
@@ -32,16 +32,16 @@ const DepartmentHero = () => {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/60 md:bg-black/50" />
 
-      <div className="relative z-10 h-full flex items-center px-10 gap-6">
+      <div className="relative z-10 w-full flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-20 gap-10 py-16 lg:py-0 mt-8 lg:mt-0">
 
         {/* LEFT CONTENT */}
-        <div className="w-full lg:w-2/3 text-white">
+        <div className="w-full lg:w-3/5 text-white text-center lg:text-left">
 
           {/* TITLE */}
           <motion.h1
-            className="text-3xl sm:text-5xl font-bold leading-tight tracking-wide"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-wide drop-shadow-xl"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -68,7 +68,7 @@ const DepartmentHero = () => {
 
           {/* Accent line */}
           <motion.div
-            className="mt-5 h-1 bg-blue-500 rounded"
+            className="mt-6 h-1 bg-blue-500 rounded mx-auto lg:mx-0"
             initial={{ width: 0, opacity: 0 }}
             animate={{ width: 80, opacity: 1 }}
             transition={{
@@ -81,7 +81,7 @@ const DepartmentHero = () => {
         </div>
 
         {/* RIGHT EVENTS CARD */}
-        <div className="flex-1 overflow-hidden px-4">
+        <div className="w-full lg:flex-1 max-w-md lg:max-w-none overflow-hidden">
           <DepartmentEventsPreview />
         </div>
 

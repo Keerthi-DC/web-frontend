@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -68,7 +69,7 @@ const DepartmentNewsletter = () => {
                 href={n.pdf}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800"
+                className={`inline-flex items-center gap-2 ${theme.colors.primaryBg} text-white px-4 py-2 rounded hover:bg-blue-800`}
               >
                 <span>⬇</span>
                 View / Download PDF

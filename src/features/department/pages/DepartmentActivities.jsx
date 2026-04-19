@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -215,7 +216,7 @@ const DepartmentActivities = () => {
 
             {/* ACTIONS */}
             <div className="flex items-center gap-4">
-              <button className="bg-gradient-to-r from-[#0b3c5d] to-[#021726] text-white px-5 py-2 rounded-lg text-sm font-semibold hover:scale-95 transition">
+              <button className={`bg-gradient-to-r from-[#0b3c5d] to-[#021726] text-white px-5 py-2 ${theme.radius.lg} text-sm font-semibold hover:scale-95 transition`}>
                 View Details
               </button>
 

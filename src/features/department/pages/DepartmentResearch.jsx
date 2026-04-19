@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -174,7 +175,7 @@ const DepartmentResearch = () => {
       {/* HERO */}
       <div className="relative h-[220px] flex items-center justify-center text-white">
         <img src={researchBg} className="absolute w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-blue-900/70"></div>
+        <div className={`absolute inset-0 ${theme.colors.primaryBg}/70`}></div>
         <h1 className="relative text-4xl font-bold">Research & Development</h1>
       </div>
 
@@ -216,7 +217,7 @@ const DepartmentResearch = () => {
                       <span className="text-xs text-gray-400">ACTIVE</span>
                     </div>
 
-                    <h3 className="font-semibold text-lg text-blue-900">
+                    <h3 className={`font-semibold text-lg ${theme.colors.primaryText}`}>
                       {p.facultyName}
                     </h3>
 

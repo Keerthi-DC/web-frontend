@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -112,7 +113,7 @@ const DepartmentAccreditation = () => {
           ensuring curriculum stays aligned with evolving standards.
         </p>
 
-        <div className="w-20 h-[2px] bg-[#0b3c5d] mt-4 mx-auto"></div>
+        <div className={`w-20 h-[2px] ${theme.colors.primaryBg} mt-4 mx-auto`}></div>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -121,7 +122,7 @@ const DepartmentAccreditation = () => {
             key={item.committeeMemberId}
             className="bg-[#f9fafb] rounded-xl p-6 border border-gray-100 hover:shadow-md transition"
           >
-            <div className="w-12 h-12 flex items-center justify-center rounded-md bg-[#0b3c5d] text-white font-semibold text-sm">
+            <div className={`w-12 h-12 flex items-center justify-center rounded-md ${theme.colors.primaryBg} text-white font-semibold text-sm`}>
               {getInitials(item.name)}
             </div>
 
@@ -150,7 +151,7 @@ const DepartmentAccreditation = () => {
           onClick={() => setSelectedTab("DAB")}
           className={`px-6 py-2 rounded-full text-sm font-medium transition ${
             selectedTab === "DAB"
-              ? "bg-[#0b3c5d] text-white shadow"
+              ? "${theme.colors.primaryBg} text-white shadow"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >
@@ -161,7 +162,7 @@ const DepartmentAccreditation = () => {
           onClick={() => setSelectedTab("PAC")}
           className={`px-6 py-2 rounded-full text-sm font-medium transition ${
             selectedTab === "PAC"
-              ? "bg-[#0b3c5d] text-white shadow"
+              ? "${theme.colors.primaryBg} text-white shadow"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >

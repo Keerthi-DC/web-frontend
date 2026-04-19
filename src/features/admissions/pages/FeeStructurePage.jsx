@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React from "react";
 import { motion } from "framer-motion";
 import useFeeDocuments from "../hooks/useFeeDocuments";
@@ -27,7 +28,7 @@ export default function FeeStructurePage() {
 
   return (
     <section className="max-w-4xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-semibold text-blue-900 mb-6">
+      <h1 className={`text-3xl font-semibold ${theme.colors.primaryText} mb-6`}>
         Fee Structure
       </h1>
 
@@ -58,7 +59,7 @@ export default function FeeStructurePage() {
             <a
               href={item.fileUrl}
               download
-              className="bg-[#002f76] text-white px-4 py-2 rounded hover:bg-blue-900 transition"
+              className={`bg-[#002f76] text-white px-4 py-2 rounded hover:${theme.colors.primaryBg} transition`}
             >
               Download
             </a>

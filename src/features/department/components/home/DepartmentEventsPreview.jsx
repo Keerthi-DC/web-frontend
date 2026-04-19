@@ -1,4 +1,5 @@
 import React from "react";
+import { theme } from "../../../../components/ui/theme";
 import { useParams } from "react-router-dom";
 import { useAppSync } from "../../../../hooks/useAppSync";
 import { LIST_EVENTS } from "../../graphql/events";
@@ -82,7 +83,7 @@ const DepartmentEventsPreview = ({ deptId }) => {
       <div className="p-3 border-t bg-white">
               <a
                 href={`/departments/${shortName || "cse"}/events`}
-                className="w-full inline-flex justify-center items-center px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700"
+                className={theme.buttons.primary}
               >
                 View All Events →
               </a>

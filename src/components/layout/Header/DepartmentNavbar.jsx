@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { theme } from "../../ui/theme";
+import { useQuery, gql } from "@apollo/client";
+import { useDepartmentMeta } from "../../../features/department/hooks/useDepartmentMeta";
 import "./DepartmentNavbar.css";
 
-const API_URL = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
+const GET_DEPT_LOGO = gql`
+  query GetDeptLogo($deptId: ID!) {
+    getDeptIntroduction(deptId: $deptId, tenantId: "biet-college") {
+      logoUrl
+    }
+  }
+`;
 
 const DepartmentNavbar = () => {
   const [menu, setMenu] = useState([]);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [departmentName, setDepartmentName] = useState("");
-  const [badgeLogo, setBadgeLogo] = useState("/dept-badge.png");
   const [scrolled, setScrolled] = useState(false);
 
   const location = useLocation();
@@ -52,83 +57,25 @@ const DepartmentNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (!shortName) return;
+  const { getId, getName, isReady } = useDepartmentMeta();
+  const deptId = isReady ? getId(shortName) : null;
+  const departmentName = isReady ? getName(shortName) : "Loading...";
 
-    const fetchDeptData = async () => {
-      try {
-        const res1 = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
-          },
-          body: JSON.stringify({
-            query: `
-              query ListDepartments {
-                listDepartments(tenantId: "biet-college"){
-                  items {
-                    departmentId
-                    name
-                    shortName
-                  }
-                }
-              }
-            `,
-          }),
-        });
+  const { data: logoData } = useQuery(GET_DEPT_LOGO, {
+    variables: { deptId },
+    skip: !deptId,
+    fetchPolicy: "cache-first",
+  });
 
-        const result1 = await res1.json();
-        const departments =
-          result1?.data?.listDepartments?.items || [];
-
-        const currentDept = departments.find(
-          (d) => d.shortName === shortName
-        );
-
-        const deptId = currentDept?.departmentId;
-        setDepartmentName(currentDept?.name || "Department");
-
-        if (deptId) {
-          const res2 = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": API_KEY,
-            },
-            body: JSON.stringify({
-              query: `
-                query GetDeptLogo($deptId: ID!) {
-                  getDeptIntroduction(deptId: $deptId, tenantId: "biet-college") {
-                    logoUrl
-                  }
-                }
-              `,
-              variables: { deptId },
-            }),
-          });
-
-          const result2 = await res2.json();
-          const logo =
-            result2?.data?.getDeptIntroduction?.logoUrl;
-
-          if (logo) setBadgeLogo(logo);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchDeptData();
-  }, [shortName]);
+  const badgeLogo = logoData?.getDeptIntroduction?.logoUrl || "/dept-badge.png";
 
   return (
-    <header className="sticky top-0 z-[100]">
-
-      {/* 🔷 TOP BAR - Hides on scroll */}
-      <div className={`${theme.colors.primaryBg} relative overflow-hidden transition-all duration-500 ease-in-out border-b ${theme.borders.accentSubtle} ${scrolled ? "h-0 opacity-0" : "opacity-100"}`}>
+    <>
+      {/* 🔷 TOP BAR - Scrolls out of view naturally */}
+      <div className="z-[100] relative">
+        <div className={`${theme.colors.primaryBg} relative overflow-hidden transition-all duration-500 ease-in-out border-b ${theme.borders.accentSubtle}`}>
         {/* Decorative ambient glow */}
-        <div className="absolute top-[-50px] right-[-50px] w-[300px] h-[300px] bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className={`absolute top-[-50px] right-[-50px] w-[300px] h-[300px] ${theme.colors.accentBg}/10 rounded-full blur-3xl pointer-events-none`}></div>
 
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
 
@@ -149,7 +96,7 @@ const DepartmentNavbar = () => {
 
           {/* RIGHT */}
           <div className="hidden md:flex items-center gap-6">
-            <div className="flex items-center bg-white/10 border border-white/20 rounded-full px-4 py-2 shadow-inner backdrop-blur-sm focus-within:border-yellow-500/50 transition-colors">
+            <div className={`flex items-center bg-white/10 border border-white/20 rounded-full px-4 py-2 shadow-inner backdrop-blur-sm focus-within:${theme.borders.accentMedium}/50 transition-colors`}>
               <span className="material-symbols-outlined text-gray-300 mr-2">
                 search
               </span>
@@ -162,9 +109,11 @@ const DepartmentNavbar = () => {
           </div>
         </div>
       </div>
+      </div>
 
-      {/* 🔥 NAVBAR - Becomes glassmorphic on scroll */}
-      <nav className={`transition-all duration-300 ${scrolled ? theme.glass.navbar : "bg-white shadow-sm"} relative`}>
+      <header className="sticky top-0 z-[100]">
+        {/* 🔥 NAVBAR - Becomes glassmorphic on scroll */}
+        <nav className={`transition-all duration-300 ${scrolled ? theme.glass.navbar : "bg-white shadow-sm"} relative`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           
           {/* MOBILE BUTTON */}
@@ -198,7 +147,7 @@ const DepartmentNavbar = () => {
                     to={fullPath}
                     className={({ isActive }) => `flex items-center gap-1.5 px-2 py-2 text-sm font-bold transition-all duration-300 cursor-pointer ${isActive ? theme.colors.primaryText : `text-gray-600 ${theme.colors.primaryHoverText}`}`}
                   >
-                    <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:scale-110 group-hover:text-yellow-600">
+                    <span className={`material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:scale-110 group-${theme.colors.accentHoverText}`}>
                       {iconMap[item.label]}
                     </span>
 
@@ -210,23 +159,23 @@ const DepartmentNavbar = () => {
 
                   {/* DROPDOWN */}
                   {item.dropdown && (
-                    <div className={`absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-64 ${theme.glass.dropdown} ${theme.radius["2xl"]} 
-                    opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                    transition-all duration-300 animate-in fade-in slide-in-from-top-2 z-50 overflow-hidden`}>
-                      <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryToAccent}`} />
-                      <div className="py-2">
-                        {item.dropdown.map((sub, j) => (
-                          <NavLink
-                            key={j}
-                            to={`/departments/${shortName}${sub.path}`}
-                            className={`flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 ${theme.colors.primaryHoverText} transition-colors relative group/link`}
-                          >
-                            <span className={`material-symbols-outlined ${theme.colors.accentText} text-[18px] transform transition-transform group-hover/link:translate-x-1`}>
-                              arrow_right
-                            </span>
-                            <span className="transform transition-transform group-hover/link:translate-x-1">{sub.label}</span>
-                          </NavLink>
-                        ))}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-[10px] w-64 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                      <div className={`${theme.glass.dropdown} ${theme.radius["2xl"]} animate-in fade-in slide-in-from-top-2 shadow-2xl overflow-hidden`}>
+                        <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryToAccent}`} />
+                        <div className="py-2 relative bg-white/60 backdrop-blur-3xl">
+                          {item.dropdown.map((sub, j) => (
+                            <NavLink
+                              key={j}
+                              to={`/departments/${shortName}${sub.path}`}
+                              className={`flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-[#D4AF37]/10 ${theme.colors.primaryHoverText} transition-all duration-300 relative group/link`}
+                            >
+                              <span className={`material-symbols-outlined text-[18px] text-[#0A1128]/40 group-hover/link:text-[#D4AF37] transform transition-transform group-hover/link:translate-x-1`}>
+                                arrow_right
+                              </span>
+                              <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">{sub.label}</span>
+                            </NavLink>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -235,8 +184,9 @@ const DepartmentNavbar = () => {
             })}
           </div>
         </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
+    </>
   );
 };
 

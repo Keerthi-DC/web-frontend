@@ -23,7 +23,7 @@ const DepartmentFooter = () => {
   return (
     <footer className={`${theme.colors.primaryBg} text-white mt-20 relative overflow-hidden border-t ${theme.borders.accentSubtle}`}>
       {/* Decorative ambient glows */}
-      <div className="absolute bottom-[-150px] left-[-100px] w-[400px] h-[400px] bg-yellow-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className={`absolute bottom-[-150px] left-[-100px] w-[400px] h-[400px] ${theme.colors.accentBg}/10 rounded-full blur-[100px] pointer-events-none`}></div>
       <div className="absolute top-[-50px] right-[-50px] w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
@@ -42,32 +42,32 @@ const DepartmentFooter = () => {
 
           {/* Quick Links Column */}
           <div>
-            <h3 className="text-sm font-bold text-yellow-500 mb-6 uppercase tracking-wider">
+            <h3 className={`text-sm font-bold ${theme.colors.accentText} mb-6 uppercase tracking-wider`}>
               Quick Links
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to={`/departments/${shortName}`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   Home
                 </Link>
               </li>
               <li>
-                <Link to={`/departments/${shortName}/people`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}/people`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   People
                 </Link>
               </li>
               <li>
-                <Link to={`/departments/${shortName}/research`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}/research`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   Research
                 </Link>
               </li>
               <li>
-                <Link to={`/departments/${shortName}/gallery`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}/gallery`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link to={`/departments/${shortName}/alumni`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}/alumni`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   Alumni
                 </Link>
               </li>
@@ -76,22 +76,22 @@ const DepartmentFooter = () => {
 
           {/* Academics Column */}
           <div>
-            <h3 className="text-sm font-bold text-yellow-500 mb-6 uppercase tracking-wider">
+            <h3 className={`text-sm font-bold ${theme.colors.accentText} mb-6 uppercase tracking-wider`}>
               Academics
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to={`/departments/${shortName}/academics`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}/academics`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   Programs
                 </Link>
               </li>
               <li>
-                <Link to={`/departments/${shortName}/activities`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}/activities`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   Activities
                 </Link>
               </li>
               <li>
-                <Link to={`/departments/${shortName}/achievements`} className="text-blue-100/70 hover:text-yellow-500 hover:translate-x-1 transition-all inline-block">
+                <Link to={`/departments/${shortName}/achievements`} className={`text-blue-100/70 ${theme.colors.accentHoverText} hover:translate-x-1 transition-all inline-block`}>
                   Achievements
                 </Link>
               </li>
@@ -100,22 +100,22 @@ const DepartmentFooter = () => {
 
           {/* Contact Column */}
           <div>
-            <h3 className="text-sm font-bold text-yellow-500 mb-6 uppercase tracking-wider">
+            <h3 className={`text-sm font-bold ${theme.colors.accentText} mb-6 uppercase tracking-wider`}>
               Contact
             </h3>
             <ul className="space-y-3 text-sm text-blue-100/70">
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-yellow-500 text-[20px]">mail</span>
+                <span className={`material-symbols-outlined ${theme.colors.accentText} text-[20px]`}>mail</span>
                 <a href={`mailto:${shortName}@biet.edu`} className="hover:text-white transition-colors">
                   {shortName || "hod"}@biet.edu
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-yellow-500 text-[20px]">phone</span>
+                <span className={`material-symbols-outlined ${theme.colors.accentText} text-[20px]`}>phone</span>
                 <span>+91 XXXXX XXXXX</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-yellow-500 text-[20px]">location_on</span>
+                <span className={`material-symbols-outlined ${theme.colors.accentText} text-[20px]`}>location_on</span>
                 <span>BIET Campus, Davangere</span>
               </li>
             </ul>
@@ -130,8 +130,8 @@ const DepartmentFooter = () => {
           </p>
 
           <div className="flex gap-6 mt-4 md:mt-0 text-xs font-medium">
-            <Link to="#" className="text-blue-200/60 hover:text-yellow-500 transition-colors">Privacy Policy</Link>
-            <Link to="#" className="text-blue-200/60 hover:text-yellow-500 transition-colors">Terms of Service</Link>
+            <Link to="#" className={`text-blue-200/60 ${theme.colors.accentHoverText} transition-colors`}>Privacy Policy</Link>
+            <Link to="#" className={`text-blue-200/60 ${theme.colors.accentHoverText} transition-colors`}>Terms of Service</Link>
           </div>
         </div>
 

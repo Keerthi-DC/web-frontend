@@ -1,3 +1,4 @@
+import { theme } from "../../../../components/ui/theme";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
@@ -89,7 +90,7 @@ const PlacementStats = () => {
       <div className="flex justify-center mt-10">
         <button
           onClick={() => navigate(`/departments/${shortName}/placements`)}
-          className="bg-yellow-400 text-black px-6 py-3 rounded font-semibold hover:bg-yellow-500 transition"
+          className={`${theme.colors.accentBg} text-black px-6 py-3 rounded font-semibold hover:${theme.colors.accentBg} transition`}
         >
           View Full Statistics →
         </button>

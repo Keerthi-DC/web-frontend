@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -97,12 +98,12 @@ const DepartmentAchievements = () => {
         {/* HERO */}
         <section className="mb-20 grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <span className="uppercase tracking-widest text-yellow-600 font-semibold text-xs">
+            <span className={`uppercase tracking-widest ${theme.colors.accentText} font-semibold text-xs`}>
               Achievements & Recognition
             </span>
 
             <h2 className="text-5xl md:text-6xl font-bold leading-tight text-[#0f172a]">
-              Celebrating <span className="text-yellow-600">Excellence</span>
+              Celebrating <span className={`${theme.colors.accentText}`}>Excellence</span>
             </h2>
 
             <p className="text-gray-600 max-w-md">
@@ -154,7 +155,7 @@ const DepartmentAchievements = () => {
                   onClick={() => setSelected(item)}
                   className="group bg-white/70 backdrop-blur-lg p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 >
-                  <div className="h-1 w-10 bg-yellow-500 mb-4 rounded"></div>
+                  <div className={`h-1 w-10 ${theme.colors.accentBg} mb-4 rounded`}></div>
 
                   <p className="text-gray-700 text-sm line-clamp-4">
                     {item.text}
@@ -183,7 +184,7 @@ const DepartmentAchievements = () => {
                   onClick={() => setSelected(item)}
                   className="group bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 >
-                  <div className="h-1 w-10 bg-yellow-500 mb-4 rounded"></div>
+                  <div className={`h-1 w-10 ${theme.colors.accentBg} mb-4 rounded`}></div>
 
                   <p className="text-gray-700 text-sm italic line-clamp-4">
                     {item.text}

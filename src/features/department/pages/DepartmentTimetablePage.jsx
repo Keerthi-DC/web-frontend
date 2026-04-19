@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -7,7 +8,7 @@ const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 const PERIODS = [1, 2, 3, 4, 5, 6, 7];
 
 const TYPE_CELL = {
-  theory: "bg-blue-100 text-blue-900 border border-blue-200",
+  theory: "bg-blue-100 ${theme.colors.primaryText} border border-blue-200",
   lab: "bg-green-100 text-green-900 border border-green-200",
   elective: "bg-yellow-100 text-yellow-900 border border-yellow-200",
 };

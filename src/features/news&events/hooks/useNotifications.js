@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { useQuery } from "@apollo/client";
 import { LIST_NOTIFICATIONS } from "../graphql/queries";
 
 const mockData = [

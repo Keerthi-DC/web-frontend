@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import ScrollReveal from "../../../components/ui/ScrollReveal";
 
 import DepartmentHero from "../components/home/DepartmentHero";
 import DepartmentIntro from "../components/home/DepartmentIntro";
@@ -29,14 +30,38 @@ const DepartmentHome = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <DepartmentHero />
-      <DepartmentIntro />
-      <DepartmentHOD />
-      <FacultyPreview />
-      <ResearchPreview />
-      <PlacementStats />
-      <AchievementsPreview />
-      <QuickLinksPreview shortName={shortName} />
-      <GalleryPreview />
+
+      <ScrollReveal direction="up" viewportAmount={0.1}>
+        <DepartmentIntro />
+      </ScrollReveal>
+
+      <ScrollReveal direction="fade" viewportAmount={0.1}>
+        <DepartmentHOD />
+      </ScrollReveal>
+
+      <ScrollReveal direction="up" delay={0.1} viewportAmount={0.1}>
+        <FacultyPreview />
+      </ScrollReveal>
+
+      <ScrollReveal direction="left" delay={0.1} viewportAmount={0.1}>
+        <ResearchPreview />
+      </ScrollReveal>
+
+      <ScrollReveal direction="scaleUp" delay={0.1} viewportAmount={0.1}>
+        <PlacementStats />
+      </ScrollReveal>
+
+      <ScrollReveal direction="right" delay={0.1} viewportAmount={0.1}>
+        <AchievementsPreview />
+      </ScrollReveal>
+
+      <ScrollReveal direction="fade" delay={0.1} viewportAmount={0.1}>
+        <QuickLinksPreview shortName={shortName} />
+      </ScrollReveal>
+
+      <ScrollReveal direction="up" delay={0.1} viewportAmount={0.1}>
+        <GalleryPreview />
+      </ScrollReveal>
     </motion.div>
   );
 };

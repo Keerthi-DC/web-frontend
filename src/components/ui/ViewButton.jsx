@@ -7,13 +7,11 @@ import { theme } from "./theme";
 // - onClick: click handler
 // - className: extra classes
 const ViewButton = ({ children = "View", variant = "primary", onClick, className = "" }) => {
-  const base = "inline-flex items-center justify-center gap-2 text-sm font-medium transition-all duration-300";
-
   if (variant === "link") {
     return (
       <button
         onClick={onClick}
-        className={`${base} ${theme.colors.primaryText} ${theme.colors.accentHoverText} hover:underline group ${className}`}
+        className={`inline-flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest transition-all duration-300 ${theme.colors.accentText} ${theme.colors.accentHoverText} group ${className}`}
       >
         {children}
         <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -25,7 +23,7 @@ const ViewButton = ({ children = "View", variant = "primary", onClick, className
   return (
     <button
       onClick={onClick}
-      className={`${base} ${theme.colors.primaryBg} ${theme.colors.primaryHoverBg} text-white px-5 py-2.5 ${theme.radius.lg} ${theme.shadows.md} hover:${theme.shadows.lg} border border-transparent hover:${theme.borders.accentMedium} ${className}`}
+      className={`${theme.buttons.primary} ${className}`}
     >
       {children}
     </button>

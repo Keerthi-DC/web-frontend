@@ -1,3 +1,4 @@
+import { theme } from "../../../components/ui/theme";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
@@ -281,7 +282,7 @@ const PlacementStats = () => {
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="bg-blue-900 p-8 rounded-2xl text-white flex justify-between items-center">
+      <section className={`${theme.colors.primaryBg} p-8 rounded-2xl text-white flex justify-between items-center`}>
         <div>
           <h4 className="text-2xl font-bold mb-2">
             Career Readiness
@@ -291,7 +292,7 @@ const PlacementStats = () => {
           </p>
         </div>
 
-        <button className="bg-white text-blue-900 px-6 py-3 rounded-lg font-bold text-sm">
+        <button className={`bg-white ${theme.colors.primaryText} px-6 py-3 ${theme.radius.lg} font-bold text-sm`}>
           Explore Resources →
         </button>
       </section>
