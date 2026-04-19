@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const HeroSection = () => {
+const HeroSection = ({ imageOverride }) => {
   const [hero, setHero] = useState(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const HeroSection = () => {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
-          src={hero.image}
+          src={imageOverride || hero.image}
           alt="hero"
           className="w-full h-full object-cover"
         />

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { theme } from "../ui/theme";
 
 const DepartmentFooter = () => {
   const location = useLocation();
@@ -20,7 +21,7 @@ const DepartmentFooter = () => {
     deptMap[shortName?.toLowerCase()] || shortName?.toUpperCase() || "Department";
 
   return (
-    <footer className="bg-[#001430] text-white mt-20 relative overflow-hidden border-t border-yellow-500/30">
+    <footer className={`${theme.colors.primaryBg} text-white mt-20 relative overflow-hidden border-t ${theme.borders.accentSubtle}`}>
       {/* Decorative ambient glows */}
       <div className="absolute bottom-[-150px] left-[-100px] w-[400px] h-[400px] bg-yellow-500/10 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute top-[-50px] right-[-50px] w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"></div>

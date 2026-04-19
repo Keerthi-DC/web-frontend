@@ -1,8 +1,10 @@
+import { theme } from "./theme";
+
 const PageContainer = ({ children, className = "" }) => {
   return (
-    <section className={`relative p-4 md:p-8 m-4 bg-gray-50/80 min-h-screen rounded-2xl shadow-sm border border-gray-100 overflow-hidden ${className}`}>
+    <section className={`relative p-4 md:p-8 m-4 bg-gray-50/80 min-h-screen ${theme.radius["2xl"]} ${theme.shadows.sm} border ${theme.borders.light} overflow-hidden ${className}`}>
       {/* Decorative top accent line */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#001430] via-yellow-500 to-[#001430]" />
+      <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryViaAccent}`} />
       
       {/* Subtle BIET Watermark */}
       <div 

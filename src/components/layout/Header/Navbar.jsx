@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import TopBar from "./TopBar";
+import { theme } from "../../ui/theme";
 
 const Navbar = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -52,11 +53,11 @@ const Navbar = () => {
         <TopBar />
       </div>
 
-      <nav className={`transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/50" : "bg-white shadow-sm"} flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-[#001430] cursor-pointer`}>
+      <nav className={`transition-all duration-300 ${scrolled ? theme.glass.navbar : "bg-white shadow-sm"} flex items-center gap-2 text-sm font-semibold text-gray-500 ${theme.colors.primaryHoverText} cursor-pointer`}>
         <div className="w-full px-6 py-4 flex items-center justify-between md:justify-center relative">
           
           {/* LOGO - visible on mobile or when scrolled */}
-          <div className={`md:hidden flex items-center gap-2 font-bold text-[#001430]`}>
+          <div className={`md:hidden flex items-center gap-2 font-bold ${theme.colors.primaryText}`}>
             <span>Menu</span>
           </div>
           
@@ -76,7 +77,7 @@ const Navbar = () => {
               >
                 {/* CLICKABLE PARENT */}
                 <div
-                  className={`flex items-center gap-1.5 text-sm font-bold cursor-pointer relative transition-colors duration-300 ${activeDropdown === item.label ? "text-[#001430]" : "text-gray-600 hover:text-[#001430]"}`}>
+                  className={`flex items-center gap-1.5 text-sm font-bold cursor-pointer relative transition-colors duration-300 ${activeDropdown === item.label ? theme.colors.primaryText : `text-gray-600 ${theme.colors.primaryHoverText}`}`}>
                   
                   <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:scale-110 group-hover:text-yellow-600">
                     {iconMap[item.label]}
@@ -84,22 +85,22 @@ const Navbar = () => {
                   {item.label}
 
                   {/* Animated underline */}
-                  <span className={`absolute left-0 -bottom-1 h-0.5 bg-gradient-to-r from-[#001430] to-yellow-500 transition-all duration-300 ${activeDropdown === item.label ? "w-full" : "w-0 group-hover:w-full"}`}></span>
+                  <span className={`absolute left-0 -bottom-1 h-0.5 ${theme.colors.gradientPrimaryToAccent} transition-all duration-300 ${activeDropdown === item.label ? "w-full" : "w-0 group-hover:w-full"}`}></span>
                 </div>
 
                 {/* DROPDOWN */}
                 {item.dropdown && activeDropdown === item.label && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 transition-all duration-300 animate-in fade-in slide-in-from-top-2 overflow-hidden z-50">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#001430] to-yellow-500" />
+                  <div className={`absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-64 ${theme.glass.dropdown} ${theme.radius["2xl"]} transition-all duration-300 animate-in fade-in slide-in-from-top-2 overflow-hidden z-50`}>
+                    <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryToAccent}`} />
                     <div className="py-2">
                       {item.dropdown.map((sub) => (
                         <NavLink
                           key={sub.label}
                           to={sub.path}
                           onClick={() => setActiveDropdown(null)}
-                          className="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#001430] transition-colors relative group/link"
+                          className={`flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 ${theme.colors.primaryHoverText} transition-colors relative group/link`}
                         >
-                          <span className="material-symbols-outlined text-[18px] text-yellow-500 transform transition-transform group-hover/link:translate-x-1">
+                          <span className={`material-symbols-outlined text-[18px] ${theme.colors.accentText} transform transition-transform group-hover/link:translate-x-1`}>
                             arrow_right
                           </span>
                           <span className="transform transition-transform group-hover/link:translate-x-1">{sub.label}</span>
@@ -115,7 +116,7 @@ const Navbar = () => {
           {/* MOBILE BUTTON */}
           <div className="flex md:hidden items-center gap-3">
             <button
-              className="p-2 text-[#001430] hover:text-yellow-600 transition-colors"
+              className={`p-2 ${theme.colors.primaryText} ${theme.colors.accentHoverText} transition-colors`}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               <span className="material-symbols-outlined text-2xl">{mobileOpen ? 'close' : 'menu'}</span>
@@ -129,7 +130,7 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <div key={item.label} className="border-b border-gray-50 last:border-0 pb-2">
                 {/* MOBILE PARENT */}
-                <div className="flex items-center gap-3 py-3 text-[#001430] font-bold">
+                <div className={`flex items-center gap-3 py-3 ${theme.colors.primaryText} font-bold`}>
                   <span className="material-symbols-outlined text-[20px] text-yellow-600">
                     {iconMap[item.label]}
                   </span>
@@ -144,9 +145,9 @@ const Navbar = () => {
                         key={sub.label}
                         to={sub.path}
                         onClick={() => setMobileOpen(false)}
-                        className="flex items-center gap-2 py-2.5 text-sm font-medium text-gray-600 hover:text-[#001430]"
+                        className={`flex items-center gap-2 py-2.5 text-sm font-medium text-gray-600 ${theme.colors.primaryHoverText}`}
                       >
-                        <span className="material-symbols-outlined text-[16px] text-yellow-500">
+                        <span className={`material-symbols-outlined text-[16px] ${theme.colors.accentText}`}>
                           arrow_right
                         </span>
                         {sub.label}

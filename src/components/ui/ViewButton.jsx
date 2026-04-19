@@ -1,4 +1,5 @@
 import React from "react";
+import { theme } from "./theme";
 
 // Reusable button used for 'View' actions across the accreditations pages.
 // Props:
@@ -12,7 +13,7 @@ const ViewButton = ({ children = "View", variant = "primary", onClick, className
     return (
       <button
         onClick={onClick}
-        className={`${base} text-[#001430] hover:text-yellow-600 hover:underline group ${className}`}
+        className={`${base} ${theme.colors.primaryText} ${theme.colors.accentHoverText} hover:underline group ${className}`}
       >
         {children}
         <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -24,7 +25,7 @@ const ViewButton = ({ children = "View", variant = "primary", onClick, className
   return (
     <button
       onClick={onClick}
-      className={`${base} bg-[#001430] hover:bg-[#00204a] text-white px-5 py-2.5 rounded-lg shadow-md hover:shadow-lg border border-transparent hover:border-yellow-500/50 ${className}`}
+      className={`${base} ${theme.colors.primaryBg} ${theme.colors.primaryHoverBg} text-white px-5 py-2.5 ${theme.radius.lg} ${theme.shadows.md} hover:${theme.shadows.lg} border border-transparent hover:${theme.borders.accentMedium} ${className}`}
     >
       {children}
     </button>

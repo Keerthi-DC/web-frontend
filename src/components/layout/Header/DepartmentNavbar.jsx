@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { theme } from "../../ui/theme";
 import "./DepartmentNavbar.css";
 
 const API_URL = import.meta.env.VITE_APPSYNC_URL;
@@ -125,7 +126,7 @@ const DepartmentNavbar = () => {
     <header className="sticky top-0 z-[100]">
 
       {/* 🔷 TOP BAR - Hides on scroll */}
-      <div className={`bg-[#001430] relative overflow-hidden transition-all duration-500 ease-in-out border-b border-yellow-500/30 ${scrolled ? "h-0 opacity-0" : "opacity-100"}`}>
+      <div className={`${theme.colors.primaryBg} relative overflow-hidden transition-all duration-500 ease-in-out border-b ${theme.borders.accentSubtle} ${scrolled ? "h-0 opacity-0" : "opacity-100"}`}>
         {/* Decorative ambient glow */}
         <div className="absolute top-[-50px] right-[-50px] w-[300px] h-[300px] bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -133,14 +134,14 @@ const DepartmentNavbar = () => {
 
           {/* LEFT */}
           <div className="flex items-center gap-4">
-            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full overflow-hidden border-2 border-yellow-500/50 shadow-[0_0_15px_rgba(202,138,4,0.3)] bg-white flex items-center justify-center">
+            <div className={`h-12 w-12 md:h-16 md:w-16 ${theme.radius.full} overflow-hidden border-2 ${theme.borders.accentMedium} ${theme.shadows.glowAccent} bg-white flex items-center justify-center`}>
               <img src="/assets/BIET_logo.png" className="h-full w-full object-contain p-1" />
             </div>
             <div className="flex flex-col justify-center">
               <h2 className="text-lg md:text-xl font-extrabold text-white tracking-wide drop-shadow-md">
                 {departmentName || "Loading..."}
               </h2>
-              <p className="text-xs md:text-sm font-semibold text-yellow-500 tracking-wider hidden md:block">
+              <p className={`text-xs md:text-sm font-semibold ${theme.colors.accentText} tracking-wider hidden md:block`}>
                 Bapuji Institute of Engineering & Technology
               </p>
             </div>
@@ -163,13 +164,13 @@ const DepartmentNavbar = () => {
       </div>
 
       {/* 🔥 NAVBAR - Becomes glassmorphic on scroll */}
-      <nav className={`transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/50" : "bg-white shadow-sm"} relative`}>
+      <nav className={`transition-all duration-300 ${scrolled ? theme.glass.navbar : "bg-white shadow-sm"} relative`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           
           {/* MOBILE BUTTON */}
           <div className="md:hidden py-3">
              <button
-              className="p-2 text-[#001430] hover:text-yellow-600 transition-colors"
+              className={`p-2 ${theme.colors.primaryText} ${theme.colors.accentHoverText} transition-colors`}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               <span className="material-symbols-outlined text-2xl">
@@ -195,7 +196,7 @@ const DepartmentNavbar = () => {
 
                   <NavLink
                     to={fullPath}
-                    className={({ isActive }) => `flex items-center gap-1.5 px-2 py-2 text-sm font-bold transition-all duration-300 cursor-pointer ${isActive ? "text-[#001430]" : "text-gray-600 hover:text-[#001430]"}`}
+                    className={({ isActive }) => `flex items-center gap-1.5 px-2 py-2 text-sm font-bold transition-all duration-300 cursor-pointer ${isActive ? theme.colors.primaryText : `text-gray-600 ${theme.colors.primaryHoverText}`}`}
                   >
                     <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:scale-110 group-hover:text-yellow-600">
                       {iconMap[item.label]}
@@ -204,23 +205,23 @@ const DepartmentNavbar = () => {
                     {item.label}
 
                     {/* Animated underline */}
-                    <span className="absolute left-0 -bottom-1 h-0.5 bg-gradient-to-r from-[#001430] to-yellow-500 w-0 group-hover:w-full transition-all duration-300"></span>
+                    <span className={`absolute left-0 -bottom-1 h-0.5 ${theme.colors.gradientPrimaryToAccent} w-0 group-hover:w-full transition-all duration-300`}></span>
                   </NavLink>
 
                   {/* DROPDOWN */}
                   {item.dropdown && (
-                    <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 
+                    <div className={`absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-64 ${theme.glass.dropdown} ${theme.radius["2xl"]} 
                     opacity-0 invisible group-hover:opacity-100 group-hover:visible 
-                    transition-all duration-300 animate-in fade-in slide-in-from-top-2 z-50 overflow-hidden">
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#001430] to-yellow-500" />
+                    transition-all duration-300 animate-in fade-in slide-in-from-top-2 z-50 overflow-hidden`}>
+                      <div className={`absolute top-0 left-0 w-full h-1 ${theme.colors.gradientPrimaryToAccent}`} />
                       <div className="py-2">
                         {item.dropdown.map((sub, j) => (
                           <NavLink
                             key={j}
                             to={`/departments/${shortName}${sub.path}`}
-                            className="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#001430] transition-colors relative group/link"
+                            className={`flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 ${theme.colors.primaryHoverText} transition-colors relative group/link`}
                           >
-                            <span className="material-symbols-outlined text-yellow-500 text-[18px] transform transition-transform group-hover/link:translate-x-1">
+                            <span className={`material-symbols-outlined ${theme.colors.accentText} text-[18px] transform transition-transform group-hover/link:translate-x-1`}>
                               arrow_right
                             </span>
                             <span className="transform transition-transform group-hover/link:translate-x-1">{sub.label}</span>
