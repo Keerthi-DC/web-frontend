@@ -1,85 +1,31 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql";
-
-const LIST_FACULTY = `
-  query ($deptId: ID, $tenantId: ID) {
-    listFaculty(deptId: $deptId, tenantId: $tenantId) {
-      items {
-        facultyId
-        name
-        designation
-        profileImage
-        cvUrl
-        status
-      }
-    }
-  }
-`;
-
-const LIST_STAFF = `
-  query ($deptId: ID!, $staffType: String, $limit: Int, $tenantId: String) {
-    listDeptStaff(deptId: $deptId, staffType: $staffType, limit: $limit, tenantId: $tenantId) {
-      items {
-        deptStaffId
-        name
-        designation
-        staffType
-        imageUrl
-      }
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { LIST_FACULTY, LIST_STAFF } from "../graphql/queries";
 
 const useDepartmentPeople = (deptId, activeTab) => {
-  const [faculty, setFaculty] = useState([]);
-  const [staff, setStaff] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: facultyData, loading: facultyLoading } = useQuery(LIST_FACULTY, {
+    variables: {
+      tenantId: "biet-college",
+      deptId,
+    },
+    skip: !deptId,
+  });
 
-  useEffect(() => {
-    if (!deptId) {
-      setLoading(false);
-      return;
-    }
+  const { data: staffData, loading: staffLoading } = useQuery(LIST_STAFF, {
+    variables: {
+      deptId,
+      staffType: activeTab === "technical" ? "technical" : "supporting",
+      limit: 100,
+      tenantId: "biet-college",
+    },
+    skip: !deptId || activeTab === "faculty",
+  });
 
-    const fetchData = async () => {
-      try {
-        setLoading(true);
+  const facultyList = facultyData?.listFaculty?.items || [];
+  const staffList = staffData?.listDeptStaff?.items || [];
 
-        let staffType = null;
-        if (activeTab === "technical") staffType = "technical";
-        if (activeTab === "supporting") staffType = "supporting";
-
-        if (activeTab === "faculty") {
-          const res = await graphqlRequest(LIST_FACULTY, {
-            deptId,
-            tenantId: "biet-college",
-          });
-
-          const list = res?.data?.listFaculty?.items || [];
-          setFaculty(list.filter((f) => f.status === "active"));
-          setStaff([]);
-        } else {
-          const res = await graphqlRequest(LIST_STAFF, {
-            deptId,
-            staffType,
-            limit: 100,
-            tenantId: "biet-college",
-          });
-
-          setStaff(res?.data?.listDeptStaff?.items || []);
-          setFaculty([]);
-        }
-      } catch (err) {
-        console.error("FETCH ERROR:", err);
-        setFaculty([]);
-        setStaff([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [deptId, activeTab]);
+  const faculty = facultyList.filter((f) => f.status === "active");
+  const staff = staffList;
+  const loading = facultyLoading || staffLoading;
 
   return { faculty, staff, loading };
 };

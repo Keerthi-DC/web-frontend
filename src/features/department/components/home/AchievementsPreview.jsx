@@ -1,95 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
 
-const API_URL = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-const LIST_ACHIEVEMENTS = `
-query ListAchievements($deptId: ID!, $type: String, $tenantId: ID!) {
-  listAchievements(deptId: $deptId, type: $type, tenantId: $tenantId) {
-    items {
-      achievementId
-      text
-      type
-    }
-  }
-}
-`;
+import useAchievements from "../../hooks/useDepartmentAchievements";
 
 const AchievementsPreview = () => {
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [list, setList] = useState([]);
   const [index, setIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
 
-  const fetchAchievements = async (type, deptId) => {
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-        },
-        body: JSON.stringify({
-          query: LIST_ACHIEVEMENTS,
-          variables: {
-            deptId,
-            tenantId: "biet-college",
-            type,
-          },
-        }),
-      });
+  const deptId = isReady ? getId(shortName) : null;
+  const { studentAchievements, facultyAchievements, loading } = useAchievements(deptId);
 
-      const result = await res.json();
-
-      if (result.errors) {
-        console.error(result.errors);
-        return [];
-      }
-
-      return result.data?.listAchievements?.items || [];
-    } catch (err) {
-      console.error(err);
-      return [];
-    }
-  };
-
-  useEffect(() => {
-    if (!shortName || !isReady) return;
-
-    const load = async () => {
-      setLoading(true);
-
-      const deptId = getId(shortName);
-      console.log("Preview deptId:", deptId);
-
-      if (!deptId) {
-        setLoading(false);
-        return;
-      }
-
-      const students = await fetchAchievements("student", deptId);
-      const staff = await fetchAchievements("staff", deptId);
-
-      console.log("Preview students:", students);
-      console.log("Preview staff:", staff);
-
-      // ✅ IMPORTANT: merge properly
-      const combined = [...students, ...staff].map((item) => ({
-        text: item.text,
-        name: item.type === "student" ? "Student" : "Faculty",
-        photo: "/assets/default-user.png",
-      }));
-
-      setList(combined);
-      setLoading(false);
-    };
-
-    load();
-  }, [shortName, isReady]);
+  const list = React.useMemo(() => {
+    return [...studentAchievements, ...facultyAchievements].map((item) => ({
+      text: item.text,
+      name: item.type === "student" ? "Student" : "Faculty",
+      photo: "/assets/default-user.png",
+    }));
+  }, [studentAchievements, facultyAchievements]);
 
   const prev = () => {
     setIndex((prev) => (prev === 0 ? list.length - 1 : prev - 1));
@@ -99,7 +29,7 @@ const AchievementsPreview = () => {
     setIndex((prev) => (prev === list.length - 1 ? 0 : prev + 1));
   };
 
-  if (loading) {
+  if (loading || !isReady) {
     return (
       <div className="text-center py-20 text-gray-500">
         Loading spotlight...

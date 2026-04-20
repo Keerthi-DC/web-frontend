@@ -1,66 +1,26 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql";
-
-const LIST_ACHIEVEMENTS = `
-query ListAchievements($deptId: ID!, $type: String, $tenantId: ID!) {
-  listAchievements(deptId: $deptId, type: $type, tenantId: $tenantId) {
-    items {
-      achievementId
-      deptId
-      type
-      text
-    }
-  }
-}
-`;
+import { useQuery } from "@apollo/client";
+import { LIST_ACHIEVEMENTS } from "../graphql/queries";
 
 /**
  * useAchievements Hook
  * Fetches student and faculty achievements separately
  */
 const useAchievements = (deptId) => {
-  const [studentAchievements, setStudent] = useState([]);
-  const [facultyAchievements, setFaculty] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: studentData, loading: studentLoading } = useQuery(LIST_ACHIEVEMENTS, {
+    variables: { deptId, tenantId: "biet-college", type: "student" },
+    skip: !deptId,
+    errorPolicy: "all",
+  });
 
-  useEffect(() => {
-    if (!deptId) return;
+  const { data: facultyData, loading: facultyLoading } = useQuery(LIST_ACHIEVEMENTS, {
+    variables: { deptId, tenantId: "biet-college", type: "staff" },
+    skip: !deptId,
+    errorPolicy: "all",
+  });
 
-    const load = async () => {
-      try {
-        setLoading(true);
-
-        const [studentRes, facultyRes] = await Promise.all([
-          graphqlRequest(LIST_ACHIEVEMENTS, {
-            deptId,
-            tenantId: "biet-college",
-            type: "student",
-          }),
-          graphqlRequest(LIST_ACHIEVEMENTS, {
-            deptId,
-            tenantId: "biet-college",
-            type: "staff",
-          }),
-        ]);
-
-        setStudent(
-          studentRes?.data?.listAchievements?.items || []
-        );
-
-        setFaculty(
-          facultyRes?.data?.listAchievements?.items || []
-        );
-      } catch (err) {
-        console.error("Failed to load achievements:", err);
-        setStudent([]);
-        setFaculty([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    load();
-  }, [deptId]);
+  const studentAchievements = studentData?.listAchievements?.items || [];
+  const facultyAchievements = facultyData?.listAchievements?.items || [];
+  const loading = studentLoading || facultyLoading;
 
   return { studentAchievements, facultyAchievements, loading };
 };

@@ -4,21 +4,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
 import BietLoader from "../../../components/ui/BietLoader";
 
-const API_URL = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-const LIST_ACHIEVEMENTS = `
-query ListAchievements($deptId: ID!, $type: String, $tenantId: ID!) {
-  listAchievements(deptId: $deptId, type: $type, tenantId: $tenantId) {
-    items {
-      achievementId
-      deptId
-      type
-      text
-    }
-  }
-}
-`;
+import useAchievements from "../hooks/useDepartmentAchievements";
 
 const DepartmentAchievements = () => {
   const { shortName } = useParams();
@@ -26,57 +12,10 @@ const DepartmentAchievements = () => {
   const navigate = useNavigate();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [studentAchievements, setStudentAchievements] = useState([]);
-  const [facultyAchievements, setFacultyAchievements] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const deptId = isReady ? getId(shortName) : null;
   const [selected, setSelected] = useState(null);
   const [activeTab, setActiveTab] = useState("student");
-
-  // ✅ FETCH FUNCTION
-  const fetchAchievements = async (type, deptId) => {
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-        },
-        body: JSON.stringify({
-          query: LIST_ACHIEVEMENTS,
-          variables: {
-            deptId,
-            tenantId: "biet-college",
-            type,
-          },
-        }),
-      });
-
-      const result = await res.json();
-      return result.data?.listAchievements?.items || [];
-    } catch (err) {
-      console.error(err);
-      return [];
-    }
-  };
-
-  // ✅ LOAD DATA
-  useEffect(() => {
-    if (!shortName || !isReady) return;
-
-    const loadData = async () => {
-      const deptId = getId(shortName);
-      if (!deptId) return;
-
-      const students = await fetchAchievements("student", deptId);
-      const faculty = await fetchAchievements("staff", deptId); // 🔥 IMPORTANT FIX
-
-      setStudentAchievements(students);
-      setFacultyAchievements(faculty);
-      setLoading(false);
-    };
-
-    loadData();
-  }, [shortName, isReady]);
+  const { studentAchievements, facultyAchievements, loading } = useAchievements(deptId);
 
   // ✅ HASH ROUTING FIX
   useEffect(() => {
@@ -87,7 +26,7 @@ const DepartmentAchievements = () => {
     }
   }, [location.hash]);
 
-  if (loading) {
+  if (loading || !isReady) {
     return <BietLoader />;
   }
 

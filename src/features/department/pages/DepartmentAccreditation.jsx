@@ -1,94 +1,19 @@
 import { theme } from "../../../components/ui/theme";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
 import BietLoader from "../../../components/ui/BietLoader";
 
-const API_URL = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-// ✅ QUERY (FIXED & SAFE)
-const LIST_COMMITTEE = `
-  query ListCommitteeMembers($deptId: ID!, $committee: String, $tenantId: ID!) {
-    listCommitteeMembers(deptId: $deptId, committee: $committee, tenantId: $tenantId) {
-      items {
-        committeeMemberId
-        name
-        designation
-        order
-      }
-    }
-  }
-`;
+import useCommittees from "../hooks/useDepartmentCommittees";
 
 const DepartmentAccreditation = () => {
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [dabMembers, setDabMembers] = useState([]);
-  const [pacMembers, setPacMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  // ✅ NEW: Toggle state
+  const deptId = isReady ? getId(shortName) : null;
   const [selectedTab, setSelectedTab] = useState("DAB");
 
-  useEffect(() => {
-    if (!shortName || !isReady) return;
-
-    const fetchCommittees = async () => {
-      try {
-        setLoading(true);
-
-        const deptId = getId(shortName);
-        if (!deptId) return;
-
-        const makeRequest = (committee) =>
-          fetch(API_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": API_KEY,
-            },
-            body: JSON.stringify({
-              query: LIST_COMMITTEE,
-              variables: {
-                deptId,
-                committee,
-                tenantId: "biet-college",
-              },
-            }),
-          });
-
-        const [dabRes, pacRes] = await Promise.all([
-          makeRequest("DAB"),
-          makeRequest("PAC"),
-        ]);
-
-        const dabResult = await dabRes.json();
-        const pacResult = await pacRes.json();
-
-        const dabList =
-          dabResult?.data?.listCommitteeMembers?.items || [];
-
-        const pacList =
-          pacResult?.data?.listCommitteeMembers?.items || [];
-
-        setDabMembers(
-          dabList.sort((a, b) => (a.order || 0) - (b.order || 0))
-        );
-
-        setPacMembers(
-          pacList.sort((a, b) => (a.order || 0) - (b.order || 0))
-        );
-      } catch (err) {
-        console.error("ERROR:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCommittees();
-  }, [shortName, isReady]);
+  const { dabMembers, pacMembers, loading } = useCommittees(deptId);
 
   // ✅ INITIALS
   const getInitials = (name) => {
@@ -169,7 +94,7 @@ const DepartmentAccreditation = () => {
         </button>
       </div>
 
-      {loading ? (
+      {loading || !isReady ? (
         <BietLoader />
       ) : (
         <>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const FacultyCard = ({ faculty, onClick }) => {
-  const image = faculty.profileImage || `https://i.pravatar.cc/150`;
+  const image = faculty.profileImage || `https://loremflickr.com/150/150/headshot,portrait?random=990`;
 
   return (
     <div

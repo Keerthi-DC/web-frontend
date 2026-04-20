@@ -65,7 +65,7 @@ const FacultyPreview = () => {
                 key={i}
                 faculty={{
                   ...p,
-                  profileImage: p.profileImage || `https://i.pravatar.cc/150?img=${(i % 70) + 1}`,
+                  profileImage: p.profileImage || `https://loremflickr.com/150/150/headshot,portrait?random=${(i % 70) + 1}`,
                 }}
                 onClick={() => {
                   if (p.cvUrl) {

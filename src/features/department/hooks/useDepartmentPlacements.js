@@ -1,21 +1,5 @@
-import { useQuery } from "@apollo/client/react";
-import { gql } from "@apollo/client/core";
-
-const LIST_PLACEMENTS = gql`
-  query ListPlacementOverviews($deptId: ID!, $academicYear: String, $tenantId: ID) {
-    listPlacementOverviews(deptId: $deptId, academicYear: $academicYear, tenantId: $tenantId) {
-      items {
-        placementOverviewId
-        deptId
-        academicYear
-        companiesVisited
-        studentsInCampus
-        studentsOffCampus
-        highestPackage
-      }
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { LIST_PLACEMENTS } from "../graphql/queries";
 
 const usePlacements = (deptId) => {
   const { data, loading, error } = useQuery(LIST_PLACEMENTS, {

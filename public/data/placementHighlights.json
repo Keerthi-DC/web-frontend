@@ -3,34 +3,34 @@
     "name": "Ananya Sharma",
     "company": "Google",
     "package": "₹24 LPA",
-    "image": "https://picsum.photos/seed/all/200/200"
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=11"
   },
   {
     "id": 2,
     "name": "Rahul Singh",
     "company": "Microsoft",
     "package": "₹22 LPA",
-    "image": "https://picsum.photos/seed/all2/200/200"
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=12"
   },
   {
     "id": 3,
     "name": "Priya Patel",
     "company": "Amazon",
     "package": "₹20 LPA",
-    "image": "https://picsum.photos/seed/all3/200/200"
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=13"
   },
   {
     "id": 4,
     "name": "Karan Mehta",
     "company": "TCS",
     "package": "₹18 LPA",
-    "image": "https://picsum.photos/seed/all4/200/200"
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=14"
   },
   {
     "id": 5,
     "name": "Sanjana R",
     "company": "Infosys",
     "package": "₹16 LPA",
-    "image": "https://picsum.photos/seed/all5/200/200"
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=15"
   }
 ]

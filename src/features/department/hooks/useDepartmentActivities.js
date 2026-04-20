@@ -47,7 +47,7 @@ const useActivities = (deptId) => {
             description: a.text,
             date: new Date(a.createdAt).toLocaleDateString(),
             image:
-              "https://picsum.photos/400/200?random=" + Math.random(),
+              "https://loremflickr.com/400/200/college,university?random=309?random=" + Math.random(),
           })),
 
           forumActivities: (result?.data?.forum?.items || []).map((f) => ({

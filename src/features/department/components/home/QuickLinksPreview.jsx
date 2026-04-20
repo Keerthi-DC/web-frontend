@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./QuickLinksPreview.css";
 
 const images = [
-  "https://picsum.photos/seed/activities/600/400",
-  "https://picsum.photos/seed/achievements/600/400",
-  "https://picsum.photos/seed/newsletter/600/400",
+  "https://loremflickr.com/600/400/college,university?random=760",
+  "https://loremflickr.com/600/400/college,university?random=11",
+  "https://loremflickr.com/600/400/college,university?random=321",
 ];
 
 const CARD_DATA = [

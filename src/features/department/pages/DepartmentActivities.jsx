@@ -89,7 +89,7 @@ const DepartmentActivities = () => {
               name: a.text,
               description: a.text,
               date: new Date(a.createdAt).toLocaleDateString(),
-              image: "https://picsum.photos/400/200?random=" + Math.random()
+              image: "https://loremflickr.com/400/200/college,university?random=765?random=" + Math.random()
             })),
 
             forumActivities: (d?.forum?.items || []).map(f => ({

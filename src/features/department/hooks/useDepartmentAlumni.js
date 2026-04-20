@@ -1,59 +1,25 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql";
-
-const LIST_ALUMNI = `
-  query ListAlumni($search: String, $batch: String, $deptId: ID, $tenantId: ID) {
-    listAlumni(search: $search, batch: $batch, deptId: $deptId, tenantId: $tenantId) {
-      items {
-        alumniId
-        name
-        batch
-        department
-        company
-        designation
-        location
-        email
-        linkedin
-        image
-        createdAt
-      }
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { LIST_ALUMNI } from "../graphql/queries";
 
 /**
  * useAlumni Hook
  * Fetches alumni list for a department
  */
 const useAlumni = (deptId) => {
-  const [alumni, setAlumni] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data, loading, error } = useQuery(LIST_ALUMNI, {
+    variables: { 
+      department: deptId,
+      search: "",
+      batch: ""
+    },
+    skip: !deptId,
+  });
 
-  useEffect(() => {
-    if (!deptId) return;
+  const alumni = data?.listAlumni?.items || [];
 
-    const fetchAlumni = async () => {
-      try {
-        setLoading(true);
-
-        const res = await graphqlRequest(LIST_ALUMNI, {
-          tenantId: "biet-college",
-          deptId,
-          search: "",
-          batch: "",
-        });
-
-        setAlumni(res?.data?.listAlumni?.items || []);
-      } catch (err) {
-        console.error("ALUMNI FETCH ERROR:", err);
-        setAlumni([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAlumni();
-  }, [deptId]);
+  if (error) {
+    console.error("ALUMNI FETCH ERROR:", error);
+  }
 
   return { alumni, loading };
 };

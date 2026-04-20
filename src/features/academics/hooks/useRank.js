@@ -9,7 +9,7 @@ const mockData = [
     title: "Sem 2 Result",
     date: "2026-01-15",
     summary: "Improved performance",
-    image: "https://picsum.photos/400",
+    image: "https://loremflickr.com/400/400/college,university?random=941",
   },
 ];
 

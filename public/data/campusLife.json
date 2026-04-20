@@ -1,7 +1,7 @@
 [  {
     "id": 1,
     "name": "Green Campus",
-    "image": "https://picsum.photos/600/400?random=1",
+    "image": "https://loremflickr.com/600/400/college,university?random=1",
     "title": "Green Campus Initiative",
     "description": "Our campus promotes sustainability with green spaces, eco-friendly infrastructure, and energy conservation initiatives.",
     "facilities": [
@@ -20,7 +20,7 @@
   {
     "id": 2,
     "name": "SAC (Student Activity Center)",
-    "image": "https://picsum.photos/600/400?random=2",
+    "image": "https://loremflickr.com/600/400/college,university?random=2",
     "title": "SAC - A Hub for Campus Life",
     "description": "The Student Activity Center offers a vibrant space for clubs to organize meetings, events, and cultural festivities.",
     "facilities": [
@@ -40,7 +40,7 @@
   {
     "id": 3,
     "name": "Gym",
-    "image": "https://picsum.photos/600/400?random=3",
+    "image": "https://loremflickr.com/600/400/college,university?random=3",
     "title": "Campus Gymnasium",
     "description": "State-of-the-art gym facilities for fitness, sports training, and wellness programs for students and staff.",
     "facilities": [
@@ -60,7 +60,7 @@
   {
     "id": 4,
     "name": "Sports",
-    "image": "https://picsum.photos/600/400?random=4",
+    "image": "https://loremflickr.com/600/400/college,university?random=4",
     "title": "Sports and Recreation",
     "description": "Our campus offers a range of sports facilities including courts, tracks, and fields for internal and inter-collegiate competitions.",
     "facilities": [
@@ -80,7 +80,7 @@
   {
     "id": 5,
     "name": "Technowave",
-    "image": "https://picsum.photos/600/400?random=5",
+    "image": "https://loremflickr.com/600/400/college,university?random=5",
     "title": "Technowave - Innovation Hub",
     "description": "Technowave is a technology incubator providing mentorship, resources, and workspace for budding entrepreneurs and technophiles.",
     "facilities": [

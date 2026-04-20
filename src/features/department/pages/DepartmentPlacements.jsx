@@ -1,79 +1,25 @@
 import { theme } from "../../../components/ui/theme";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
 import BietLoader from "../../../components/ui/BietLoader";
 
-const API_URL = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-const LIST_PLACEMENTS = `
-  query ListPlacementOverviews($deptId: ID!, $academicYear: String,$tenantId: ID) {
-    listPlacementOverviews(deptId: $deptId, academicYear: $academicYear, tenantId: $tenantId) {
-      items {
-        placementOverviewId
-        deptId
-        academicYear
-        companiesVisited
-        studentsInCampus
-        studentsOffCampus
-        highestPackage
-      }
-    }
-  }
-`;
+import usePlacements from "../hooks/useDepartmentPlacements";
 
 const PlacementStats = () => {
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [placements, setPlacements] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const deptId = isReady ? getId(shortName) : null;
+  const { placements, loading, error } = usePlacements(deptId);
 
-  useEffect(() => {
-    if (!shortName || !isReady) return;
-
-    const fetchPlacements = async () => {
-      try {
-        setLoading(true);
-
-        const deptId = getId(shortName);
-        if (!deptId) return;
-
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
-          },
-          body: JSON.stringify({
-            query: LIST_PLACEMENTS,
-            variables: { deptId, tenantId: "biet-college" },
-          }),
-        });
-
-        const result = await res.json();
-
-        const items =
-          result?.data?.listPlacementOverviews?.items || [];
-
-        const sorted = items.sort((a, b) =>
-          b.academicYear.localeCompare(a.academicYear)
-        );
-
-        setPlacements(sorted);
-      } catch (err) {
-        console.error("Placement fetch error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPlacements();
-  }, [shortName, isReady]);
-
-  if (loading) {
+  if (loading || !isReady) {
     return <BietLoader />;
+  }
+
+  if (error) {
+    console.error("Placement fetch error:", error);
+    return <div className="text-center text-red-500 py-10">Failed to load placements.</div>;
   }
 
   if (placements.length === 0) {

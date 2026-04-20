@@ -1,82 +1,25 @@
 import { theme } from "../../../components/ui/theme";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
 import BietLoader from "../../../components/ui/BietLoader";
 
-const API_URL = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-const LIST_ALUMNI = `
-  query ListAlumni($search: String, $batch: String, $deptId: ID,$tenantId: ID) {
-    listAlumni(search: $search, batch: $batch, deptId: $deptId, tenantId: $tenantId) {
-      items {
-        alumniId
-        name
-        batch
-        department
-        company
-        designation
-        location
-        email
-        linkedin
-        image
-        createdAt
-      }
-    }
-  }
-`;
+import useAlumni from "../hooks/useDepartmentAlumni";
 
 const DepartmentAlumni = () => {
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [alumni, setAlumni] = useState([]);
   const [selected, setSelected] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!shortName || !isReady) return;
+  const deptId = isReady ? getId(shortName) : null;
+  const { alumni, loading } = useAlumni(deptId);
 
-    const fetchAlumni = async () => {
-      try {
-        setLoading(true);
-
-        const deptId = getId(shortName);
-        if (!deptId) return;
-
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
-          },
-          body: JSON.stringify({
-            query: LIST_ALUMNI,
-            variables: {
-              tenantId: "biet-college",
-              deptId,
-              search: "",
-              batch: "",
-            },
-          }),
-        });
-
-        const result = await res.json();
-        setAlumni(result?.data?.listAlumni?.items || []);
-      } catch (err) {
-        console.error("ALUMNI FETCH ERROR:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAlumni();
-  }, [shortName, isReady]);
-
-  if (loading) {
+  if (loading || !isReady) {
     return <BietLoader />;
   }
+
+
 
   return (
     <div className="relative max-w-7xl mx-auto px-6 py-16">
@@ -100,7 +43,7 @@ const DepartmentAlumni = () => {
             {alumni.map((a, i) => {
               const image =
                 a.image ||
-                `https://i.pravatar.cc/150?img=${(i % 70) + 1}`;
+                `https://loremflickr.com/150/150/headshot,portrait?random=${(i % 70) + 1}`;
 
               return (
                 <tr key={i} className="border-t hover:bg-gray-50">
@@ -152,7 +95,7 @@ const DepartmentAlumni = () => {
                 <img
                   src={
                     selected.image ||
-                    `https://i.pravatar.cc/150`
+                    `https://loremflickr.com/150/150/headshot,portrait?random=373`
                   }
                   className="w-24 h-24 rounded-full mx-auto mb-4"
                   alt={selected.name}

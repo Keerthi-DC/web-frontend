@@ -6,7 +6,7 @@ const mockData = {
     title: "Bapuji Educational Association",
     subtitle:
       "Nurturing minds and shaping futures through a legacy of academic excellence and social commitment.",
-    image: "https://picsum.photos/800/500",
+    image: "https://loremflickr.com/800/500/college,university?random=937",
   },
 
   growth: {
@@ -40,7 +40,7 @@ const mockData = {
       "Education is not just about earning degrees; it's about building character.",
     description:
       "A visionary leader and statesman transforming Davangere.",
-    image: "https://picsum.photos/400/300",
+    image: "https://loremflickr.com/400/300/college,university?random=937",
   },
 
   anthem: {
@@ -56,19 +56,19 @@ const mockData = {
     {
       name: "Sri. A.C. Jayanna",
       role: "President",
-      image: "https://picsum.photos/200",
+      image: "https://loremflickr.com/200/200/headshot,portrait?random=812",
     },
     {
       name: "Sri. S.S. Bakkesh",
       role: "Vice President",
-      image: "https://picsum.photos/201",
+      image: "https://loremflickr.com/200/200/headshot,portrait?random=813",
     },
   ],
 
   davangere: {
     title: "About Davangere",
     description: "Educational hub of Karnataka.",
-    image: "https://picsum.photos/600/400",
+    image: "https://loremflickr.com/600/400/college,university?random=937",
   },
 };
 

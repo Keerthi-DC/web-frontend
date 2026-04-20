@@ -1,69 +1,27 @@
-import { useEffect, useState } from "react";
-import { graphqlRequest } from "../../../services/graphql";
-
-const LIST_COMMITTEE = `
-  query ListCommitteeMembers($deptId: ID!, $committee: String, $tenantId: ID!) {
-    listCommitteeMembers(deptId: $deptId, committee: $committee, tenantId: $tenantId) {
-      items {
-        committeeMemberId
-        name
-        designation
-        order
-      }
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { LIST_COMMITTEE } from "../graphql/queries";
 
 /**
  * useCommittees Hook
  * Fetches DAB and PAC committee members
  */
 const useCommittees = (deptId) => {
-  const [dabMembers, setDabMembers] = useState([]);
-  const [pacMembers, setPacMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: dabData, loading: dabLoading } = useQuery(LIST_COMMITTEE, {
+    variables: { deptId, committee: "DAB", tenantId: "biet-college" },
+    skip: !deptId,
+  });
 
-  useEffect(() => {
-    if (!deptId) return;
+  const { data: pacData, loading: pacLoading } = useQuery(LIST_COMMITTEE, {
+    variables: { deptId, committee: "PAC", tenantId: "biet-college" },
+    skip: !deptId,
+  });
 
-    const load = async () => {
-      try {
-        setLoading(true);
+  const dabList = dabData?.listCommitteeMembers?.items || [];
+  const pacList = pacData?.listCommitteeMembers?.items || [];
 
-        const [dabRes, pacRes] = await Promise.all([
-          graphqlRequest(LIST_COMMITTEE, {
-            deptId,
-            committee: "DAB",
-            tenantId: "biet-college",
-          }),
-          graphqlRequest(LIST_COMMITTEE, {
-            deptId,
-            committee: "PAC",
-            tenantId: "biet-college",
-          }),
-        ]);
-
-        const sortList = (list) =>
-          [...list].sort((a, b) => (a.order || 0) - (b.order || 0));
-
-        setDabMembers(
-          sortList(dabRes?.data?.listCommitteeMembers?.items || [])
-        );
-
-        setPacMembers(
-          sortList(pacRes?.data?.listCommitteeMembers?.items || [])
-        );
-      } catch (err) {
-        console.error("Committee fetch error:", err);
-        setDabMembers([]);
-        setPacMembers([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    load();
-  }, [deptId]);
+  const dabMembers = [...dabList].sort((a, b) => (a.order || 0) - (b.order || 0));
+  const pacMembers = [...pacList].sort((a, b) => (a.order || 0) - (b.order || 0));
+  const loading = dabLoading || pacLoading;
 
   return { dabMembers, pacMembers, loading };
 };

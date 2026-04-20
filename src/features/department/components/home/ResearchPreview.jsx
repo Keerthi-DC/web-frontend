@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../../hooks/useDepartmentMeta";
 import { Award, FileText, Layers } from "lucide-react";
+import useDepartmentResearch from "../../hooks/useDepartmentResearch";
 
 const ResearchPreview = () => {
   const navigate = useNavigate();
@@ -19,87 +20,19 @@ const ResearchPreview = () => {
     grants: 0
   });
 
-  const [loading, setLoading] = useState(true);
+  const deptId = isReady ? getId(shortName) : null;
+  const { data: researchData, loading } = useDepartmentResearch(deptId);
 
   useEffect(() => {
-    if (!shortName || !isReady) return;
-
-    const API_URL = import.meta.env.VITE_APPSYNC_URL;
-    const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-    const deptId = getId(shortName);
-    if (!deptId) return;
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-
-        const queries = [
-          {
-            key: "patents",
-            query: `
-              query ($deptId: ID!, $tenantId: ID!) {
-                listPatents(deptId: $deptId, tenantId: $tenantId) {
-                  items { text }
-                }
-              }
-            `
-          },
-          {
-            key: "grants",
-            query: `
-              query ($deptId: ID!, $tenantId: ID!) {
-                listResearchGrants(deptId: $deptId, tenantId: $tenantId) {
-                  items { text }
-                }
-              }
-            `
-          }
-        ];
-
-        const responses = await Promise.all(
-          queries.map(q =>
-            fetch(API_URL, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "x-api-key": API_KEY
-              },
-              body: JSON.stringify({
-                query: q.query,
-                variables: {
-                  deptId,
-                  tenantId: "biet-college"
-                }
-              })
-            }).then(res => res.json())
-          )
-        );
-
-        const result = {
-          patents: [],
-          grants: []
-        };
-
-        responses.forEach((json, index) => {
-          const key = Object.keys(json.data || {})[0];
-          result[queries[index].key] = json.data?.[key]?.items || [];
-        });
-
-        setData(result);
-
-        animateCount("patents", result.patents.length);
-        animateCount("grants", result.grants.length);
-
-      } catch (err) {
-        console.error("Fetch Error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [shortName, isReady]);
+    if (researchData) {
+      const patents = researchData.patents || [];
+      const grants = researchData.grants || [];
+      
+      setData({ patents, grants });
+      animateCount("patents", patents.length);
+      animateCount("grants", grants.length);
+    }
+  }, [researchData]);
 
   const animateCount = (key, target) => {
     let start = 0;
@@ -135,7 +68,7 @@ const ResearchPreview = () => {
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          {loading ? (
+          {loading || !isReady ? (
             // 🔥 Skeleton Loader
             [...Array(3)].map((_, i) => (
               <div

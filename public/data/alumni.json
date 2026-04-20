@@ -1,7 +1,7 @@
 [  {
     "id": 1,
     "name": "Amit R. Gupta",
-    "image": "https://picsum.photos/seed/amit/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=1",
     "company": "Google",
     "position": "Senior Product Manager",
     "batch": "2012",
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "name": "Kavitha N. Rao",
-    "image": "https://picsum.photos/seed/kavitha/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=2",
     "company": "Amazon",
     "position": "Solutions Architect",
     "batch": "2014",
@@ -19,7 +19,7 @@
   {
     "id": 3,
     "name": "Shivani Patel",
-    "image": "https://picsum.photos/seed/shivani/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=3",
     "company": "Microsoft",
     "position": "Lead Software Engineer",
     "batch": "2011",
@@ -28,7 +28,7 @@
   {
     "id": 4,
     "name": "Rahul S. Mishra",
-    "image": "https://picsum.photos/seed/rahul/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=4",
     "company": "IBM",
     "position": "Data Scientist",
     "batch": "2013",
@@ -37,7 +37,7 @@
   {
     "id": 5,
     "name": "Priya Nair",
-    "image": "https://picsum.photos/seed/priya/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=5",
     "company": "Infosys",
     "position": "Consultant",
     "batch": "2015",
@@ -46,7 +46,7 @@
   {
     "id": 6,
     "name": "Arjun P. Rao",
-    "image": "https://picsum.photos/seed/arjun/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=6",
     "company": "Accenture",
     "position": "Strategy Analyst",
     "batch": "2010",
@@ -55,7 +55,7 @@
   {
     "id": 7,
     "name": "Sneha B. Kaur",
-    "image": "https://picsum.photos/seed/sneha/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=7",
     "company": "Wipro",
     "position": "Cloud Engineer",
     "batch": "2016",
@@ -64,7 +64,7 @@
   {
     "id": 8,
     "name": "Mohit D. Sinha",
-    "image": "https://picsum.photos/seed/mohit/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=8",
     "company": "TCS",
     "position": "Software Engineer",
     "batch": "2012",
@@ -73,7 +73,7 @@
   {
     "id": 9,
     "name": "Radhika K. Sharma",
-    "image": "https://picsum.photos/seed/radhika/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=9",
     "company": "Google",
     "position": "UX Designer",
     "batch": "2018",
@@ -82,7 +82,7 @@
   {
     "id": 10,
     "name": "Kishore M. Dutta",
-    "image": "https://picsum.photos/seed/kishore/200/200",
+    "image": "https://loremflickr.com/200/200/headshot,portrait?random=10",
     "company": "Amazon",
     "position": "DevOps Engineer",
     "batch": "2014",

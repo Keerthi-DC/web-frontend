@@ -5,7 +5,7 @@
   "hero": {
     "title": "Department of Computer Science Engineering",
     "subtitle": "Innovation in AI, Data Science and Software Engineering",
-    "image": "https://picsum.photos/1600/600?random=1"
+    "image": "https://loremflickr.com///college,university?random="
   },
 
   "about": {
@@ -15,7 +15,7 @@
   "hod": {
     "name": "Dr. A. Kumar",
     "message": "It is an honour to lead a team of brilliant faculty and students who push the boundaries of knowledge in computing.\n\nWe are committed to excellence in teaching, research, and outreach to empower the next generation of innovators.",
-    "photo": "https://picsum.photos/300/300?random=2"
+    "photo": "https://loremflickr.com///college,university?random="
   },
 
  "people": {
@@ -24,13 +24,13 @@
       "name": "Dr. Alice Smith",
       "designation": "Professor",
       "email": "alice@biet.edu",
-      "photo": "https://picsum.photos/300/300?random=40"
+      "photo": "https://loremflickr.com///college,university?random="
     },
     {
       "name": "Dr. Bob Patel",
       "designation": "Associate Professor",
       "email": "bob@biet.edu",
-      "photo": "https://picsum.photos/300/300?random=41"
+      "photo": "https://loremflickr.com///college,university?random="
     }
   ],
 
@@ -38,7 +38,7 @@
     {
       "name": "Mr. Ramesh Kumar",
       "designation": "Lab Instructor",
-      "photo": "https://picsum.photos/300/300?random=42"
+      "photo": "https://loremflickr.com///college,university?random="
     }
   ],
 
@@ -46,7 +46,7 @@
     {
       "name": "Ananya Sharma",
       "designation": "PhD Scholar",
-      "photo": "https://picsum.photos/300/300?random=43"
+      "photo": "https://loremflickr.com///college,university?random="
     }
   ]
 },
@@ -55,21 +55,21 @@
   "areas": [
     {
       "title": "Theoretical Computer Science",
-      "image": "https://picsum.photos/600/350?random=1",
+      "image": "https://loremflickr.com///college,university?random=",
       "faculty": 13,
       "scholars": 31,
       "courses": 29
     },
     {
       "title": "Computer Systems and Networking",
-      "image": "https://picsum.photos/600/350?random=2",
+      "image": "https://loremflickr.com///college,university?random=",
       "faculty": 16,
       "scholars": 77,
       "courses": 29
     },
     {
       "title": "Artificial Intelligence and Machine Learning",
-      "image": "https://picsum.photos/600/350?random=3",
+      "image": "https://loremflickr.com///college,university?random=",
       "faculty": 15,
       "scholars": 36,
       "courses": 32
@@ -95,7 +95,7 @@
   "labs": [
     {
       "name": "Artificial Intelligence Lab",
-      "image": "https://picsum.photos/400/250?random=60"
+      "image": "https://loremflickr.com///college,university?random="
     }
   ]
 },
@@ -125,12 +125,12 @@
     {
       "text": "Awarded the prestigious Padma Shri to Prof. Kamakoti on India's 77th Republic Day Celebrations",
       "name": "Kamakoti",
-      "photo": "https://picsum.photos/400/200?random=20"
+      "photo": "https://loremflickr.com///college,university?random="
     },
     {
       "text": "Smart India Hackathon Winners",
       "name": "CSE Students",
-      "photo": "https://picsum.photos/400/200?random=21"
+      "photo": "https://loremflickr.com///college,university?random="
     }
   ],
 
@@ -139,37 +139,37 @@
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     }
   ],
 
@@ -178,32 +178,32 @@
       "title": "Best Research Paper Award",
       "year": "2024",
       "description": "Dr A Kumar received the best research paper award at IEEE conference.",
-      "image": "https://picsum.photos/400/250?random=31"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
 
       {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Smart India Hackathon Winners",
       "year": "2024",
       "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-      "image": "https://picsum.photos/400/250?random=30"
+      "image": "https://loremflickr.com///college,university?random="
     },
       {
         "title": "Smart India Hackathon Winners",
         "year": "2024",
         "description": "CSE students built an AI healthcare solution and won the national Smart India Hackathon.",
-        "image": "https://picsum.photos/400/250?random=30"
+        "image": "https://loremflickr.com///college,university?random="
       }
     ]
   },
@@ -211,27 +211,27 @@
   "gallery": [
   {
     "title": "Cultural Fest 2026",
-    "image": "https://picsum.photos/800/500?random=61",
+    "image": "https://loremflickr.com///college,university?random=",
     "description": "Students performing cultural activities during annual fest."
   },
   {
     "title": "Hackathon Event",
-    "image": "https://picsum.photos/800/500?random=62",
+    "image": "https://loremflickr.com///college,university?random=",
     "description": "24 hour coding competition organized by CSE department."
   },
   {
     "title": "Tech Workshop",
-    "image": "https://picsum.photos/800/500?random=63",
+    "image": "https://loremflickr.com///college,university?random=",
     "description": "Hands-on machine learning workshop for students."
   },
   {
     "title": "Sports Day",
-    "image": "https://picsum.photos/800/500?random=64",
+    "image": "https://loremflickr.com///college,university?random=",
     "description": "Annual sports meet with various competitions."
   },
   {
     "title": "Project Exhibition",
-    "image": "https://picsum.photos/800/500?random=65",
+    "image": "https://loremflickr.com///college,university?random=",
     "description": "Students showcasing final year projects."
   }
 ],
@@ -316,13 +316,13 @@
       "title": "Hackathon 2025",
       "date": "March 2025",
       "description": "24-hour coding competition organized by the department.",
-      "image": "https://picsum.photos/500/300?random=51"
+      "image": "https://loremflickr.com///college,university?random="
     },
     {
       "title": "Technical Fest",
       "date": "February 2025",
       "description": "Annual technical event including coding contests and project exhibitions.",
-      "image": "https://picsum.photos/500/300?random=52"
+      "image": "https://loremflickr.com///college,university?random="
     }
   ],
 
@@ -356,7 +356,7 @@
   {
     "id": 1,
     "name": "Dr. Alice Johnson",
-    "photo": "https://i.pravatar.cc/150?img=1",
+    "photo": "https://loremflickr.com///headshot,portrait?random=",
     "designation": "Senior AI Engineer",
     "education": "Ph.D Computer Science, MIT",
     "experience": "5 years",
@@ -368,7 +368,7 @@
   {
     "id": 2,
     "name": "Prof. Brian Lee",
-    "photo": "https://i.pravatar.cc/150?img=2",
+    "photo": "https://loremflickr.com///headshot,portrait?random=",
     "designation": "Associate Professor",
     "education": "Ph.D Electrical Engineering, Stanford",
     "experience": "8 years",
@@ -380,7 +380,7 @@
   {
     "id": 3,
     "name": "Dr. Clara Smith",
-    "photo": "https://i.pravatar.cc/150?img=3",
+    "photo": "https://loremflickr.com///headshot,portrait?random=",
     "designation": "Research Scientist",
     "education": "Ph.D Applied Mathematics, Oxford",
     "experience": "12 years",

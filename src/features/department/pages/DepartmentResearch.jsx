@@ -1,9 +1,10 @@
 import { theme } from "../../../components/ui/theme";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
 import researchBg from "/assets/research-background.gif";
 import { Award, FileText, X } from "lucide-react";
+import useDepartmentResearch from "../hooks/useDepartmentResearch";
 import BietLoader from "../../../components/ui/BietLoader";
 
 const TABS = [
@@ -31,143 +32,10 @@ const DepartmentResearch = () => {
   const [activeTab, setActiveTab] = useState("profiles");
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const [data, setData] = useState({
-    publications: [],
-    profiles: [],
-    grants: [],
-    patents: [],
-    summaries: [],
-    guides: [],
-    scholars: []
-  });
+  const deptId = isReady ? getId(shortName) : null;
+  const { data, loading } = useDepartmentResearch(deptId);
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!shortName || !isReady) return;
-
-    const API_URL = import.meta.env.VITE_APPSYNC_URL;
-    const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-    const deptId = getId(shortName);
-    if (!deptId) return;
-
-    const fetchData = async () => {
-      try {
-        const queries = [
-          {
-            key: "profiles",
-            query: `query ($deptId: ID!, $tenantId: ID!) {
-              listPublicationProfiles(deptId: $deptId, tenantId: $tenantId) {
-                items { facultyId googleScholarLink irinsLink }
-              }
-            }`
-          },
-          {
-            key: "grants",
-            query: `query ($deptId: ID!, $tenantId: ID!) {
-              listResearchGrants(deptId: $deptId, tenantId: $tenantId) {
-                items { text }
-              }
-            }`
-          },
-          {
-            key: "patents",
-            query: `query ($deptId: ID!, $tenantId: ID!) {
-              listPatents(deptId: $deptId, tenantId: $tenantId) {
-                items { text }
-              }
-            }`
-          },
-          {
-            key: "summaries",
-            query: `query ($deptId: ID!, $tenantId: ID!) {
-              listFacultyResearchSummaries(deptId: $deptId, tenantId: $tenantId) {
-                items {
-                  facultyId researchArea guideName guideDesignation university
-                  yearOfRegistration yearOfDegreeAwarded researchStatus
-                }
-              }
-            }`
-          },
-          {
-            key: "guides",
-            query: `query ($deptId: ID!, $tenantId: ID!) {
-              listPhdGuides(deptId: $deptId, tenantId: $tenantId) {
-                items { facultyName university recognizedYear scholarsGuided ongoingScholars }
-              }
-            }`
-          },
-          {
-            key: "scholars",
-            query: `query ($deptId: ID!, $tenantId: ID!) {
-              listPhdScholars(deptId: $deptId, tenantId: $tenantId) {
-                items {
-                  scholarName thesisTitle institution department
-                  yearOfRegistration status
-                }
-              }
-            }`
-          },
-          {
-            key: "faculty",
-            query: `query ($deptId: ID!, $tenantId: ID!) {
-              listFaculty(deptId: $deptId, tenantId: $tenantId) {
-                items { facultyId name }
-              }
-            }`
-          }
-        ];
-
-        const responses = await Promise.all(
-          queries.map(q =>
-            fetch(API_URL, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "x-api-key": API_KEY
-              },
-              body: JSON.stringify({
-                query: q.query,
-                variables: { deptId, tenantId: "biet-college" }
-              })
-            }).then(res => res.json())
-          )
-        );
-
-        const results = {};
-        responses.forEach((json, index) => {
-          const key = Object.keys(json.data || {})[0];
-          results[queries[index].key] = json.data?.[key]?.items || [];
-        });
-
-        const facultyMap = {};
-        (results.faculty || []).forEach(f => {
-          facultyMap[f.facultyId] = f.name;
-        });
-
-        results.summaries = results.summaries.map(s => ({
-          ...s,
-          facultyName: facultyMap[s.facultyId] || "-"
-        }));
-
-        results.profiles = results.profiles.map(p => ({
-          ...p,
-          facultyName: facultyMap[p.facultyId] || "-"
-        }));
-
-        setData(results);
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [shortName, isReady]);
-
-  if (loading) return <BietLoader />;
+  if (loading || !isReady) return <BietLoader />;
 
   return (
     <div className="bg-gray-50 min-h-screen">

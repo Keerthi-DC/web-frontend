@@ -1,135 +1,20 @@
-import { theme } from "../../../components/ui/theme";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDepartmentMeta } from "../hooks/useDepartmentMeta";
 import BietLoader from "../../../components/ui/BietLoader";
 import { Search, X } from "lucide-react";
 
-const API_URL = import.meta.env.VITE_APPSYNC_URL;
-const API_KEY = import.meta.env.VITE_APPSYNC_API_KEY;
-
-// ✅ Faculty Query
-const LIST_FACULTY = `
-  query ListFaculty($deptId: ID, $tenantId: ID) {
-    listFaculty(deptId: $deptId, tenantId: $tenantId) {
-      items {
-        facultyId
-        name
-        designation
-        profileImage
-        cvUrl
-        status
-      }
-    }
-  }
-`;
-
-// ✅ Staff Query
-const LIST_STAFF = `
-  query ListDeptStaff(
-    $deptId: ID!,
-    $staffType: String,
-    $limit: Int,
-    $tenantId:String
-  ) {
-    listDeptStaff(
-      deptId: $deptId,
-      staffType: $staffType,
-      limit: $limit,
-      tenantId:$tenantId
-    ) {
-      items {
-        deptStaffId
-        name
-        designation
-        staffType
-        imageUrl
-      }
-    }
-  }
-`;
+import useDepartmentPeople from "../hooks/useDepartmentPeople";
 
 const DepartmentPeople = () => {
   const { shortName } = useParams();
   const { getId, isReady } = useDepartmentMeta();
 
-  const [faculty, setFaculty] = useState([]);
-  const [staff, setStaff] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("faculty");
 
-  // ✅ FETCH DATA
-  useEffect(() => {
-    if (!shortName || !isReady) return;
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-
-        const deptId = getId(shortName);
-        if (!deptId) return;
-
-        let staffType = null;
-        if (activeTab === "technical") staffType = "technical";
-        if (activeTab === "supporting") staffType = "supporting";
-
-        if (activeTab === "faculty") {
-          const res = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": API_KEY,
-            },
-            body: JSON.stringify({
-              query: LIST_FACULTY,
-              variables: {
-                tenantId: "biet-college",
-                deptId,
-              },
-            }),
-          });
-
-          const result = await res.json();
-          const facultyList =
-            result?.data?.listFaculty?.items || [];
-
-          setFaculty(
-            facultyList.filter((f) => f.status === "active")
-          );
-        } else {
-          const res = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": API_KEY,
-            },
-            body: JSON.stringify({
-              query: LIST_STAFF,
-              variables: {
-                deptId,
-                staffType,
-                limit: 100,
-                tenantId: "biet-college",
-              },
-            }),
-          });
-
-          const result = await res.json();
-          const staffList =
-            result?.data?.listDeptStaff?.items || [];
-
-          setStaff(staffList);
-        }
-      } catch (err) {
-        console.error("FETCH ERROR:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [shortName, isReady, activeTab]);
+  const deptId = isReady ? getId(shortName) : null;
+  const { faculty, staff, loading } = useDepartmentPeople(deptId, activeTab);
 
   // ✅ FILTER (ONLY NAME)
   const filterPeople = (list) => {
@@ -146,9 +31,9 @@ const DepartmentPeople = () => {
 
         const image = isFaculty
           ? p.profileImage ||
-            `https://i.pravatar.cc/150?img=${(i % 70) + 1}`
+            `https://loremflickr.com/150/150/headshot,portrait?random=${(i % 70) + 1}`
           : p.imageUrl ||
-            `https://i.pravatar.cc/150?img=${(i % 70) + 1}`;
+            `https://loremflickr.com/150/150/headshot,portrait?random=${(i % 70) + 1}`;
 
         return (
           <div
